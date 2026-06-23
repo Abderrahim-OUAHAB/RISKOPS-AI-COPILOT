@@ -12,4 +12,6 @@ data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
-
+pipelines/dbt/**/target/
+pipelines/dbt/**/logs/
+pipelines/dbt/**/.user.yml

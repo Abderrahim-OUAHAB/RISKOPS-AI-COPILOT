@@ -63,3 +63,43 @@ Tool routing means mapping user intent to a known capability. A question mention
 ## Human In The Loop
 
 The system recommends actions but does not execute them automatically. A human operator still decides whether to contact a customer, escalate support or propose retention.
+
+## Data Engineering
+
+Data Engineering organizes how raw operational data becomes reliable, tested and reusable data for analytics, ML and product features. In this project, customer CSV data is imported into PostgreSQL, transformed with dbt and orchestrated with Airflow.
+
+## Airflow
+
+Airflow is the orchestrator. It schedules and runs the pipeline steps in order: API health check, customer import, dbt models, dbt tests, model training and report generation.
+
+## DAG
+
+A DAG is a Directed Acyclic Graph. It defines tasks and dependencies so the pipeline runs in a predictable order and failed steps can be retried or inspected.
+
+## dbt
+
+dbt transforms data inside the warehouse or database using SQL models. It keeps transformations versioned, modular and testable.
+
+## Staging Model
+
+A staging model is the first cleaned layer above raw source tables. `stg_customers` casts numeric fields, normalizes contract type and handles missing values.
+
+## Intermediate Model
+
+An intermediate model adds reusable business logic. `int_customer_risk_features` creates flags like support risk, payment risk, low tenure and high-value customer.
+
+## Mart Model
+
+A mart model is ready for dashboards or downstream users. `mart_customer_risk_summary` exposes a clean customer risk summary table.
+
+## Data Quality Tests
+
+Data quality tests catch broken assumptions early. This project tests that `customer_id` is present and unique, and that key numeric columns like `monthly_charges` and `tenure` are not null.
+
+## Feature Pipeline
+
+A feature pipeline turns business data into model or scoring signals. Here, dbt creates risk flags that can support analytics, dashboards and future ML feature generation.
+
+## Orchestration
+
+Orchestration coordinates independent jobs into one reliable workflow. Airflow makes sure dbt runs after import, tests run after models and reporting runs after the model refresh.

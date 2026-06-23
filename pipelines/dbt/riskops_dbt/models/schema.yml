@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: riskops
+    schema: public
+    tables:
+      - name: customers
+
+models:
+  - name: stg_customers
+    description: Cleaned customer source data from PostgreSQL.
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
+          - unique
+      - name: monthly_charges
+        data_tests:
+          - not_null
+      - name: tenure
+        data_tests:
+          - not_null
+
+  - name: int_customer_risk_features
+    description: Customer risk feature table used by analytics and ML workflows.
+
+  - name: mart_customer_risk_summary
+    description: Dashboard-ready customer risk summary mart.
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
+          - unique
+      - name: monthly_charges
+        data_tests:
+          - not_null
+      - name: tenure
+        data_tests:
+          - not_null

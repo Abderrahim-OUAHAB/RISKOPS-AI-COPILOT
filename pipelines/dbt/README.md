@@ -1,6 +1,11 @@
 # dbt Project
 
-This folder is reserved for the advanced version.
+This folder contains the RiskOps dbt project.
 
-dbt will transform raw business tables into clean analytics and ML feature tables.
+The dbt project lives in `riskops_dbt/` and builds:
 
+- `stg_customers`
+- `int_customer_risk_features`
+- `mart_customer_risk_summary`
+
+The models transform PostgreSQL customer data into tested analytics tables in the `analytics` schema.

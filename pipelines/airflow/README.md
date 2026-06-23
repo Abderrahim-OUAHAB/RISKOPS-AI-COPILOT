@@ -1,12 +1,15 @@
 # Airflow Pipeline
 
-This folder is reserved for the advanced version.
+This folder contains the local Airflow setup for AI RiskOps Copilot.
 
-Airflow will orchestrate:
+The main DAG is `riskops_daily_pipeline`.
 
-- CSV import
-- data cleaning
-- feature generation
-- model refresh
-- document embedding refresh
+It orchestrates:
 
+- FastAPI health check
+- sample customer CSV import
+- dbt model build
+- dbt data tests
+- churn model training
+- weekly RiskOps report generation
+- pipeline summary logging

@@ -41,12 +41,13 @@ The first version focuses on:
 - RiskOps scoring and prioritization
 - prediction history
 - controlled LangGraph agent
+- Airflow orchestration
+- dbt analytics models and data tests
 - churn risk dataset sample
 - Docker setup
 
 Future versions will add:
 
-- Airflow and dbt pipelines
 - Langfuse and Evidently AI monitoring
 - AWS deployment
 
@@ -64,6 +65,7 @@ User
   -> LlamaIndex RAG
   -> XGBoost churn model
   -> LangGraph decision agent
+  -> Airflow + dbt data pipelines
   -> MLflow, Langfuse, Evidently AI
 ```
 
@@ -75,7 +77,7 @@ riskops-ai-copilot/
   frontend/         Streamlit dashboard
   ml/               ML training and model artifacts
   data/             raw, processed and sample data
-  pipelines/        Airflow and dbt future modules
+  pipelines/        Airflow DAGs, dbt project and pipeline scripts
   docs/             project documentation
   scripts/          database initialization scripts
 ```
@@ -100,6 +102,7 @@ docker compose up --build
 - API health: `http://localhost:8000/health`
 - API docs: `http://localhost:8000/docs`
 - Streamlit dashboard: `http://localhost:8501`
+- Airflow UI: `http://localhost:8080` (`admin` / `admin`)
 
 ## Backend Endpoints
 
@@ -134,10 +137,57 @@ CHURN_MODEL_PATH=ml/models/churn_model.pkl
 CHURN_FEATURES_PATH=ml/models/churn_features.json
 MLFLOW_TRACKING_URI=file:./mlruns
 MLFLOW_EXPERIMENT_NAME=riskops-churn-model
+AIRFLOW_UID=50000
+AIRFLOW_PROJ_DIR=./pipelines
+DBT_PROFILES_DIR=/opt/airflow/pipelines/dbt/riskops_dbt
+DBT_TARGET=dev
 ```
 
 Without a real `OPENAI_API_KEY`, upload and listing still work. Document processing returns a clear error because embeddings require OpenAI.
 MLflow stores local experiment runs under `mlruns/`, which is ignored by Git.
+
+## Data Pipeline
+
+The project includes a local Data Engineering layer with Airflow and dbt.
+
+Airflow orchestrates the daily workflow in `riskops_daily_pipeline`:
+
+1. `health_check_api`: checks that FastAPI is reachable.
+2. `import_sample_customers`: imports `data/sample/customers_sample.csv`.
+3. `run_dbt_models`: builds dbt staging, intermediate and mart models.
+4. `run_dbt_tests`: runs dbt data quality tests.
+5. `train_churn_model`: refreshes the XGBoost churn model.
+6. `generate_weekly_risk_report`: calls the weekly RiskOps report API.
+7. `pipeline_summary`: prints a short summary for Airflow logs.
+
+dbt transforms PostgreSQL customer data into analytics tables in the `analytics` schema:
+
+- `stg_customers`: cleans customer data, casts numeric columns and normalizes `contract_type`.
+- `int_customer_risk_features`: creates business flags such as support, payment, tenure and high-value risk.
+- `mart_customer_risk_summary`: creates a dashboard-ready customer risk summary.
+
+dbt tests validate:
+
+- `customer_id` is not null.
+- `customer_id` is unique.
+- `monthly_charges` is not null.
+- `tenure` is not null.
+
+Useful dbt commands inside the Airflow container:
+
+```bash
+docker compose exec airflow-scheduler dbt debug --project-dir /opt/airflow/pipelines/dbt/riskops_dbt --profiles-dir /opt/airflow/pipelines/dbt/riskops_dbt
+docker compose exec airflow-scheduler dbt run --project-dir /opt/airflow/pipelines/dbt/riskops_dbt --profiles-dir /opt/airflow/pipelines/dbt/riskops_dbt
+docker compose exec airflow-scheduler dbt test --project-dir /opt/airflow/pipelines/dbt/riskops_dbt --profiles-dir /opt/airflow/pipelines/dbt/riskops_dbt
+```
+
+Current limitations:
+
+- Airflow uses a local development configuration, not a production executor setup.
+- The pipeline imports a sample CSV and is idempotent through the existing customer upsert logic.
+- dbt models are analytics tables only; the ML script still trains from the application `customers` table.
+- Airflow writes its local MLflow/model artifacts to `/tmp` to avoid Windows bind mount permission issues.
+- Monitoring tools such as Langfuse and Evidently AI are intentionally left for later.
 
 ## Local Test Commands
 
@@ -282,6 +332,19 @@ Example agent response:
 
 The RiskOps score combines churn probability, late payments, support tickets, short tenure, month-to-month contracts and high-value exposure. It is a demo scoring layer, not a regulated credit or financial risk model.
 
+Run the Data Engineering pipeline checks:
+
+```bash
+python -m compileall backend/app frontend/app.py ml/training pipelines
+docker compose config
+docker compose up -d --build
+curl http://localhost:8000/health
+curl http://localhost:8000/customers
+curl -X POST http://localhost:8000/customers/import -F "file=@data/sample/customers_sample.csv"
+python ml/training/train_churn_model.py
+curl http://localhost:8000/reports/weekly-risk
+```
+
 ## Interview Pitch
 
-I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, RiskOps prioritization, a controlled LangGraph agent, a Streamlit dashboard and Docker. The next modules add orchestration and production monitoring.
+I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, RiskOps prioritization, a controlled LangGraph agent, Airflow orchestration, dbt analytics models, a Streamlit dashboard and Docker. The next modules add production monitoring.

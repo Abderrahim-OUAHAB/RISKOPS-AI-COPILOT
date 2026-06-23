@@ -45,5 +45,91 @@ services:
     depends_on:
       - backend
 
+  airflow-webserver:
+    build:
+      context: ./pipelines/airflow
+    container_name: riskops-airflow-webserver
+    env_file:
+      - .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/pipelines/airflow/dags
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://riskops:riskops@postgres:5432/riskops
+      AIRFLOW__WEBSERVER__SECRET_KEY: riskops-local-dev-secret
+      AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session
+      BACKEND_API_URL: http://backend:8000
+      DATABASE_URL: postgresql+psycopg2://riskops:riskops@postgres:5432/riskops
+      DBT_HOST: postgres
+      DBT_USER: riskops
+      DBT_PASSWORD: riskops
+      DBT_DATABASE: riskops
+      DBT_SCHEMA: analytics
+      DBT_PROFILES_DIR: /opt/airflow/pipelines/dbt/riskops_dbt
+      DBT_TARGET: ${DBT_TARGET:-dev}
+      MLFLOW_TRACKING_URI: file:/tmp/riskops-mlruns
+      MLFLOW_EXPERIMENT_NAME: riskops-churn-model
+      CHURN_MODEL_PATH: /tmp/riskops-models/churn_model.pkl
+      CHURN_FEATURES_PATH: /tmp/riskops-models/churn_features.json
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./pipelines:/opt/airflow/pipelines
+      - ./ml:/opt/airflow/ml
+      - ./data:/opt/airflow/data
+      - ./backend:/opt/airflow/backend
+      - ./mlruns:/opt/airflow/mlruns
+    depends_on:
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    command: >
+      bash -c "airflow db migrate &&
+      (airflow users create --username admin --password admin --firstname RiskOps --lastname Admin --role Admin --email admin@example.com || true) &&
+      airflow webserver"
+
+  airflow-scheduler:
+    build:
+      context: ./pipelines/airflow
+    container_name: riskops-airflow-scheduler
+    env_file:
+      - .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/pipelines/airflow/dags
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://riskops:riskops@postgres:5432/riskops
+      AIRFLOW__WEBSERVER__SECRET_KEY: riskops-local-dev-secret
+      AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session
+      BACKEND_API_URL: http://backend:8000
+      DATABASE_URL: postgresql+psycopg2://riskops:riskops@postgres:5432/riskops
+      DBT_HOST: postgres
+      DBT_USER: riskops
+      DBT_PASSWORD: riskops
+      DBT_DATABASE: riskops
+      DBT_SCHEMA: analytics
+      DBT_PROFILES_DIR: /opt/airflow/pipelines/dbt/riskops_dbt
+      DBT_TARGET: ${DBT_TARGET:-dev}
+      MLFLOW_TRACKING_URI: file:/tmp/riskops-mlruns
+      MLFLOW_EXPERIMENT_NAME: riskops-churn-model
+      CHURN_MODEL_PATH: /tmp/riskops-models/churn_model.pkl
+      CHURN_FEATURES_PATH: /tmp/riskops-models/churn_features.json
+    volumes:
+      - ./pipelines:/opt/airflow/pipelines
+      - ./ml:/opt/airflow/ml
+      - ./data:/opt/airflow/data
+      - ./backend:/opt/airflow/backend
+      - ./mlruns:/opt/airflow/mlruns
+    depends_on:
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    command: >
+      bash -c "airflow db migrate && airflow scheduler"
+
 volumes:
   postgres_data:

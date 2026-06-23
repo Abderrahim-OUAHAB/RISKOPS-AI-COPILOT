@@ -34,6 +34,7 @@ with st.sidebar:
     st.write("3. Churn prediction")
     st.write("4. Risk Score")
     st.write("5. AI agent")
+    st.write("6. Data pipeline")
 
 col1, col2 = st.columns(2)
 
@@ -391,3 +392,44 @@ if agent_submitted:
             st.json(agent_result["data"])
     except requests.RequestException as exc:
         st.error(f"Agent failed: {get_api_error(exc)}")
+
+st.divider()
+
+st.subheader("Data Pipeline")
+
+pipeline_col1, pipeline_col2 = st.columns(2)
+
+with pipeline_col1:
+    st.write("Backend status")
+    try:
+        response = requests.get(f"{API_URL}/health", timeout=5)
+        response.raise_for_status()
+        st.success(response.json())
+    except requests.RequestException as exc:
+        st.warning(f"Backend unavailable: {get_api_error(exc)}")
+
+with pipeline_col2:
+    st.write("Airflow")
+    st.info("Airflow UI: http://localhost:8080")
+    st.caption("Local credentials: admin / admin")
+
+st.write("Pipeline flow")
+st.write(
+    "API health check -> customer CSV import -> dbt models -> dbt tests -> "
+    "churn model training -> weekly risk report -> pipeline summary."
+)
+
+try:
+    pipeline_report_response = requests.get(
+        f"{API_URL}/reports/weekly-risk",
+        timeout=60,
+    )
+    pipeline_report_response.raise_for_status()
+    pipeline_report = pipeline_report_response.json()
+    pipeline_report_col1, pipeline_report_col2, pipeline_report_col3 = st.columns(3)
+    pipeline_report_col1.metric("Total customers", pipeline_report["total_customers"])
+    pipeline_report_col2.metric("High risk", pipeline_report["high_risk_customers"])
+    pipeline_report_col3.metric("Medium risk", pipeline_report["medium_risk_customers"])
+    st.write(pipeline_report["executive_summary"])
+except requests.RequestException as exc:
+    st.warning(f"Latest weekly risk report unavailable: {get_api_error(exc)}")

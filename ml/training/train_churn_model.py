@@ -64,6 +64,8 @@ FEATURES_PATH = MODEL_DIR / "churn_features.json"
 
 def main() -> None:
     load_dotenv(PROJECT_ROOT / ".env")
+    model_path = resolve_output_path("CHURN_MODEL_PATH", MODEL_PATH)
+    features_path = resolve_output_path("CHURN_FEATURES_PATH", FEATURES_PATH)
     dataframe = load_training_dataframe()
     X, y = prepare_features(dataframe, include_target=True)
 
@@ -117,10 +119,11 @@ def main() -> None:
             if metric_value is not None:
                 mlflow.log_metric(metric_name, metric_value)
 
-        MODEL_DIR.mkdir(parents=True, exist_ok=True)
+        model_path.parent.mkdir(parents=True, exist_ok=True)
+        features_path.parent.mkdir(parents=True, exist_ok=True)
         model_bundle = {"model": model, "features": FEATURE_COLUMNS}
-        joblib.dump(model_bundle, MODEL_PATH)
-        with FEATURES_PATH.open("w", encoding="utf-8") as features_file:
+        joblib.dump(model_bundle, model_path)
+        with features_path.open("w", encoding="utf-8") as features_file:
             json.dump({"features": FEATURE_COLUMNS}, features_file, indent=2)
 
         mlflow.sklearn.log_model(
@@ -128,7 +131,7 @@ def main() -> None:
             artifact_path="model",
             input_example=X_train.head(1),
         )
-        mlflow.log_artifact(str(FEATURES_PATH))
+        mlflow.log_artifact(str(features_path))
 
     print(
         json.dumps(
@@ -136,8 +139,8 @@ def main() -> None:
                 "rows": len(dataframe),
                 "features": FEATURE_COLUMNS,
                 "metrics": metrics,
-                "model_path": str(MODEL_PATH),
-                "features_path": str(FEATURES_PATH),
+                "model_path": str(model_path),
+                "features_path": str(features_path),
             },
             indent=2,
         )
@@ -153,6 +156,17 @@ def load_training_dataframe() -> pd.DataFrame:
             print(f"PostgreSQL load failed, falling back to sample CSV: {exc}")
 
     return pd.read_csv(SAMPLE_PATH)
+
+
+def resolve_output_path(env_name: str, default_path: Path) -> Path:
+    raw_path = os.getenv(env_name)
+    if not raw_path:
+        return default_path
+
+    path = Path(raw_path)
+    if path.is_absolute():
+        return path
+    return PROJECT_ROOT / path
 
 
 def load_from_postgres(database_url: str) -> pd.DataFrame:

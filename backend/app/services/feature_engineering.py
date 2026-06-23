@@ -1,8 +1,11 @@
-from typing import Iterable
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Iterable
 
 import pandas as pd
 
-from app.models import Customer
+if TYPE_CHECKING:
+    from app.models import Customer
 
 FEATURE_COLUMNS = [
     "tenure",
