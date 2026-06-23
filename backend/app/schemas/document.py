@@ -8,6 +8,7 @@ class DocumentBase(BaseModel):
     filename: str
     document_type: str | None = None
     source_path: str | None = None
+    status: str = "uploaded"
 
 
 class DocumentCreate(DocumentBase):
@@ -17,11 +18,19 @@ class DocumentCreate(DocumentBase):
 class DocumentRead(DocumentBase):
     id: int
     created_at: datetime
+    processed_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
 
 class DocumentUploadResponse(DocumentRead):
+    message: str
+
+
+class DocumentProcessResponse(BaseModel):
+    document_id: int
+    status: str
+    chunks_created: int
     message: str
 
 

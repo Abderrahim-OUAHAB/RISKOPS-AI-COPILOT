@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS documents (
     filename TEXT NOT NULL,
     document_type TEXT,
     source_path TEXT,
+    status TEXT NOT NULL DEFAULT 'uploaded',
+    processed_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -40,3 +42,5 @@ CREATE TABLE IF NOT EXISTS feedback (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE INDEX IF NOT EXISTS ix_documents_status ON documents (status);
+CREATE INDEX IF NOT EXISTS ix_document_chunks_document_id ON document_chunks (document_id);

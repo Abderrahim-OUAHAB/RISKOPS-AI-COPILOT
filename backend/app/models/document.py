@@ -6,19 +6,10 @@ from typing import Any
 from sqlalchemy import DateTime, ForeignKey, Integer, Text, func, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.types import UserDefinedType
+from pgvector.sqlalchemy import Vector
 
+from app.core.config import settings
 from app.db.base import Base
-
-
-class Vector(UserDefinedType):
-    cache_ok = True
-
-    def __init__(self, dimensions: int) -> None:
-        self.dimensions = dimensions
-
-    def get_col_spec(self, **kw: Any) -> str:
-        return f"vector({self.dimensions})"
 
 
 class Document(Base):
@@ -28,11 +19,19 @@ class Document(Base):
     filename: Mapped[str] = mapped_column(Text, nullable=False)
     document_type: Mapped[str | None] = mapped_column(Text, nullable=True, index=True)
     source_path: Mapped[str | None] = mapped_column(Text, nullable=True)
+    status: Mapped[str] = mapped_column(
+        Text,
+        default="uploaded",
+        server_default="uploaded",
+        nullable=False,
+        index=True,
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         server_default=func.now(),
         nullable=False,
     )
+    processed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     chunks: Mapped[list[DocumentChunk]] = relationship(
         back_populates="document",
@@ -51,7 +50,10 @@ class DocumentChunk(Base):
     )
     chunk_index: Mapped[int] = mapped_column(Integer, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
-    embedding: Mapped[Any | None] = mapped_column(Vector(1536), nullable=True)
+    embedding: Mapped[list[float] | None] = mapped_column(
+        Vector(settings.embedding_dimensions),
+        nullable=True,
+    )
     chunk_metadata: Mapped[dict[str, Any]] = mapped_column(
         "metadata",
         JSONB,

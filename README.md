@@ -32,16 +32,15 @@ The first version focuses on:
 - FastAPI backend
 - Streamlit dashboard
 - PostgreSQL database
-- pgvector for future semantic search
+- pgvector semantic search
 - PDF and CSV upload foundation
-- RAG-ready database schema
+- RAG document processing with sources
+- OpenAI embeddings
 - churn risk dataset sample
 - Docker setup
 
 Future versions will add:
 
-- RAG with LlamaIndex
-- OpenAI embeddings
 - XGBoost churn prediction
 - MLflow tracking
 - LangGraph agent
@@ -105,10 +104,24 @@ docker compose up --build
 
 - `GET /health`: API health check.
 - `POST /documents/upload`: upload one PDF or CSV file and store metadata in PostgreSQL.
+- `POST /documents/{document_id}/process`: extract text, chunk it, create embeddings and store chunks in pgvector.
 - `GET /documents`: list uploaded documents.
 - `GET /documents/{document_id}`: get one document by id.
+- `POST /rag/ask`: ask a question against processed document chunks and return sourced answers.
 
 Uploaded files are stored in `data/raw`.
+
+## Environment Variables
+
+The OpenAI API key must stay in `.env` and must never be committed.
+
+```bash
+OPENAI_API_KEY=replace_with_your_key_later
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+OPENAI_CHAT_MODEL=gpt-4o-mini
+```
+
+Without a real `OPENAI_API_KEY`, upload and listing still work. Document processing returns a clear error because embeddings require OpenAI.
 
 ## Local Test Commands
 
@@ -129,6 +142,20 @@ Upload the sample CSV:
 
 ```bash
 curl -F "file=@data/sample/customers_sample.csv" http://localhost:8000/documents/upload
+```
+
+Process a document:
+
+```bash
+curl -X POST http://localhost:8000/documents/1/process
+```
+
+Ask a RAG question:
+
+```bash
+curl -X POST http://localhost:8000/rag/ask \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Resume les risques principaux\",\"document_id\":1}"
 ```
 
 Get one document:

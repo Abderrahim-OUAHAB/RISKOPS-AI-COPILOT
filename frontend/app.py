@@ -5,6 +5,19 @@ import streamlit as st
 
 API_URL = os.getenv("API_URL", "http://backend:8000")
 
+
+def get_api_error(exc: requests.RequestException) -> str:
+    response = getattr(exc, "response", None)
+    if response is None:
+        return str(exc)
+
+    try:
+        detail = response.json().get("detail")
+    except ValueError:
+        detail = response.text
+
+    return detail or str(exc)
+
 st.set_page_config(
     page_title="AI RiskOps Copilot",
     page_icon="",
@@ -68,8 +81,9 @@ if uploaded_files and st.button("Upload selected files"):
                 f"{document['filename']} uploaded with document id {document['id']}."
             )
         except requests.RequestException as exc:
-            st.error(f"Upload failed for {uploaded_file.name}: {exc}")
+            st.error(f"Upload failed for {uploaded_file.name}: {get_api_error(exc)}")
 
+documents = []
 try:
     documents_response = requests.get(f"{API_URL}/documents", timeout=5)
     documents_response.raise_for_status()
@@ -81,7 +95,9 @@ try:
                     "id": document["id"],
                     "filename": document["filename"],
                     "type": document["document_type"],
+                    "status": document["status"],
                     "created_at": document["created_at"],
+                    "processed_at": document["processed_at"],
                 }
                 for document in documents
             ],
@@ -90,6 +106,69 @@ try:
 except requests.RequestException:
     st.warning("Document list unavailable until the API is reachable.")
 
-st.subheader("Ask a question")
-st.text_input("Example: Which customers are at risk this week?")
-st.button("Ask Copilot", disabled=True)
+if documents:
+    st.subheader("Document processing")
+    document_options = {
+        f"{document['id']} - {document['filename']} ({document['status']})": document[
+            "id"
+        ]
+        for document in documents
+    }
+    selected_document_label = st.selectbox(
+        "Document",
+        options=list(document_options.keys()),
+    )
+    selected_document_id = document_options[selected_document_label]
+
+    if st.button("Process selected document"):
+        try:
+            response = requests.post(
+                f"{API_URL}/documents/{selected_document_id}/process",
+                timeout=120,
+            )
+            response.raise_for_status()
+            result = response.json()
+            st.success(
+                f"Document {result['document_id']} processed: "
+                f"{result['chunks_created']} chunks created."
+            )
+        except requests.RequestException as exc:
+            st.error(f"Processing failed: {get_api_error(exc)}")
+
+    st.subheader("Ask a question")
+    with st.form("rag-question-form"):
+        question = st.text_input(
+            "Question",
+            value="Resume les risques principaux",
+        )
+        ask_submitted = st.form_submit_button("Ask Copilot")
+
+    if ask_submitted:
+        try:
+            response = requests.post(
+                f"{API_URL}/rag/ask",
+                json={
+                    "question": question,
+                    "document_id": selected_document_id,
+                },
+                timeout=120,
+            )
+            response.raise_for_status()
+            result = response.json()
+            st.write(result["answer"])
+
+            if result["sources"]:
+                st.caption("Sources")
+                for source in result["sources"]:
+                    with st.expander(
+                        f"Document {source['document_id']} - "
+                        f"chunk {source['chunk_id']} - "
+                        f"score {source['similarity_score']}"
+                    ):
+                        st.write(source["content_preview"])
+        except requests.RequestException as exc:
+            st.error(f"RAG request failed: {get_api_error(exc)}")
+else:
+    st.subheader("Ask a question")
+    st.text_input("Example: Which customers are at risk this week?", disabled=True)
+    st.button("Ask Copilot", disabled=True)
