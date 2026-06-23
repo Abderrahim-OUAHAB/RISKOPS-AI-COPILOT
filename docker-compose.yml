@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: riskops-postgres
+    environment:
+      POSTGRES_USER: riskops
+      POSTGRES_PASSWORD: riskops
+      POSTGRES_DB: riskops
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U riskops -d riskops"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: riskops-backend
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+      - ./data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: riskops-frontend
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./frontend/app.py:/app/app.py
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+

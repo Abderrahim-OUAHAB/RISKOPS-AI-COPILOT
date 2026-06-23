@@ -1,0 +1,7 @@
+customer_id,name,segment,monthly_spend,support_ticket_count,unpaid_invoice_count,tenure_months,churn
+C001,Alpha Retail,Enterprise,12000,4,1,28,0
+C002,Beta Market,SMB,2400,9,3,8,1
+C003,Orion Services,Enterprise,18500,2,0,36,0
+C004,Nova Shop,SMB,1800,7,2,6,1
+C005,Helios Group,Mid Market,7600,3,0,18,0
+
