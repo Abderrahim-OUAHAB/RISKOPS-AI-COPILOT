@@ -259,3 +259,135 @@ if customers:
                 st.write(f"- {reason}")
         except requests.RequestException as exc:
             st.error(f"Prediction failed: {get_api_error(exc)}")
+
+st.divider()
+
+st.subheader("RiskOps")
+
+priority_customers = []
+try:
+    priority_response = requests.get(f"{API_URL}/risk/priority-customers", timeout=60)
+    priority_response.raise_for_status()
+    priority_customers = priority_response.json()
+    if priority_customers:
+        top_customer = priority_customers[0]
+        risk_col1, risk_col2, risk_col3 = st.columns(3)
+        risk_col1.metric("Top risk score", top_customer["risk_score"])
+        risk_col2.metric("Top risk level", top_customer["risk_level"])
+        risk_col3.metric("Priority customers", len(priority_customers))
+        st.dataframe(
+            [
+                {
+                    "customer_id": customer["customer_id"],
+                    "name": customer["name"],
+                    "risk_score": customer["risk_score"],
+                    "risk_level": customer["risk_level"],
+                    "top_reasons": ", ".join(customer["top_reasons"]),
+                    "actions": ", ".join(customer["recommended_actions"]),
+                }
+                for customer in priority_customers[:10]
+            ],
+            use_container_width=True,
+        )
+except requests.RequestException as exc:
+    st.warning(f"RiskOps priority dashboard unavailable: {get_api_error(exc)}")
+
+if customers:
+    riskops_customer_options = {
+        f"{customer['customer_external_id']} - {customer['name']}": customer[
+            "customer_external_id"
+        ]
+        for customer in customers
+    }
+    riskops_customer_label = st.selectbox(
+        "Customer for RiskOps analysis",
+        options=list(riskops_customer_options.keys()),
+        key="riskops_customer",
+    )
+    riskops_customer_id = riskops_customer_options[riskops_customer_label]
+
+    if st.button("Analyze customer risk"):
+        try:
+            response = requests.post(
+                f"{API_URL}/risk/analyze-customer",
+                json={"customer_id": riskops_customer_id},
+                timeout=60,
+            )
+            response.raise_for_status()
+            analysis = response.json()
+            analysis_col1, analysis_col2 = st.columns(2)
+            analysis_col1.metric("Risk score", analysis["risk_score"])
+            analysis_col2.metric("Risk level", analysis["risk_level"])
+            st.write(f"Churn probability: {analysis['churn_probability']}")
+            st.write("Reasons")
+            for reason in analysis["reasons"]:
+                st.write(f"- {reason}")
+            st.write("Recommended actions")
+            for action in analysis["recommended_actions"]:
+                st.write(f"- {action}")
+        except requests.RequestException as exc:
+            st.error(f"RiskOps analysis failed: {get_api_error(exc)}")
+
+    try:
+        history_response = requests.get(
+            f"{API_URL}/risk/history",
+            params={"customer_id": riskops_customer_id, "limit": 5},
+            timeout=10,
+        )
+        history_response.raise_for_status()
+        history = history_response.json()
+        if history:
+            st.caption("Recent prediction history")
+            st.dataframe(
+                [
+                    {
+                        "created_at": item["created_at"],
+                        "risk_score": item["risk_score"],
+                        "risk_level": item["risk_level"],
+                        "churn_probability": item["churn_probability"],
+                    }
+                    for item in history
+                ],
+                use_container_width=True,
+            )
+    except requests.RequestException as exc:
+        st.warning(f"Prediction history unavailable: {get_api_error(exc)}")
+
+try:
+    report_response = requests.get(f"{API_URL}/reports/weekly-risk", timeout=60)
+    report_response.raise_for_status()
+    weekly_report = report_response.json()
+    st.subheader("Weekly risk report")
+    report_col1, report_col2, report_col3 = st.columns(3)
+    report_col1.metric("High risk", weekly_report["high_risk_customers"])
+    report_col2.metric("Medium risk", weekly_report["medium_risk_customers"])
+    report_col3.metric("Low risk", weekly_report["low_risk_customers"])
+    st.write(weekly_report["executive_summary"])
+    with st.expander("Recommended actions"):
+        for action in weekly_report["recommended_actions"]:
+            st.write(f"- {action}")
+except requests.RequestException as exc:
+    st.warning(f"Weekly risk report unavailable: {get_api_error(exc)}")
+
+with st.form("riskops-agent-form"):
+    agent_question = st.text_input(
+        "RiskOps agent question",
+        value="Quels clients sont a risque cette semaine ?",
+    )
+    agent_submitted = st.form_submit_button("Ask RiskOps agent")
+
+if agent_submitted:
+    try:
+        response = requests.post(
+            f"{API_URL}/agent/analyze",
+            json={"question": agent_question},
+            timeout=60,
+        )
+        response.raise_for_status()
+        agent_result = response.json()
+        st.write(agent_result["answer"])
+        st.caption(f"Selected tool: {agent_result['selected_tool']}")
+        if agent_result["data"]:
+            st.json(agent_result["data"])
+    except requests.RequestException as exc:
+        st.error(f"Agent failed: {get_api_error(exc)}")

@@ -31,3 +31,35 @@ The trained model is saved to `ml/models/churn_model.pkl`. The exact feature ord
 ## Prediction Endpoint
 
 `POST /risk/predict` loads a customer from PostgreSQL, applies the same feature engineering, loads the saved model, predicts churn probability and returns a risk score, risk level and simple reasons.
+
+## Risk Score
+
+The RiskOps score combines model output and business signals. Churn probability contributes most of the score, then late payments, support tickets, short tenure, contract type and high-value exposure adjust the final 0 to 100 score.
+
+## Business Prioritization
+
+Prioritization sorts customers by risk score so an operations team can focus on the most urgent accounts first instead of scanning raw churn probabilities.
+
+## Recommended Actions
+
+Recommended actions translate reasons into business next steps. For example, late payments trigger invoice review, repeated tickets trigger support escalation and high risk triggers customer contact within 48 hours.
+
+## Prediction History
+
+Every RiskOps analysis is stored in `risk_predictions`. This creates an audit trail of the score, reasons, actions, model version and timestamp.
+
+## LangGraph
+
+LangGraph models the agent workflow as explicit nodes and edges. This project uses it to route a question to a controlled tool rather than letting an agent freely choose arbitrary actions.
+
+## Controlled AI Agent
+
+The agent can analyze a specific customer, list priority customers, generate a weekly report or ask the RAG system. Unknown questions receive a controlled fallback response.
+
+## Tool Routing
+
+Tool routing means mapping user intent to a known capability. A question mentioning `CUST-001` routes to customer analysis, a weekly/report question routes to the report service and a top-risk question routes to priority customers.
+
+## Human In The Loop
+
+The system recommends actions but does not execute them automatically. A human operator still decides whether to contact a customer, escalate support or propose retention.

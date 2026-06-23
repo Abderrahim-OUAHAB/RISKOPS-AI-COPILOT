@@ -38,13 +38,14 @@ The first version focuses on:
 - OpenAI embeddings
 - XGBoost churn prediction
 - MLflow experiment tracking
+- RiskOps scoring and prioritization
+- prediction history
+- controlled LangGraph agent
 - churn risk dataset sample
 - Docker setup
 
 Future versions will add:
 
-- LangGraph agent
-- Risk Score
 - Airflow and dbt pipelines
 - Langfuse and Evidently AI monitoring
 - AWS deployment
@@ -113,6 +114,11 @@ docker compose up --build
 - `GET /customers/{customer_id}`: get one customer by external id.
 - `POST /risk/predict`: predict churn risk for one customer.
 - `GET /risk/customers`: list customers with their latest risk score.
+- `POST /risk/analyze-customer`: calculate RiskOps score, reasons, actions and save prediction history.
+- `GET /risk/priority-customers`: list customers sorted by business risk priority.
+- `GET /risk/history`: list recent risk predictions, optionally filtered by `customer_id`.
+- `GET /reports/weekly-risk`: generate the weekly RiskOps report.
+- `POST /agent/analyze`: route a controlled RiskOps question through a LangGraph workflow.
 
 Uploaded files are stored in `data/raw`.
 
@@ -217,6 +223,65 @@ Batch risk:
 curl http://localhost:8000/risk/customers
 ```
 
+Analyze one customer with RiskOps scoring:
+
+```bash
+curl -X POST http://localhost:8000/risk/analyze-customer \
+  -H "Content-Type: application/json" \
+  -d "{\"customer_id\":\"CUST-001\"}"
+```
+
+Example RiskOps response:
+
+```json
+{
+  "customer_id": "CUST-001",
+  "risk_score": 82,
+  "risk_level": "high",
+  "churn_probability": 0.81,
+  "reasons": [
+    "High churn probability",
+    "Late payments detected",
+    "Many support tickets"
+  ],
+  "recommended_actions": [
+    "Contact customer within 48 hours",
+    "Review unpaid invoices",
+    "Escalate recent support issues"
+  ],
+  "prediction_id": 1
+}
+```
+
+Priority, history and weekly report:
+
+```bash
+curl http://localhost:8000/risk/priority-customers
+curl http://localhost:8000/risk/history
+curl http://localhost:8000/reports/weekly-risk
+```
+
+Ask the controlled RiskOps agent:
+
+```bash
+curl -X POST http://localhost:8000/agent/analyze \
+  -H "Content-Type: application/json" \
+  -d "{\"question\":\"Quels clients sont a risque cette semaine ?\"}"
+```
+
+Example agent response:
+
+```json
+{
+  "answer": "5 clients prioritaires identifies. Le plus urgent est CUST-001 avec un score de 82/100.",
+  "selected_tool": "priority_customers",
+  "data": {},
+  "sources": []
+}
+```
+
+The RiskOps score combines churn probability, late payments, support tickets, short tenure, month-to-month contracts and high-value exposure. It is a demo scoring layer, not a regulated credit or financial risk model.
+
 ## Interview Pitch
 
-I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, a Streamlit dashboard and Docker. The next modules add LangGraph agents, orchestration and production monitoring.
+I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, RiskOps prioritization, a controlled LangGraph agent, a Streamlit dashboard and Docker. The next modules add orchestration and production monitoring.

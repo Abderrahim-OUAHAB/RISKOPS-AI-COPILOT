@@ -23,6 +23,27 @@ class ModelPredictionError(Exception):
 
 
 def predict_customer_risk(db: Session, customer: Customer) -> dict:
+    probability = predict_churn_probability(customer)
+    risk_score = int(round(probability * 100))
+    risk_level = risk_level_from_score(risk_score)
+    reasons = risk_reasons(customer)
+
+    customer.churn_probability = probability
+    customer.risk_score = risk_score
+    customer.risk_level = risk_level
+    db.commit()
+    db.refresh(customer)
+
+    return {
+        "customer_id": customer.customer_external_id,
+        "churn_probability": round(probability, 4),
+        "risk_score": risk_score,
+        "risk_level": risk_level,
+        "reasons": reasons,
+    }
+
+
+def predict_churn_probability(customer: Customer) -> float:
     model_path = Path(settings.churn_model_path)
     features_path = Path(settings.churn_features_path)
     if not model_path.exists() or not features_path.exists():
@@ -49,20 +70,4 @@ def predict_customer_risk(db: Session, customer: Customer) -> dict:
     except Exception as exc:
         raise ModelPredictionError("Could not predict churn risk for this customer.") from exc
 
-    risk_score = int(round(probability * 100))
-    risk_level = risk_level_from_score(risk_score)
-    reasons = risk_reasons(customer)
-
-    customer.churn_probability = probability
-    customer.risk_score = risk_score
-    customer.risk_level = risk_level
-    db.commit()
-    db.refresh(customer)
-
-    return {
-        "customer_id": customer.customer_external_id,
-        "churn_probability": round(probability, 4),
-        "risk_score": risk_score,
-        "risk_level": risk_level,
-        "reasons": reasons,
-    }
+    return probability

@@ -51,6 +51,20 @@ CREATE TABLE IF NOT EXISTS feedback (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS risk_predictions (
+    id SERIAL PRIMARY KEY,
+    customer_id TEXT NOT NULL,
+    churn_probability NUMERIC NOT NULL,
+    risk_score INTEGER NOT NULL,
+    risk_level TEXT NOT NULL,
+    reasons JSONB DEFAULT '[]',
+    recommended_actions JSONB DEFAULT '[]',
+    model_version TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE INDEX IF NOT EXISTS ix_documents_status ON documents (status);
 CREATE INDEX IF NOT EXISTS ix_document_chunks_document_id ON document_chunks (document_id);
 CREATE INDEX IF NOT EXISTS ix_customers_customer_external_id ON customers (customer_external_id);
+CREATE INDEX IF NOT EXISTS ix_risk_predictions_customer_id ON risk_predictions (customer_id);
+CREATE INDEX IF NOT EXISTS ix_risk_predictions_created_at ON risk_predictions (created_at);
