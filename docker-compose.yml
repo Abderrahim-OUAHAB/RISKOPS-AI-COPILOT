@@ -28,6 +28,8 @@ services:
     volumes:
       - ./backend/app:/app/app
       - ./data:/app/data
+      - ./ml:/app/ml
+      - ./mlruns:/app/mlruns
     depends_on:
       postgres:
         condition: service_healthy
@@ -45,4 +47,3 @@ services:
 
 volumes:
   postgres_data:
-

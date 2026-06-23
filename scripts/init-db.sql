@@ -26,10 +26,19 @@ CREATE TABLE IF NOT EXISTS customers (
     name TEXT,
     segment TEXT,
     monthly_spend NUMERIC,
+    tenure INTEGER,
+    monthly_charges NUMERIC,
+    total_charges NUMERIC,
+    contract_type TEXT,
+    support_tickets INTEGER DEFAULT 0,
+    late_payments INTEGER DEFAULT 0,
+    churn INTEGER,
     support_ticket_count INTEGER DEFAULT 0,
     unpaid_invoice_count INTEGER DEFAULT 0,
     churn_probability NUMERIC,
     risk_score NUMERIC,
+    risk_level TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -44,3 +53,4 @@ CREATE TABLE IF NOT EXISTS feedback (
 
 CREATE INDEX IF NOT EXISTS ix_documents_status ON documents (status);
 CREATE INDEX IF NOT EXISTS ix_document_chunks_document_id ON document_chunks (document_id);
+CREATE INDEX IF NOT EXISTS ix_customers_customer_external_id ON customers (customer_external_id);

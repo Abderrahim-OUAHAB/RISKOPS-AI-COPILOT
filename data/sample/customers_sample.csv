@@ -1,7 +1,21 @@
-customer_id,name,segment,monthly_spend,support_ticket_count,unpaid_invoice_count,tenure_months,churn
-C001,Alpha Retail,Enterprise,12000,4,1,28,0
-C002,Beta Market,SMB,2400,9,3,8,1
-C003,Orion Services,Enterprise,18500,2,0,36,0
-C004,Nova Shop,SMB,1800,7,2,6,1
-C005,Helios Group,Mid Market,7600,3,0,18,0
-
+customer_id,name,tenure,monthly_charges,total_charges,contract_type,support_tickets,late_payments,churn
+CUST-001,Alpha Retail,6,220.5,1323.0,month_to_month,8,3,1
+CUST-002,Beta Market,28,89.9,2517.2,one_year,2,0,0
+CUST-003,Orion Services,42,145.0,6090.0,two_year,1,0,0
+CUST-004,Nova Shop,9,199.0,1791.0,month_to_month,7,2,1
+CUST-005,Helios Group,18,120.0,2160.0,one_year,3,1,0
+CUST-006,Luma Health,4,240.0,960.0,month_to_month,9,4,1
+CUST-007,Aster Finance,36,175.0,6300.0,two_year,2,0,0
+CUST-008,Cobalt Labs,11,180.0,1980.0,month_to_month,6,2,1
+CUST-009,Zenith Foods,24,110.0,2640.0,one_year,1,0,0
+CUST-010,Metro Supply,7,160.0,1120.0,month_to_month,5,3,1
+CUST-011,Northstar IT,52,210.0,10920.0,two_year,2,0,0
+CUST-012,Riverline Media,15,130.0,1950.0,one_year,4,1,0
+CUST-013,Summit Travel,5,155.0,775.0,month_to_month,6,2,1
+CUST-014,Greenfield Energy,31,190.0,5890.0,one_year,2,0,0
+CUST-015,Blue Ocean SaaS,3,260.0,780.0,month_to_month,10,5,1
+CUST-016,Atlas Logistics,40,135.0,5400.0,two_year,1,0,0
+CUST-017,Vertex Retail,13,205.0,2665.0,month_to_month,5,1,1
+CUST-018,Amber Consulting,27,95.0,2565.0,one_year,2,0,0
+CUST-019,Pioneer Telecom,8,230.0,1840.0,month_to_month,7,3,1
+CUST-020,Silverline Legal,45,150.0,6750.0,two_year,1,0,0

@@ -1,0 +1,15 @@
+{
+  "features": [
+    "tenure",
+    "monthly_charges",
+    "total_charges",
+    "support_tickets",
+    "late_payments",
+    "contract_type_month_to_month",
+    "contract_type_one_year",
+    "contract_type_two_year",
+    "average_monthly_value",
+    "payment_risk_flag",
+    "support_risk_flag"
+  ]
+}

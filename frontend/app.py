@@ -172,3 +172,90 @@ else:
     st.subheader("Ask a question")
     st.text_input("Example: Which customers are at risk this week?", disabled=True)
     st.button("Ask Copilot", disabled=True)
+
+st.divider()
+
+st.subheader("Machine Learning")
+customer_file = st.file_uploader(
+    "Import customer CSV",
+    type=["csv"],
+    accept_multiple_files=False,
+    key="customer_csv_import",
+)
+
+if customer_file and st.button("Import customers"):
+    try:
+        files = {
+            "file": (
+                customer_file.name,
+                customer_file.getvalue(),
+                customer_file.type or "text/csv",
+            )
+        }
+        response = requests.post(
+            f"{API_URL}/customers/import",
+            files=files,
+            timeout=30,
+        )
+        response.raise_for_status()
+        result = response.json()
+        st.success(f"{result['imported_count']} customers imported.")
+    except requests.RequestException as exc:
+        st.error(f"Customer import failed: {get_api_error(exc)}")
+
+customers = []
+try:
+    customers_response = requests.get(f"{API_URL}/customers", timeout=5)
+    customers_response.raise_for_status()
+    customers = customers_response.json()
+    if customers:
+        st.dataframe(
+            [
+                {
+                    "customer_id": customer["customer_external_id"],
+                    "name": customer["name"],
+                    "tenure": customer["tenure"],
+                    "contract_type": customer["contract_type"],
+                    "support_tickets": customer["support_tickets"],
+                    "late_payments": customer["late_payments"],
+                    "risk_score": customer["risk_score"],
+                    "risk_level": customer["risk_level"],
+                }
+                for customer in customers
+            ],
+            use_container_width=True,
+        )
+except requests.RequestException:
+    st.warning("Customer list unavailable until the API is reachable.")
+
+if customers:
+    customer_options = {
+        f"{customer['customer_external_id']} - {customer['name']}": customer[
+            "customer_external_id"
+        ]
+        for customer in customers
+    }
+    selected_customer_label = st.selectbox(
+        "Customer for churn prediction",
+        options=list(customer_options.keys()),
+    )
+    selected_customer_id = customer_options[selected_customer_label]
+
+    if st.button("Predict churn risk"):
+        try:
+            response = requests.post(
+                f"{API_URL}/risk/predict",
+                json={"customer_id": selected_customer_id},
+                timeout=30,
+            )
+            response.raise_for_status()
+            prediction = response.json()
+            metric_col1, metric_col2 = st.columns(2)
+            metric_col1.metric("Risk score", prediction["risk_score"])
+            metric_col2.metric("Risk level", prediction["risk_level"])
+            st.write(f"Churn probability: {prediction['churn_probability']}")
+            st.write("Reasons")
+            for reason in prediction["reasons"]:
+                st.write(f"- {reason}")
+        except requests.RequestException as exc:
+            st.error(f"Prediction failed: {get_api_error(exc)}")
