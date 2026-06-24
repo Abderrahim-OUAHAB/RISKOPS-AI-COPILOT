@@ -1,408 +1,284 @@
 # AI RiskOps Copilot
 
-AI RiskOps Copilot is a portfolio project that demonstrates AI Engineering, Data Engineering, Machine Learning, MLOps and LLMOps skills.
-
-The goal is to build an AI assistant that helps a company detect business risks from documents, customer data and operational signals.
+AI RiskOps Copilot is a full-stack AI portfolio project for customer risk operations.
+It combines document intelligence, structured customer data, churn prediction, controlled AI agents, data pipelines and monitoring.
+The goal is to show how an AI product can move from a demo chatbot to a production-minded decision support system.
 
 ## Business Problem
 
-Companies often store important risk signals across many sources:
+Risk signals are often scattered across contracts, CSV exports, invoices, support tickets and internal reports. A manager needs to know which customers are at risk, why they are risky, and what action to take first.
 
-- contracts
-- invoices
-- customer files
-- support tickets
-- sales CSV files
-- internal reports
+AI RiskOps Copilot answers questions like:
 
-Managers need fast answers to questions like:
+- Which customers are most likely to churn this week?
+- Why is a customer risky?
+- What actions should the team prioritize?
+- What do uploaded documents say about a risk?
+- Is the system healthy and ready for a demo or local deployment?
 
-- Which customers may churn this week?
-- Which invoices look risky?
-- Which contracts contain risky clauses?
-- Which support tickets are urgent?
-- Which actions should the team take first?
+## Solution
 
-This project solves that problem with a complete AI system, not a simple chatbot.
+The project provides a local AI application with:
 
-## MVP Scope
-
-The first version focuses on:
-
-- FastAPI backend
-- Streamlit dashboard
-- PostgreSQL database
-- pgvector semantic search
-- PDF and CSV upload foundation
-- RAG document processing with sources
-- OpenAI embeddings
-- XGBoost churn prediction
-- MLflow experiment tracking
-- RiskOps scoring and prioritization
-- prediction history
-- controlled LangGraph agent
-- Airflow orchestration
-- dbt analytics models and data tests
-- ML monitoring and LLM observability
-- GitHub Actions CI
-- churn risk dataset sample
-- Docker setup
-
-Future versions will add:
-
-- AWS deployment
+- a Streamlit dashboard for users,
+- a FastAPI backend for product APIs,
+- PostgreSQL and pgvector for business data and vector search,
+- PDF/CSV upload and document processing,
+- RAG over processed document chunks,
+- XGBoost churn prediction with MLflow tracking,
+- a controlled LangGraph agent for routing questions,
+- Airflow and dbt pipelines,
+- MLOps and LLMOps monitoring,
+- Docker and GitHub Actions for reproducibility.
 
 ## Architecture
 
-Visual architecture:
-
 ![AI RiskOps Copilot architecture](docs/architecture-tech-map.svg)
 
+Mermaid version: [docs/architecture-final.md](docs/architecture-final.md)
+
 ```text
-User
-  -> Streamlit dashboard
-  -> FastAPI backend
+Streamlit
+  -> FastAPI
   -> PostgreSQL + pgvector
-  -> LlamaIndex RAG
-  -> XGBoost churn model
-  -> LangGraph decision agent
-  -> Airflow + dbt data pipelines
-  -> MLflow, LLM traces, optional Langfuse, ML monitoring
+  -> RAG + OpenAI API
+  -> XGBoost + MLflow
+  -> LangGraph agent
+  -> Airflow + dbt
+  -> Monitoring reports + JSONL traces
 ```
 
-## Project Structure
+## Technical Stack
 
-```text
-riskops-ai-copilot/
-  backend/          FastAPI application
-  frontend/         Streamlit dashboard
-  ml/               ML training and model artifacts
-  data/             raw, processed and sample data
-  pipelines/        Airflow DAGs, dbt project and pipeline scripts
-  docs/             project documentation
-  scripts/          database initialization scripts
+- Backend: FastAPI, SQLAlchemy, Pydantic
+- Frontend: Streamlit
+- Database: PostgreSQL, pgvector
+- RAG: OpenAI embeddings, LlamaIndex-ready services, vector search
+- ML: XGBoost, scikit-learn, pandas, joblib
+- MLOps: MLflow, local data quality report
+- LLMOps: JSONL traces, optional Langfuse export
+- Data engineering: Airflow, dbt
+- DevOps: Docker Compose, GitHub Actions
+
+## Features
+
+- Upload PDF and CSV files.
+- Store document metadata in PostgreSQL.
+- Extract PDF text and CSV content.
+- Chunk document text.
+- Create embeddings and store vectors with pgvector.
+- Ask RAG questions with source chunks.
+- Import sample customer data from CSV.
+- Train a churn model.
+- Analyze customer risk.
+- List priority customers.
+- Generate a weekly risk report.
+- Route controlled business questions with LangGraph.
+- Generate an ML monitoring HTML report.
+- Trace RAG and agent calls locally.
+- Check health and readiness.
+
+## Main Endpoints
+
+- `GET /health`
+- `GET /ready`
+- `POST /documents/upload`
+- `POST /documents/{document_id}/process`
+- `GET /documents`
+- `GET /documents/{document_id}`
+- `POST /rag/ask`
+- `POST /customers/import`
+- `GET /customers`
+- `POST /risk/analyze-customer`
+- `GET /risk/priority-customers`
+- `GET /risk/history`
+- `GET /reports/weekly-risk`
+- `POST /agent/analyze`
+- `POST /monitoring/ml/generate-report`
+- `GET /monitoring/ml/report`
+- `GET /monitoring/ml/report?format=html`
+- `GET /monitoring/llm/traces`
+- `GET /monitoring/llm/summary`
+
+## How To Run
+
+Recommended on Windows PowerShell:
+
+```powershell
+scripts/dev/start.ps1
 ```
 
-## Quick Start
+Alternative if PowerShell execution policy blocks local scripts:
 
-1. Copy the environment file.
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/start.ps1
+```
+
+Cross-platform Docker command:
 
 ```bash
-cp .env.example .env
+docker compose up -d --build
 ```
 
-2. Start the project.
+Bash helper scripts are also available under `scripts/dev/*.sh`. On Windows, prefer the PowerShell scripts unless Docker Desktop is integrated with your WSL shell.
 
-```bash
-docker compose up --build
+Useful URLs:
+
+- FastAPI docs: http://localhost:8000/docs
+- Streamlit: http://localhost:8501
+- Airflow: http://localhost:8080
+- Health: http://localhost:8000/health
+- Ready: http://localhost:8000/ready
+- MLflow: local `./mlruns` directory
+
+Docker build note:
+
+- Cached rebuild measured locally during the portfolio release: about 14 seconds.
+- A first uncached build can take several minutes because backend ML/RAG packages and Airflow/dbt packages are installed.
+- `.env` is optional for Docker Compose; secrets are not required for local CI validation.
+
+## Demo Mode
+
+Prepare a complete local demo:
+
+```powershell
+scripts/dev/demo-seed.ps1
 ```
 
-3. Open the services.
+Alternative:
 
-- Backend API: `http://localhost:8000`
-- API health: `http://localhost:8000/health`
-- API readiness: `http://localhost:8000/ready`
-- API docs: `http://localhost:8000/docs`
-- Streamlit dashboard: `http://localhost:8501`
-- Airflow UI: `http://localhost:8080` (`admin` / `admin`)
-
-## Backend Endpoints
-
-- `GET /health`: API health check.
-- `POST /documents/upload`: upload one PDF or CSV file and store metadata in PostgreSQL.
-- `POST /documents/{document_id}/process`: extract text, chunk it, create embeddings and store chunks in pgvector.
-- `GET /documents`: list uploaded documents.
-- `GET /documents/{document_id}`: get one document by id.
-- `POST /rag/ask`: ask a question against processed document chunks and return sourced answers.
-- `POST /customers/import`: import customer churn data from CSV.
-- `GET /customers`: list imported customers.
-- `GET /customers/{customer_id}`: get one customer by external id.
-- `POST /risk/predict`: predict churn risk for one customer.
-- `GET /risk/customers`: list customers with their latest risk score.
-- `POST /risk/analyze-customer`: calculate RiskOps score, reasons, actions and save prediction history.
-- `GET /risk/priority-customers`: list customers sorted by business risk priority.
-- `GET /risk/history`: list recent risk predictions, optionally filtered by `customer_id`.
-- `GET /reports/weekly-risk`: generate the weekly RiskOps report.
-- `POST /agent/analyze`: route a controlled RiskOps question through a LangGraph workflow.
-- `GET /ready`: readiness check for database, tables, model and monitoring folders.
-- `POST /monitoring/ml/generate-report`: generate an ML monitoring HTML report.
-- `GET /monitoring/ml/report`: get ML report status and path.
-- `GET /monitoring/ml/report?format=html`: open the generated HTML report.
-- `GET /monitoring/llm/traces`: list local RAG and agent traces.
-- `GET /monitoring/llm/summary`: summarize local LLM traces.
-
-Uploaded files are stored in `data/raw`.
-
-## Environment Variables
-
-The OpenAI API key must stay in `.env` and must never be committed.
-
-```bash
-OPENAI_API_KEY=replace_with_your_key_later
-OPENAI_EMBEDDING_MODEL=text-embedding-3-small
-OPENAI_CHAT_MODEL=gpt-4o-mini
-CHURN_MODEL_PATH=ml/models/churn_model.pkl
-CHURN_FEATURES_PATH=ml/models/churn_features.json
-MLFLOW_TRACKING_URI=file:./mlruns
-MLFLOW_EXPERIMENT_NAME=riskops-churn-model
-LOG_LEVEL=INFO
-ENABLE_LANGFUSE=false
-LANGFUSE_PUBLIC_KEY=
-LANGFUSE_SECRET_KEY=
-LANGFUSE_HOST=https://cloud.langfuse.com
-LLM_TRACES_PATH=monitoring/logs/llm_traces.jsonl
-ML_MONITORING_REPORT_PATH=monitoring/reports/ml_data_quality_report.html
-AIRFLOW_UID=50000
-AIRFLOW_PROJ_DIR=./pipelines
-DBT_PROFILES_DIR=/opt/airflow/pipelines/dbt/riskops_dbt
-DBT_TARGET=dev
+```powershell
+python scripts/dev/demo_seed.py
 ```
 
-Without a real `OPENAI_API_KEY`, upload and listing still work. Document processing returns a clear error because embeddings require OpenAI.
-MLflow stores local experiment runs under `mlruns/`, which is ignored by Git.
+The demo seed script:
+
+- waits for the backend,
+- imports `data/sample/customers_sample.csv`,
+- verifies or trains the churn model,
+- analyzes `CUST-001`,
+- lists priority customers,
+- generates the weekly risk report,
+- generates the ML monitoring report,
+- creates an agent trace,
+- prints a final summary and useful URLs.
+
+## Screenshots
+
+Suggested screenshots for a portfolio page:
+
+- `docs/screenshots/streamlit-dashboard.png`
+- `docs/screenshots/fastapi-docs.png`
+- `docs/screenshots/airflow-dag.png`
+- `docs/screenshots/ml-monitoring-report.png`
+- `docs/screenshots/llm-traces.png`
+
+The screenshot directory is intentionally not required for the app to run.
 
 ## Data Pipeline
 
-The project includes a local Data Engineering layer with Airflow and dbt.
+Airflow orchestrates the local workflow. dbt builds analytics models from PostgreSQL data:
 
-Airflow orchestrates the daily workflow in `riskops_daily_pipeline`:
+- `stg_customers`
+- `int_customer_risk_features`
+- `mart_customer_risk_summary`
 
-1. `health_check_api`: checks that FastAPI is reachable.
-2. `import_sample_customers`: imports `data/sample/customers_sample.csv`.
-3. `run_dbt_models`: builds dbt staging, intermediate and mart models.
-4. `run_dbt_tests`: runs dbt data quality tests.
-5. `train_churn_model`: refreshes the XGBoost churn model.
-6. `generate_weekly_risk_report`: calls the weekly RiskOps report API.
-7. `pipeline_summary`: prints a short summary for Airflow logs.
+The pipeline demonstrates ingestion, transformation, testing and reporting without requiring a cloud platform.
 
-dbt transforms PostgreSQL customer data into analytics tables in the `analytics` schema:
+## ML Pipeline
 
-- `stg_customers`: cleans customer data, casts numeric columns and normalizes `contract_type`.
-- `int_customer_risk_features`: creates business flags such as support, payment, tenure and high-value risk.
-- `mart_customer_risk_summary`: creates a dashboard-ready customer risk summary.
+The churn pipeline uses the sample customer dataset or PostgreSQL data when available. It trains an XGBoost classifier, logs metrics with MLflow, and writes model artifacts to `ml/models`.
 
-dbt tests validate:
+Model outputs are used by:
 
-- `customer_id` is not null.
-- `customer_id` is unique.
-- `monthly_charges` is not null.
-- `tenure` is not null.
+- `POST /risk/analyze-customer`
+- `GET /risk/priority-customers`
+- `GET /reports/weekly-risk`
+- `POST /agent/analyze`
 
-Useful dbt commands inside the Airflow container:
+## RAG Pipeline
 
-```bash
-docker compose exec airflow-scheduler dbt debug --project-dir /opt/airflow/pipelines/dbt/riskops_dbt --profiles-dir /opt/airflow/pipelines/dbt/riskops_dbt
-docker compose exec airflow-scheduler dbt run --project-dir /opt/airflow/pipelines/dbt/riskops_dbt --profiles-dir /opt/airflow/pipelines/dbt/riskops_dbt
-docker compose exec airflow-scheduler dbt test --project-dir /opt/airflow/pipelines/dbt/riskops_dbt --profiles-dir /opt/airflow/pipelines/dbt/riskops_dbt
-```
+The document pipeline uploads PDF/CSV files, extracts text, chunks content, creates embeddings and stores vectorized chunks with pgvector. `/rag/ask` retrieves relevant chunks and returns an answer with sources.
 
-Current limitations:
+OpenAI is optional for non-RAG demo paths. If no API key is configured, customer risk, reporting, monitoring and agent priority routing still work.
 
-- Airflow uses a local development configuration, not a production executor setup.
-- The pipeline imports a sample CSV and is idempotent through the existing customer upsert logic.
-- dbt models are analytics tables only; the ML script still trains from the application `customers` table.
-- Airflow writes its local MLflow/model artifacts to `/tmp` to avoid Windows bind mount permission issues.
+## LangGraph Agent
+
+The agent is intentionally controlled. It routes questions to known tools:
+
+- customer analysis,
+- priority customers,
+- weekly report,
+- RAG over documents,
+- fallback guidance.
+
+This makes the system easier to defend in an interview than an uncontrolled free-form agent.
 
 ## Monitoring
 
-The project includes a local MLOps and LLMOps monitoring layer.
+MLOps:
 
-ML monitoring:
+- `POST /monitoring/ml/generate-report` creates `monitoring/reports/ml_data_quality_report.html`.
+- The report compares reference sample data with current PostgreSQL customers.
+- It checks missing values and simple feature drift for tenure, charges, support tickets and late payments.
+- Evidently is treated as an optional monitoring concept; the app keeps a dependency-safe local HTML fallback.
 
-- Uses `data/sample/customers_sample.csv` as the reference dataset.
-- Reads current customers from PostgreSQL when available.
-- Compares `support_tickets`, `late_payments`, `monthly_charges`, `total_charges` and `tenure`.
-- Produces `monitoring/reports/ml_data_quality_report.html`.
-- Exposes the generated HTML through `/monitoring/ml/report?format=html`.
-- Handles empty PostgreSQL data by falling back to the reference dataset.
-- Handles small datasets with a warning instead of failing the app.
+LLMOps:
 
-LLM observability:
+- `POST /rag/ask` and `POST /agent/analyze` are traced.
+- Local traces are written to `monitoring/logs/llm_traces.jsonl`.
+- Traces capture timestamp, question, selected tool, latency, status, errors, source count and document id.
+- Langfuse export is optional and protected by environment variables.
 
-- Tracks `POST /rag/ask` and `POST /agent/analyze`.
-- Stores local fallback traces in `monitoring/logs/llm_traces.jsonl`.
-- Captures timestamp, question, selected tool, latency, status, errors, source count and document id.
-- Supports Langfuse optionally through environment variables.
-- If Langfuse keys are missing, the app continues with JSONL tracing.
+Health:
 
-Health and readiness:
+- `/health` reports API, database, model and pgvector status.
+- `/ready` verifies database connectivity, required tables, model artifact and monitoring folders.
 
-- `/health` reports API, database, churn model and pgvector status.
-- `/ready` verifies database connectivity, core tables, model artifact and monitoring folders.
+## Limits
 
-CI/CD:
+- This is a local portfolio release, not a cloud deployment.
+- Authentication and authorization are intentionally out of scope.
+- The RAG path needs an OpenAI API key for embeddings and generated answers.
+- The ML dataset is small and designed for demonstration.
+- The monitoring report is lightweight and local.
+- No real AWS infrastructure is created in this version.
 
-- `.github/workflows/ci.yml` compiles Python, installs backend requirements and validates Docker Compose.
-- CI does not require OpenAI, Langfuse, Airflow startup or cloud credentials.
+## Roadmap
 
-Current monitoring limitations:
+- Add authentication for multi-user access.
+- Deploy to AWS with managed PostgreSQL and container hosting.
+- Add real alerting for drift and failed traces.
+- Add stronger evaluation for RAG answers.
+- Add CI tests with a temporary PostgreSQL service.
+- Add screenshots and a short demo video.
 
-- The ML report is a lightweight local HTML report with simple drift checks.
-- Evidently is supported as an optional monitoring concept, while the app keeps a dependency-safe fallback report.
-- Langfuse export is optional and protected by guarded imports.
-- No cloud deployment, authentication or alerting is included yet.
+## What This Project Demonstrates
 
-## Local Test Commands
+- Product thinking around a business risk use case.
+- Backend API design with FastAPI.
+- Relational and vector data modeling.
+- RAG architecture with source traceability.
+- Machine learning training and serving.
+- MLOps and LLMOps basics.
+- Data engineering orchestration with Airflow and dbt.
+- Dockerized local development.
+- Recruiter-ready documentation and demo flow.
 
-Start the stack:
+## Interview Questions To Prepare
 
-```bash
-docker compose up --build
-```
+- Why is this more than a chatbot?
+- How does pgvector support RAG?
+- Why use a controlled LangGraph agent?
+- What happens when OpenAI is unavailable?
+- How do `/health` and `/ready` differ?
+- What does the ML monitoring report detect?
+- How would you deploy this on AWS?
+- What would you improve before production?
 
-Check the API:
+See also:
 
-```bash
-curl http://localhost:8000/health
-curl http://localhost:8000/documents
-```
-
-Upload the sample CSV:
-
-```bash
-curl -F "file=@data/sample/customers_sample.csv" http://localhost:8000/documents/upload
-```
-
-Process a document:
-
-```bash
-curl -X POST http://localhost:8000/documents/1/process
-```
-
-Ask a RAG question:
-
-```bash
-curl -X POST http://localhost:8000/rag/ask \
-  -H "Content-Type: application/json" \
-  -d "{\"question\":\"Resume les risques principaux\",\"document_id\":1}"
-```
-
-Get one document:
-
-```bash
-curl http://localhost:8000/documents/1
-```
-
-Import customers:
-
-```bash
-curl -X POST http://localhost:8000/customers/import -F "file=@data/sample/customers_sample.csv"
-curl http://localhost:8000/customers
-```
-
-Train the churn model:
-
-```bash
-python ml/training/train_churn_model.py
-```
-
-Predict customer risk:
-
-```bash
-curl -X POST http://localhost:8000/risk/predict \
-  -H "Content-Type: application/json" \
-  -d "{\"customer_id\":\"CUST-001\"}"
-```
-
-Example response:
-
-```json
-{
-  "customer_id": "CUST-001",
-  "churn_probability": 0.82,
-  "risk_score": 82,
-  "risk_level": "high",
-  "reasons": [
-    "Many support tickets",
-    "Late payments detected",
-    "Short customer tenure"
-  ]
-}
-```
-
-Batch risk:
-
-```bash
-curl http://localhost:8000/risk/customers
-```
-
-Analyze one customer with RiskOps scoring:
-
-```bash
-curl -X POST http://localhost:8000/risk/analyze-customer \
-  -H "Content-Type: application/json" \
-  -d "{\"customer_id\":\"CUST-001\"}"
-```
-
-Example RiskOps response:
-
-```json
-{
-  "customer_id": "CUST-001",
-  "risk_score": 82,
-  "risk_level": "high",
-  "churn_probability": 0.81,
-  "reasons": [
-    "High churn probability",
-    "Late payments detected",
-    "Many support tickets"
-  ],
-  "recommended_actions": [
-    "Contact customer within 48 hours",
-    "Review unpaid invoices",
-    "Escalate recent support issues"
-  ],
-  "prediction_id": 1
-}
-```
-
-Priority, history and weekly report:
-
-```bash
-curl http://localhost:8000/risk/priority-customers
-curl http://localhost:8000/risk/history
-curl http://localhost:8000/reports/weekly-risk
-```
-
-Ask the controlled RiskOps agent:
-
-```bash
-curl -X POST http://localhost:8000/agent/analyze \
-  -H "Content-Type: application/json" \
-  -d "{\"question\":\"Quels clients sont a risque cette semaine ?\"}"
-```
-
-Example agent response:
-
-```json
-{
-  "answer": "5 clients prioritaires identifies. Le plus urgent est CUST-001 avec un score de 82/100.",
-  "selected_tool": "priority_customers",
-  "data": {},
-  "sources": []
-}
-```
-
-The RiskOps score combines churn probability, late payments, support tickets, short tenure, month-to-month contracts and high-value exposure. It is a demo scoring layer, not a regulated credit or financial risk model.
-
-Run the Data Engineering pipeline checks:
-
-```bash
-python -m compileall backend/app frontend/app.py ml/training pipelines
-docker compose config
-docker compose up -d --build
-curl http://localhost:8000/health
-curl http://localhost:8000/customers
-curl -X POST http://localhost:8000/customers/import -F "file=@data/sample/customers_sample.csv"
-python ml/training/train_churn_model.py
-curl http://localhost:8000/reports/weekly-risk
-curl http://localhost:8000/ready
-curl http://localhost:8000/monitoring/llm/summary
-curl -X POST http://localhost:8000/monitoring/ml/generate-report
-curl http://localhost:8000/monitoring/ml/report
-curl "http://localhost:8000/monitoring/ml/report?format=html"
-```
-
-## Interview Pitch
-
-I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, RiskOps prioritization, a controlled LangGraph agent, Airflow orchestration, dbt analytics models, MLOps/LLMOps monitoring, GitHub Actions CI, a Streamlit dashboard and Docker. The next modules prepare deployment.
+- [docs/portfolio-case-study.md](docs/portfolio-case-study.md)
+- [docs/interview-pitch.md](docs/interview-pitch.md)
+- [docs/interview-qa.md](docs/interview-qa.md)
+- [docs/demo-script.md](docs/demo-script.md)

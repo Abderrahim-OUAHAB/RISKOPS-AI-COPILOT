@@ -27,7 +27,17 @@ jobs:
           pip install -r backend/requirements.txt
 
       - name: Compile Python
-        run: python -m compileall backend/app frontend/app.py ml/training pipelines monitoring
+        run: python -m compileall backend/app frontend/app.py ml/training pipelines monitoring scripts
 
       - name: Validate Docker Compose
         run: docker compose config
+
+      - name: Check portfolio files
+        run: |
+          test -f README.md
+          test -f docs/portfolio-case-study.md
+          test -f docs/interview-pitch.md
+          test -f docs/interview-qa.md
+          test -f docs/demo-script.md
+          test -f docs/architecture-final.md
+          test -f scripts/dev/demo_seed.py

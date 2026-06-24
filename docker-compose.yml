@@ -18,11 +18,13 @@ services:
       retries: 5
 
   backend:
+    image: riskops-backend:local
     build:
       context: ./backend
     container_name: riskops-backend
     env_file:
-      - .env
+      - path: .env
+        required: false
     ports:
       - "8000:8000"
     volumes:
@@ -41,6 +43,7 @@ services:
       retries: 5
 
   frontend:
+    image: riskops-frontend:local
     build:
       context: ./frontend
     container_name: riskops-frontend
@@ -57,11 +60,13 @@ services:
       retries: 5
 
   airflow-webserver:
+    image: riskops-airflow:local
     build:
       context: ./pipelines/airflow
     container_name: riskops-airflow-webserver
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
@@ -107,11 +112,11 @@ services:
       airflow webserver"
 
   airflow-scheduler:
-    build:
-      context: ./pipelines/airflow
+    image: riskops-airflow:local
     container_name: riskops-airflow-scheduler
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
