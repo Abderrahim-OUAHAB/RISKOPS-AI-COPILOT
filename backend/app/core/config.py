@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     chunk_size: int = 800
     chunk_overlap: int = 120
     rag_top_k: int = 4
-    rag_similarity_threshold: float = 0.55
+    rag_similarity_threshold: float = 0.30
     churn_model_path: str = "ml/models/churn_model.pkl"
     churn_features_path: str = "ml/models/churn_features.json"
     mlflow_tracking_uri: str = "file:./mlruns"

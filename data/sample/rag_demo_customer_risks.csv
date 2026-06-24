@@ -1,0 +1,6 @@
+customer_id,name,risk_level,risk_summary,recommended_action
+CUST-001,Alpha Retail,high,High churn risk because the customer has many support tickets and late payments,Call the customer within 48 hours and review unpaid invoices
+CUST-002,Beta Market,low,Low risk because payment history is stable and support activity is low,Monitor the account next month
+CUST-003,Nova Shop,medium,Medium risk because contract renewal is close and support tickets increased,Schedule a renewal meeting this week
+CUST-004,Luma Health,high,High risk because unpaid invoices are increasing and the customer opened many urgent support tickets,Escalate support issues and propose a retention discussion
+CUST-005,Orion Services,low,Low risk because the customer has a long tenure and no late payments,Keep standard monitoring
