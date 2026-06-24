@@ -7,10 +7,14 @@ from app.api.agent import router as agent_router
 from app.api.customers import router as customers_router
 from app.api.documents import router as documents_router
 from app.api.health import router as health_router
+from app.api.monitoring import router as monitoring_router
 from app.api.rag import router as rag_router
 from app.api.reports import router as reports_router
 from app.api.risk import router as risk_router
+from app.core.logging_config import configure_logging
 from app.db.init_db import init_db
+
+configure_logging()
 
 
 @asynccontextmanager
@@ -40,3 +44,4 @@ app.include_router(customers_router)
 app.include_router(risk_router)
 app.include_router(reports_router)
 app.include_router(agent_router)
+app.include_router(monitoring_router)

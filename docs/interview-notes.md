@@ -103,3 +103,51 @@ A feature pipeline turns business data into model or scoring signals. Here, dbt 
 ## Orchestration
 
 Orchestration coordinates independent jobs into one reliable workflow. Airflow makes sure dbt runs after import, tests run after models and reporting runs after the model refresh.
+
+## MLOps
+
+MLOps is the discipline of making machine learning reliable in production. It covers training, model artifacts, monitoring, data quality checks, reproducibility and deployment readiness.
+
+## LLMOps
+
+LLMOps applies production practices to LLM features. It focuses on prompt behavior, latency, errors, sources, traces, cost awareness and observability for RAG or agent workflows.
+
+## Evidently AI
+
+Evidently AI is used to monitor data and model quality. In this project, the monitoring layer compares reference customer data with current PostgreSQL data and generates an HTML report.
+
+## Langfuse
+
+Langfuse is an optional observability platform for LLM traces. The project supports it through environment variables, but falls back to local JSONL logs if keys are missing.
+
+## Observability
+
+Observability means understanding what the system is doing from the outside. Here, health checks, readiness checks, LLM traces and ML reports help detect failures and quality issues.
+
+## Traces
+
+Traces record each RAG or agent call with timestamp, question, selected tool, latency, status, errors and source count. They make debugging LLM behavior easier.
+
+## Data Drift
+
+Data drift happens when current production data differs from the training or reference dataset. The project checks simple mean changes on key features like tenure, charges, support tickets and late payments.
+
+## Model Monitoring
+
+Model monitoring watches the inputs and outputs around a model after deployment. The first local version focuses on data quality and feature distribution checks.
+
+## Health Check
+
+A health check tells whether the API process is alive and its main dependencies look reachable. `/health` reports API, database, model and pgvector status.
+
+## Readiness Check
+
+A readiness check tells whether the service is ready to receive traffic. `/ready` verifies database access, core tables, the model file and monitoring folders.
+
+## CI/CD
+
+CI/CD automates validation and deployment steps. In this project, CI compiles Python, installs dependencies and validates Docker Compose before code is merged or shipped.
+
+## GitHub Actions
+
+GitHub Actions runs the CI workflow directly from the repository. The workflow does not require OpenAI, Langfuse or a full Airflow startup, so it stays fast and safe for pull requests.

@@ -30,9 +30,15 @@ services:
       - ./data:/app/data
       - ./ml:/app/ml
       - ./mlruns:/app/mlruns
+      - ./monitoring:/app/monitoring
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)\""]
+      interval: 20s
+      timeout: 10s
+      retries: 5
 
   frontend:
     build:
@@ -44,6 +50,11 @@ services:
       - ./frontend/app.py:/app/app.py
     depends_on:
       - backend
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8501', timeout=5)\""]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   airflow-webserver:
     build:
@@ -85,6 +96,11 @@ services:
         condition: service_healthy
       backend:
         condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8080/login/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 8
     command: >
       bash -c "airflow db migrate &&
       (airflow users create --username admin --password admin --firstname RiskOps --lastname Admin --role Admin --email admin@example.com || true) &&

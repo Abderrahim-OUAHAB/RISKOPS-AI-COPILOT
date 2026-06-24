@@ -18,6 +18,13 @@ class Settings(BaseSettings):
     churn_features_path: str = "ml/models/churn_features.json"
     mlflow_tracking_uri: str = "file:./mlruns"
     mlflow_experiment_name: str = "riskops-churn-model"
+    log_level: str = "INFO"
+    enable_langfuse: bool = False
+    langfuse_public_key: str = ""
+    langfuse_secret_key: str = ""
+    langfuse_host: str = "https://cloud.langfuse.com"
+    llm_traces_path: str = "monitoring/logs/llm_traces.jsonl"
+    ml_monitoring_report_path: str = "monitoring/reports/ml_data_quality_report.html"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

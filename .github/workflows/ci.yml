@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ""
+      ENABLE_LANGFUSE: "false"
+      DATABASE_URL: "postgresql+psycopg://riskops:riskops@localhost:5432/riskops"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Compile Python
+        run: python -m compileall backend/app frontend/app.py ml/training pipelines monitoring
+
+      - name: Validate Docker Compose
+        run: docker compose config

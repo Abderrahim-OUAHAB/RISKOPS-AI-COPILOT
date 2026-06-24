@@ -35,6 +35,7 @@ with st.sidebar:
     st.write("4. Risk Score")
     st.write("5. AI agent")
     st.write("6. Data pipeline")
+    st.write("7. Monitoring")
 
 col1, col2 = st.columns(2)
 
@@ -433,3 +434,100 @@ try:
     st.write(pipeline_report["executive_summary"])
 except requests.RequestException as exc:
     st.warning(f"Latest weekly risk report unavailable: {get_api_error(exc)}")
+
+st.divider()
+
+st.subheader("Monitoring")
+
+monitoring_col1, monitoring_col2 = st.columns(2)
+
+with monitoring_col1:
+    st.write("Health")
+    try:
+        response = requests.get(f"{API_URL}/health", timeout=10)
+        response.raise_for_status()
+        st.json(response.json())
+    except requests.RequestException as exc:
+        st.warning(f"Health unavailable: {get_api_error(exc)}")
+
+with monitoring_col2:
+    st.write("Readiness")
+    try:
+        response = requests.get(f"{API_URL}/ready", timeout=10)
+        readiness = response.json()
+        if response.ok:
+            st.success(readiness)
+        else:
+            st.warning(readiness)
+    except requests.RequestException as exc:
+        st.warning(f"Readiness unavailable: {get_api_error(exc)}")
+
+if st.button("Generate ML monitoring report"):
+    try:
+        response = requests.post(f"{API_URL}/monitoring/ml/generate-report", timeout=120)
+        response.raise_for_status()
+        st.success(response.json())
+    except requests.RequestException as exc:
+        st.error(f"ML report generation failed: {get_api_error(exc)}")
+
+try:
+    response = requests.get(f"{API_URL}/monitoring/ml/report", timeout=10)
+    response.raise_for_status()
+    ml_report = response.json()
+    st.write("ML report")
+    st.json(ml_report)
+    if ml_report.get("report_exists"):
+        st.link_button(
+            "Open HTML report",
+            f"{API_URL}/monitoring/ml/report?format=html",
+        )
+except requests.RequestException as exc:
+    st.warning(f"ML report status unavailable: {get_api_error(exc)}")
+
+try:
+    response = requests.get(f"{API_URL}/monitoring/llm/summary", timeout=10)
+    response.raise_for_status()
+    llm_summary = response.json()
+    llm_col1, llm_col2, llm_col3 = st.columns(3)
+    llm_col1.metric("LLM traces", llm_summary["total_traces"])
+    llm_col2.metric("Success", llm_summary["success_count"])
+    llm_col3.metric("Errors", llm_summary["error_count"])
+    st.caption(f"Average latency: {llm_summary['average_latency_ms']} ms")
+    st.caption(f"Last trace: {llm_summary['last_trace_at']}")
+except requests.RequestException as exc:
+    st.warning(f"LLM monitoring summary unavailable: {get_api_error(exc)}")
+
+try:
+    response = requests.get(
+        f"{API_URL}/monitoring/llm/traces",
+        params={"limit": 10},
+        timeout=10,
+    )
+    response.raise_for_status()
+    traces = response.json()
+    if traces:
+        st.write("Recent LLM/RAG calls")
+        st.dataframe(
+            [
+                {
+                    "timestamp": trace.get("timestamp"),
+                    "operation": trace.get("operation"),
+                    "tool": trace.get("selected_tool"),
+                    "status": trace.get("status"),
+                    "latency_ms": trace.get("latency_ms"),
+                    "sources": trace.get("number_of_sources"),
+                    "error": trace.get("error"),
+                }
+                for trace in reversed(traces)
+            ],
+            use_container_width=True,
+        )
+
+        recent_errors = [trace for trace in traces if trace.get("status") == "error"]
+        if recent_errors:
+            with st.expander("Recent monitoring errors"):
+                st.json(recent_errors[-5:])
+    else:
+        st.info("No LLM trace recorded yet.")
+except requests.RequestException as exc:
+    st.warning(f"LLM traces unavailable: {get_api_error(exc)}")

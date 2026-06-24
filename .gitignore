@@ -15,3 +15,7 @@ data/processed/*
 pipelines/dbt/**/target/
 pipelines/dbt/**/logs/
 pipelines/dbt/**/.user.yml
+monitoring/reports/*
+monitoring/logs/*
+!monitoring/reports/.gitkeep
+!monitoring/logs/.gitkeep

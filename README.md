@@ -43,12 +43,13 @@ The first version focuses on:
 - controlled LangGraph agent
 - Airflow orchestration
 - dbt analytics models and data tests
+- ML monitoring and LLM observability
+- GitHub Actions CI
 - churn risk dataset sample
 - Docker setup
 
 Future versions will add:
 
-- Langfuse and Evidently AI monitoring
 - AWS deployment
 
 ## Architecture
@@ -66,7 +67,7 @@ User
   -> XGBoost churn model
   -> LangGraph decision agent
   -> Airflow + dbt data pipelines
-  -> MLflow, Langfuse, Evidently AI
+  -> MLflow, LLM traces, optional Langfuse, ML monitoring
 ```
 
 ## Project Structure
@@ -100,6 +101,7 @@ docker compose up --build
 
 - Backend API: `http://localhost:8000`
 - API health: `http://localhost:8000/health`
+- API readiness: `http://localhost:8000/ready`
 - API docs: `http://localhost:8000/docs`
 - Streamlit dashboard: `http://localhost:8501`
 - Airflow UI: `http://localhost:8080` (`admin` / `admin`)
@@ -122,6 +124,12 @@ docker compose up --build
 - `GET /risk/history`: list recent risk predictions, optionally filtered by `customer_id`.
 - `GET /reports/weekly-risk`: generate the weekly RiskOps report.
 - `POST /agent/analyze`: route a controlled RiskOps question through a LangGraph workflow.
+- `GET /ready`: readiness check for database, tables, model and monitoring folders.
+- `POST /monitoring/ml/generate-report`: generate an ML monitoring HTML report.
+- `GET /monitoring/ml/report`: get ML report status and path.
+- `GET /monitoring/ml/report?format=html`: open the generated HTML report.
+- `GET /monitoring/llm/traces`: list local RAG and agent traces.
+- `GET /monitoring/llm/summary`: summarize local LLM traces.
 
 Uploaded files are stored in `data/raw`.
 
@@ -137,6 +145,13 @@ CHURN_MODEL_PATH=ml/models/churn_model.pkl
 CHURN_FEATURES_PATH=ml/models/churn_features.json
 MLFLOW_TRACKING_URI=file:./mlruns
 MLFLOW_EXPERIMENT_NAME=riskops-churn-model
+LOG_LEVEL=INFO
+ENABLE_LANGFUSE=false
+LANGFUSE_PUBLIC_KEY=
+LANGFUSE_SECRET_KEY=
+LANGFUSE_HOST=https://cloud.langfuse.com
+LLM_TRACES_PATH=monitoring/logs/llm_traces.jsonl
+ML_MONITORING_REPORT_PATH=monitoring/reports/ml_data_quality_report.html
 AIRFLOW_UID=50000
 AIRFLOW_PROJ_DIR=./pipelines
 DBT_PROFILES_DIR=/opt/airflow/pipelines/dbt/riskops_dbt
@@ -187,7 +202,45 @@ Current limitations:
 - The pipeline imports a sample CSV and is idempotent through the existing customer upsert logic.
 - dbt models are analytics tables only; the ML script still trains from the application `customers` table.
 - Airflow writes its local MLflow/model artifacts to `/tmp` to avoid Windows bind mount permission issues.
-- Monitoring tools such as Langfuse and Evidently AI are intentionally left for later.
+
+## Monitoring
+
+The project includes a local MLOps and LLMOps monitoring layer.
+
+ML monitoring:
+
+- Uses `data/sample/customers_sample.csv` as the reference dataset.
+- Reads current customers from PostgreSQL when available.
+- Compares `support_tickets`, `late_payments`, `monthly_charges`, `total_charges` and `tenure`.
+- Produces `monitoring/reports/ml_data_quality_report.html`.
+- Exposes the generated HTML through `/monitoring/ml/report?format=html`.
+- Handles empty PostgreSQL data by falling back to the reference dataset.
+- Handles small datasets with a warning instead of failing the app.
+
+LLM observability:
+
+- Tracks `POST /rag/ask` and `POST /agent/analyze`.
+- Stores local fallback traces in `monitoring/logs/llm_traces.jsonl`.
+- Captures timestamp, question, selected tool, latency, status, errors, source count and document id.
+- Supports Langfuse optionally through environment variables.
+- If Langfuse keys are missing, the app continues with JSONL tracing.
+
+Health and readiness:
+
+- `/health` reports API, database, churn model and pgvector status.
+- `/ready` verifies database connectivity, core tables, model artifact and monitoring folders.
+
+CI/CD:
+
+- `.github/workflows/ci.yml` compiles Python, installs backend requirements and validates Docker Compose.
+- CI does not require OpenAI, Langfuse, Airflow startup or cloud credentials.
+
+Current monitoring limitations:
+
+- The ML report is a lightweight local HTML report with simple drift checks.
+- Evidently is supported as an optional monitoring concept, while the app keeps a dependency-safe fallback report.
+- Langfuse export is optional and protected by guarded imports.
+- No cloud deployment, authentication or alerting is included yet.
 
 ## Local Test Commands
 
@@ -343,8 +396,13 @@ curl http://localhost:8000/customers
 curl -X POST http://localhost:8000/customers/import -F "file=@data/sample/customers_sample.csv"
 python ml/training/train_churn_model.py
 curl http://localhost:8000/reports/weekly-risk
+curl http://localhost:8000/ready
+curl http://localhost:8000/monitoring/llm/summary
+curl -X POST http://localhost:8000/monitoring/ml/generate-report
+curl http://localhost:8000/monitoring/ml/report
+curl "http://localhost:8000/monitoring/ml/report?format=html"
 ```
 
 ## Interview Pitch
 
-I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, RiskOps prioritization, a controlled LangGraph agent, Airflow orchestration, dbt analytics models, a Streamlit dashboard and Docker. The next modules add production monitoring.
+I built AI RiskOps Copilot to show how an AI product can combine documents, structured data, machine learning and monitoring to help companies detect business risk. The MVP includes a FastAPI backend, PostgreSQL with pgvector, RAG with sources, XGBoost churn prediction, MLflow tracking, RiskOps prioritization, a controlled LangGraph agent, Airflow orchestration, dbt analytics models, MLOps/LLMOps monitoring, GitHub Actions CI, a Streamlit dashboard and Docker. The next modules prepare deployment.
