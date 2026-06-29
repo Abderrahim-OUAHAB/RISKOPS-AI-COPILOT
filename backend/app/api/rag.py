@@ -3,6 +3,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.core.rate_limit import rate_limit_by_ip
 from app.models import Document
 from app.schemas import RAGAnswer, RAGQuestion
 from app.services.embedding_service import OpenAIConfigurationError, OpenAIServiceError
@@ -15,6 +16,7 @@ router = APIRouter(prefix="/rag", tags=["RAG"])
 @router.post("/ask", response_model=RAGAnswer)
 def ask_rag_question(
     payload: RAGQuestion,
+    _: None = Depends(rate_limit_by_ip),
     db: Session = Depends(get_db),
 ) -> RAGAnswer:
     with trace_llm_call(

@@ -3,6 +3,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.core.rate_limit import rate_limit_by_ip
 from app.schemas import AgentAnalyzeRequest, AgentAnalyzeResponse
 from app.services.llm_observability_service import trace_llm_call
 from app.services.model_service import ModelNotTrainedError, ModelPredictionError
@@ -14,6 +15,7 @@ router = APIRouter(prefix="/agent", tags=["Agent"])
 @router.post("/analyze", response_model=AgentAnalyzeResponse)
 def analyze_question(
     payload: AgentAnalyzeRequest,
+    _: None = Depends(rate_limit_by_ip),
     db: Session = Depends(get_db),
 ) -> AgentAnalyzeResponse:
     with trace_llm_call(operation="agent", question=payload.question) as trace:

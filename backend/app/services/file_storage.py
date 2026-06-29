@@ -1,5 +1,4 @@
 import re
-import shutil
 from pathlib import Path
 from uuid import uuid4
 
@@ -12,17 +11,34 @@ def sanitize_filename(filename: str) -> str:
     return safe_name or "upload"
 
 
-def save_upload_file(upload_file: UploadFile, raw_data_dir: Path) -> tuple[Path, int]:
+def save_upload_file(
+    upload_file: UploadFile,
+    raw_data_dir: Path,
+    max_size_bytes: int | None = None,
+) -> tuple[Path, int]:
     raw_data_dir.mkdir(parents=True, exist_ok=True)
 
     safe_filename = sanitize_filename(upload_file.filename or "upload")
     destination = raw_data_dir / f"{uuid4().hex}_{safe_filename}"
 
+    file_size = 0
     upload_file.file.seek(0)
     with destination.open("wb") as output_file:
-        shutil.copyfileobj(upload_file.file, output_file)
+        while True:
+            chunk = upload_file.file.read(1024 * 1024)
+            if not chunk:
+                break
 
-    file_size = destination.stat().st_size
+            file_size += len(chunk)
+            if max_size_bytes is not None and file_size > max_size_bytes:
+                destination.unlink(missing_ok=True)
+                max_size_mb = max_size_bytes // (1024 * 1024)
+                raise ValueError(
+                    f"Uploaded file is too large. Maximum allowed size is {max_size_mb} MB."
+                )
+
+            output_file.write(chunk)
+
     if file_size == 0:
         destination.unlink(missing_ok=True)
         raise ValueError("Uploaded file is empty.")

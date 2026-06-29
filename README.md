@@ -216,6 +216,18 @@ The demo seed script:
 - creates an agent trace,
 - prints a final summary and useful URLs.
 
+## Demo-Safe Security Controls
+
+This release includes lightweight safeguards for local portfolio demos:
+
+- CORS is configurable with `BACKEND_CORS_ORIGINS` and defaults to the local Streamlit URLs.
+- Upload size is limited with `MAX_UPLOAD_SIZE_MB`, defaulting to 10 MB.
+- Document upload accepts supported file types only: `.pdf` and `.csv`.
+- Sensitive endpoints use simple in-memory rate limiting with `RATE_LIMIT_PER_MINUTE`, defaulting to 60 requests per minute per IP.
+- Secrets stay outside Git through `.env`; only `.env.example` is committed.
+
+This is still a portfolio/demo system. It is not enterprise-ready without authentication, authorization, audit logging, malware scanning, managed secrets and production infrastructure.
+
 ## Screenshots
 
 Suggested screenshots for a portfolio page:

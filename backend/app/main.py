@@ -12,6 +12,7 @@ from app.api.rag import router as rag_router
 from app.api.reports import router as reports_router
 from app.api.risk import router as risk_router
 from app.core.logging_config import configure_logging
+from app.core.config import settings
 from app.db.init_db import init_db
 
 configure_logging()
@@ -31,7 +32,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -4,6 +4,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.core.rate_limit import rate_limit_by_ip
 from app.models import Customer, RiskPrediction
 from app.schemas import (
     CustomerRiskAnalysisResponse,
@@ -72,6 +73,7 @@ def predict_risk(
 @router.post("/analyze-customer", response_model=CustomerRiskAnalysisResponse)
 def analyze_customer(
     payload: RiskPredictionRequest,
+    _: None = Depends(rate_limit_by_ip),
     db: Session = Depends(get_db),
 ) -> CustomerRiskAnalysisResponse:
     customer = _get_customer_or_404(db, payload.customer_id)

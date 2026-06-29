@@ -6,6 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.rate_limit import rate_limit_by_ip
 from app.db.session import get_db
 from app.models import Document
 from app.schemas import DocumentProcessResponse, DocumentRead, DocumentUploadResponse
@@ -34,7 +35,7 @@ def _get_document_type(filename: str | None) -> str:
     if document_type is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Unsupported file type. Only PDF and CSV files are accepted.",
+            detail="Unsupported file type. Only .pdf and .csv files are accepted.",
         )
 
     return document_type
@@ -47,13 +48,18 @@ def _get_document_type(filename: str | None) -> str:
 )
 def upload_document(
     file: UploadFile = File(...),
+    _: None = Depends(rate_limit_by_ip),
     db: Session = Depends(get_db),
 ) -> DocumentUploadResponse:
     document_type = _get_document_type(file.filename)
     stored_path: Path | None = None
 
     try:
-        stored_path, _ = save_upload_file(file, Path(settings.raw_data_dir))
+        stored_path, _ = save_upload_file(
+            file,
+            Path(settings.raw_data_dir),
+            max_size_bytes=settings.max_upload_size_bytes,
+        )
         document = Document(
             filename=file.filename or stored_path.name,
             document_type=document_type,
