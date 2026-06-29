@@ -151,6 +151,14 @@ The Streamlit interface is organized as a recruiter-ready product shell with sev
 
 Reusable UI components live in `frontend/components.py`, and API calls are centralized in `frontend/api_client.py`. The interface uses KPI cards, risk badges, status badges, empty states and technical detail expanders so business users are not exposed to raw JSON by default.
 
+Recommended final UI demo order:
+
+1. Executive Overview
+2. Client Risk
+3. AI Assistant
+
+These three pages show the business value first: risk prioritization, one-customer analysis and controlled agent routing.
+
 See [docs/ui-guide.md](docs/ui-guide.md) for the UI structure, colors, components and recommended demo flow.
 
 ## Demo Mode

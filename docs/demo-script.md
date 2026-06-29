@@ -20,19 +20,19 @@ powershell -ExecutionPolicy Bypass -File scripts/dev/demo-seed.ps1
 
 ## 2-Minute Demo
 
-1. Show Streamlit dashboard.
+1. Show Executive Overview.
 Say: "This is AI RiskOps Copilot, a local AI product for customer risk operations."
 
-2. Show priority customers.
+2. Show KPI cards and Top Priority Customers.
 Say: "The system combines structured customer data and a churn model to prioritize accounts."
 
-3. Show FastAPI docs.
-Say: "The backend exposes clear APIs for documents, RAG, risk, reports, agents and monitoring."
+3. Show Today's Action Plan.
+Say: "The interface turns risk scores into concrete business actions."
 
-4. Show the monitoring report.
-Say: "The demo also includes MLOps and LLMOps: data quality reports and traces."
+4. Open Client Risk and analyze `CUST-001`.
+Say: "A manager can inspect one customer, see the risk drivers and review the recommended next step."
 
-5. Show `/agent/analyze`.
+5. Open AI Assistant and ask: `Which customers are high risk this week?`
 Say: "The agent is controlled. It routes the question to the right business tool instead of improvising."
 
 ## 5-Minute Demo
@@ -43,30 +43,35 @@ Say: "Risk signals live across customer exports, documents and support history."
 2. Show architecture image or Mermaid.
 Say: "The stack uses Streamlit, FastAPI, PostgreSQL, pgvector, XGBoost, LangGraph, Airflow, dbt and monitoring."
 
-3. Show customer import and risk endpoints in Swagger.
-Say: "The system can ingest customer data and score churn risk."
+3. Show Executive Overview.
+Say: "The main page is designed for managers: KPIs, priority customers, weekly summary and action plan."
 
-4. Show `CUST-001` analysis.
+4. Show Client Risk and analyze `CUST-001`.
 Say: "The model output is converted into a business risk score, reasons and recommended actions."
 
-5. Show weekly report.
-Say: "Managers get a weekly operational view, not only raw predictions."
+5. Show Customer Risk History.
+Say: "Each analysis can be persisted, so the team can follow how risk evolves."
 
-6. Show RAG endpoints.
+6. Show AI Assistant.
+Say: "The agent routes questions to known tools: priority customers, weekly report, customer analysis or RAG."
+
+7. Show RAG endpoints.
 Say: "Documents can be uploaded, chunked, embedded and queried with source traceability."
 
-7. Show Airflow.
+8. Show Airflow.
 Say: "The pipeline can be scheduled and repeated."
 
-8. Show monitoring.
+9. Show monitoring.
 Say: "The project includes readiness checks, ML monitoring reports and LLM traces."
 
-9. Close with limits.
+10. Close with limits.
 Say: "This is a local portfolio release. Next steps would be AWS deployment, auth and stronger evaluation."
 
 ## Screens To Show
 
-- Streamlit dashboard
+- Streamlit Executive Overview
+- Streamlit Client Risk
+- Streamlit AI Assistant
 - FastAPI `/docs`
 - `/health` and `/ready`
 - `/risk/priority-customers`
@@ -86,6 +91,15 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 - `POST /agent/analyze`
 - `GET /monitoring/llm/summary`
 - `GET /monitoring/ml/report?format=html`
+
+## Final UI Demo Order
+
+1. Executive Overview
+2. Client Risk
+3. AI Assistant
+4. Documents and RAG
+5. Data Pipeline
+6. Monitoring
 
 ## Errors To Avoid
 

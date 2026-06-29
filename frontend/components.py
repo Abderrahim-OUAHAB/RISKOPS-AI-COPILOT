@@ -135,6 +135,76 @@ def inject_global_css() -> None:
             padding: 1rem;
         }
 
+        .riskops-insight-box {
+            background: #FFFFFF;
+            border: 1px solid var(--riskops-border);
+            border-left: 4px solid var(--riskops-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .riskops-insight-title {
+            color: var(--riskops-text);
+            font-size: 0.98rem;
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+        }
+
+        .riskops-insight-body {
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .riskops-customer-card {
+            background: #FFFFFF;
+            border: 1px solid var(--riskops-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .riskops-customer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .riskops-customer-name {
+            color: var(--riskops-text);
+            font-weight: 800;
+            font-size: 1.05rem;
+        }
+
+        .riskops-customer-meta {
+            color: #6B7280;
+            font-size: 0.85rem;
+            margin-top: 0.12rem;
+        }
+
+        .riskops-checklist {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .riskops-checklist li {
+            background: #FFFFFF;
+            border: 1px solid var(--riskops-border);
+            border-radius: 8px;
+            margin-bottom: 0.55rem;
+            padding: 0.75rem 0.85rem;
+        }
+
+        .riskops-check {
+            color: #2563EB;
+            font-weight: 900;
+            margin-right: 0.45rem;
+        }
+
         .riskops-empty {
             background: #F9FAFB;
             border: 1px dashed #D1D5DB;

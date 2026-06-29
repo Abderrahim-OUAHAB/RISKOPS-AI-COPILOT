@@ -71,6 +71,9 @@ API calls are centralized in `frontend/api_client.py`.
 - KPI cards summarize state before tables.
 - Risk badges use the official color palette.
 - RAG processing includes a cost reminder because embeddings use the OpenAI API.
+- Executive Overview is the main demo page.
+- Client Risk is focused on one customer analysis at a time.
+- AI Assistant shows controlled agent routing, not an uncontrolled chatbot.
 
 ## Managed Errors
 
@@ -88,12 +91,48 @@ Streamlit does not display Python stack traces for API failures.
 ## Recommended Demo Order
 
 1. Open Executive Overview.
-2. Import `data/sample/customers_sample.csv` in Client Risk.
-3. Analyze `CUST-001` and review the risk score and actions.
-4. Ask the AI Assistant: `Which customers are at risk this week?`
-5. Upload `data/sample/rag_demo_customer_risks.csv` in Documents and RAG.
-6. Process the document once.
-7. Ask: `Which customers are high risk and what actions are recommended?`
-8. Open Monitoring.
-9. Generate the ML monitoring report.
-10. Open the HTML report link.
+2. Explain the KPI cards: total customers, risk levels, recommended actions and system status.
+3. Show Top Priority Customers and the reason/action cards.
+4. Show Today's Action Plan to prove the system gives business actions, not only scores.
+5. Open Client Risk.
+6. Analyze `CUST-001` and review the score bar, reasons, recommended actions and prediction history.
+7. Open AI Assistant.
+8. Ask: `Which customers are high risk this week?`
+9. Ask: `What actions should I take today?`
+10. Keep Documents and RAG, Data Pipeline and Monitoring as supporting pages for the longer demo.
+
+## Business Pages
+
+### Executive Overview
+
+This is the landing page for a portfolio demo. It uses:
+
+- `GET /customers`
+- `GET /risk/priority-customers`
+- `GET /reports/weekly-risk`
+- `GET /health`
+- `GET /ready`
+
+It displays KPI cards, an executive summary, top priority customers, main risk drivers, Today's Action Plan and hidden technical details.
+
+### Client Risk
+
+This page supports one-customer analysis. The user can select an imported customer or enter a `customer_id` manually.
+
+It uses:
+
+- `GET /customers`
+- `POST /risk/analyze-customer`
+- `GET /risk/history?customer_id=...`
+
+The page displays a risk score bar, risk badge, churn probability, reasons, recommended actions, prediction id, prediction history and technical details.
+
+### AI Assistant
+
+This page wraps the controlled LangGraph agent in a business interface.
+
+It uses:
+
+- `POST /agent/analyze`
+
+The page includes quick questions, a question input, an answer card, selected tool badge, source preview, data summary and hidden technical details.
