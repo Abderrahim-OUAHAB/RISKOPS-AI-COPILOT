@@ -255,13 +255,13 @@ def risk_color(level: str | None) -> str:
     return RISK_COLORS.get(key, "#2563EB")
 
 
-def risk_badge(level: str | None) -> str:
-    label = html.escape(str(level or "unknown").title())
+def risk_badge(level: str | None, label: str | None = None) -> str:
+    label = html.escape(str(label or level or "unknown").title())
     color = risk_color(level)
     return f'<span class="riskops-badge" style="background:{color};">{label}</span>'
 
 
-def status_badge(status: str | None) -> str:
+def status_badge(status: str | None, label: str | None = None) -> str:
     key = str(status or "unknown").strip().lower()
     if key in {"ok", "ready", "healthy", "processed", "success", "online"}:
         color = "#16A34A"
@@ -271,7 +271,7 @@ def status_badge(status: str | None) -> str:
         color = "#DC2626"
     else:
         color = "#2563EB"
-    label = html.escape(str(status or "unknown").replace("_", " ").title())
+    label = html.escape(str(label or status or "unknown").replace("_", " ").title())
     return f'<span class="riskops-badge" style="background:{color};">{label}</span>'
 
 
@@ -319,7 +319,12 @@ def render_warning(message: str) -> None:
     st.warning(message, icon=None)
 
 
-def render_risk_score(score: int | float | None, level: str | None) -> None:
+def render_risk_score(
+    score: int | float | None,
+    level: str | None,
+    label: str = "Risk score",
+    badge_label: str | None = None,
+) -> None:
     numeric_score = int(score or 0)
     numeric_score = max(0, min(100, numeric_score))
     color = risk_color(level)
@@ -327,8 +332,8 @@ def render_risk_score(score: int | float | None, level: str | None) -> None:
         f"""
         <div class="riskops-soft-box">
             <div class="riskops-score-label">
-                <span>Risk score</span>
-                <span>{numeric_score}/100 {risk_badge(level)}</span>
+                <span>{html.escape(label)}</span>
+                <span>{numeric_score}/100 {risk_badge(level, badge_label)}</span>
             </div>
             <div class="riskops-score-track">
                 <div class="riskops-score-fill" style="width:{numeric_score}%;background:{color};"></div>
@@ -339,9 +344,12 @@ def render_risk_score(score: int | float | None, level: str | None) -> None:
     )
 
 
-def format_list_items(items: list[str] | tuple[str, ...] | None) -> str:
+def format_list_items(
+    items: list[str] | tuple[str, ...] | None,
+    empty_message: str = "No items available.",
+) -> str:
     if not items:
-        return "<p>No items available.</p>"
+        return f"<p>{html.escape(empty_message)}</p>"
     list_items = "".join(f"<li>{html.escape(str(item))}</li>" for item in items)
     return f'<ul class="riskops-list">{list_items}</ul>'
 
