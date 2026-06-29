@@ -139,7 +139,7 @@ Docker build note:
 
 ## Final Product UI
 
-The Streamlit interface is organized as a recruiter-ready product shell with seven pages:
+The Streamlit interface is finalized as `v1.1.0-ui-final`, a recruiter-ready product shell with seven pages:
 
 - Executive Overview
 - Client Risk
@@ -151,13 +151,42 @@ The Streamlit interface is organized as a recruiter-ready product shell with sev
 
 Reusable UI components live in `frontend/components.py`, and API calls are centralized in `frontend/api_client.py`. The interface uses KPI cards, risk badges, status badges, empty states and technical detail expanders so business users are not exposed to raw JSON by default.
 
+Risk colors:
+
+- High risk: red `#DC2626`
+- Medium risk: orange `#F59E0B`
+- Low risk and healthy: green `#16A34A`
+- Primary actions: blue `#2563EB`
+
 Recommended final UI demo order:
 
 1. Executive Overview
 2. Client Risk
 3. AI Assistant
+4. Documents and RAG
+5. Data Pipeline
+6. Monitoring
+7. About Project
 
-These three pages show the business value first: risk prioritization, one-customer analysis and controlled agent routing.
+The first three pages show the business value first: risk prioritization, one-customer analysis and controlled agent routing. The remaining pages show document intelligence, data engineering, observability and project positioning.
+
+Screenshots to add before publishing:
+
+- `docs/screenshots/screenshot-executive-overview.png`
+- `docs/screenshots/screenshot-client-risk.png`
+- `docs/screenshots/screenshot-ai-assistant.png`
+- `docs/screenshots/screenshot-documents-rag.png`
+- `docs/screenshots/screenshot-data-pipeline.png`
+- `docs/screenshots/screenshot-monitoring.png`
+- `docs/screenshots/screenshot-airflow-dag.png`
+
+Deployment readiness:
+
+- The app runs locally with Docker Compose.
+- Health and readiness endpoints are available.
+- Secrets remain outside Git through `.env`.
+- Generated data, traces, reports and MLflow runs are ignored.
+- Next deployment step is cloud packaging with authentication and managed infrastructure.
 
 See [docs/ui-guide.md](docs/ui-guide.md) for the UI structure, colors, components and recommended demo flow.
 

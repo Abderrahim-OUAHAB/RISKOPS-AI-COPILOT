@@ -2,7 +2,7 @@
 
 ## Objective
 
-The Streamlit interface is the product shell for AI RiskOps Copilot. It is designed for a manager or recruiter who needs to understand the system quickly without reading API payloads.
+The Streamlit interface is the final product shell for AI RiskOps Copilot `v1.1.0-ui-final`. It is designed for a manager or recruiter who needs to understand the system quickly without reading API payloads.
 
 The UI focuses on:
 
@@ -25,6 +25,15 @@ The sidebar exposes seven pages:
 - About Project
 
 The active page is selected through the sidebar navigation. Each page keeps one clear job and avoids long technical text.
+
+The sidebar also shows:
+
+- Local Docker Environment
+- API status
+- FastAPI Docs link
+- Streamlit link
+- Airflow link
+- ML Report link
 
 ## Colors
 
@@ -136,3 +145,77 @@ It uses:
 - `POST /agent/analyze`
 
 The page includes quick questions, a question input, an answer card, selected tool badge, source preview, data summary and hidden technical details.
+
+### Documents and RAG
+
+This page supports document intelligence for PDF and CSV files.
+
+It uses:
+
+- `GET /documents`
+- `POST /documents/upload`
+- `POST /documents/{document_id}/process`
+- `POST /rag/ask`
+
+It displays upload controls, document status, processing action, RAG answer card, source expanders and hidden technical details.
+
+If OpenAI is not configured, the user-facing message is:
+
+`RAG requires OPENAI_API_KEY for embeddings and generation.`
+
+### Data Pipeline
+
+This page explains the data engineering layer.
+
+It shows:
+
+- Airflow URL
+- DAG name: `riskops_daily_pipeline`
+- backend health
+- weekly report summary
+- pipeline tasks
+- data flow from CSV to weekly risk report
+
+Pipeline flow:
+
+`Customers CSV -> PostgreSQL -> dbt transformations -> XGBoost training -> Weekly risk report`
+
+### Monitoring
+
+This page shows operational status.
+
+It uses:
+
+- `GET /health`
+- `GET /ready`
+- `GET /monitoring/llm/summary`
+- `GET /monitoring/llm/traces`
+- `POST /monitoring/ml/generate-report`
+- `GET /monitoring/ml/report`
+
+It displays API health, readiness, LLM trace summary, ML report status, recent traces, report generation and hidden technical details.
+
+### About Project
+
+This page is an interview aid. It summarizes:
+
+- Business Problem
+- Solution
+- Architecture Summary
+- Main Features
+- Technology Stack
+- What This Project Demonstrates
+- Current Limitations
+- Next Improvements
+
+## Screenshots
+
+Add real screenshots under `docs/screenshots/` before publishing:
+
+- `screenshot-executive-overview.png`
+- `screenshot-client-risk.png`
+- `screenshot-ai-assistant.png`
+- `screenshot-documents-rag.png`
+- `screenshot-data-pipeline.png`
+- `screenshot-monitoring.png`
+- `screenshot-airflow-dag.png`

@@ -44,6 +44,17 @@ PAGES = [
     "Monitoring",
     "About Project",
 ]
+APP_VERSION = "v1.1.0-ui-final"
+OPENAI_RAG_MESSAGE = "RAG requires OPENAI_API_KEY for embeddings and generation."
+PIPELINE_TASKS = [
+    "health_check_api",
+    "import_sample_customers",
+    "run_dbt_models",
+    "run_dbt_tests",
+    "train_churn_model",
+    "generate_weekly_risk_report",
+    "pipeline_summary",
+]
 
 
 st.set_page_config(
@@ -69,7 +80,8 @@ def render_product_header() -> None:
 def render_sidebar() -> str:
     with st.sidebar:
         st.markdown("## AI RiskOps Copilot")
-        st.caption("Portfolio V1 interface")
+        st.caption("Local Docker Environment")
+        st.markdown(status_badge(APP_VERSION), unsafe_allow_html=True)
 
         page = st.radio("Navigation", PAGES, label_visibility="collapsed")
 
@@ -85,6 +97,7 @@ def render_sidebar() -> str:
         st.divider()
         st.markdown("### Useful links")
         st.link_button("FastAPI Docs", "http://localhost:8000/docs", use_container_width=True)
+        st.link_button("Streamlit App", "http://localhost:8501", use_container_width=True)
         st.link_button("Airflow", "http://localhost:8080", use_container_width=True)
         st.link_button(
             "ML Report",
@@ -92,6 +105,7 @@ def render_sidebar() -> str:
             use_container_width=True,
         )
         st.caption(f"API: {API_BASE_URL}")
+        st.caption(APP_VERSION)
 
     return page
 
@@ -297,6 +311,30 @@ def _render_history(history: list[dict]) -> None:
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 
+def _friendly_rag_error(error: str | None) -> str:
+    text = str(error or "")
+    lowered = text.lower()
+    if "openai" in lowered or "api key" in lowered or "embedding" in lowered or "generation" in lowered:
+        return OPENAI_RAG_MESSAGE
+    return text or "RAG request failed."
+
+
+def _document_status_color(status: str | None) -> str:
+    key = str(status or "").lower()
+    if key == "processed":
+        return "#16A34A"
+    if key in {"uploaded", "pending"}:
+        return "#F59E0B"
+    if "failed" in key or "error" in key:
+        return "#DC2626"
+    return "#2563EB"
+
+
+def _render_footer() -> None:
+    st.divider()
+    st.caption(f"AI RiskOps Copilot - {APP_VERSION} - Local Docker Environment")
+
+
 def render_executive_overview() -> None:
     section_header(
         "Executive Overview",
@@ -493,39 +531,61 @@ def render_client_risk() -> None:
 def render_documents_rag() -> None:
     section_header(
         "Documents and RAG",
-        "Upload PDF or CSV files, process them and ask focused questions with sources.",
+        "Upload a PDF or CSV, process it into searchable chunks, then ask questions with sources.",
+    )
+
+    if st.button("Refresh documents"):
+        st.rerun()
+
+    _render_insight(
+        "Demo tip",
+        "Use a small CSV or text-based PDF. Processing creates embeddings and needs an OpenAI API key.",
+        "#2563EB",
     )
 
     uploaded_files = st.file_uploader(
-        "Upload PDF or CSV files",
+        "Upload PDF or CSV document",
         type=["pdf", "csv"],
         accept_multiple_files=True,
     )
 
     if uploaded_files and st.button("Upload selected files", type="primary"):
         for uploaded_file in uploaded_files:
-            files = {
-                "file": (
-                    uploaded_file.name,
-                    uploaded_file.getvalue(),
-                    uploaded_file.type or "application/octet-stream",
-                )
-            }
-            result = safe_post("/documents/upload", files=files, timeout=30)
+            with st.spinner(f"Uploading {uploaded_file.name}..."):
+                files = {
+                    "file": (
+                        uploaded_file.name,
+                        uploaded_file.getvalue(),
+                        uploaded_file.type or "application/octet-stream",
+                    )
+                }
+                result = safe_post("/documents/upload", files=files, timeout=30)
             if result.ok:
                 render_success(f"{result.data.get('filename')} uploaded with document id {result.data.get('id')}.")
             else:
                 render_error(f"Upload failed for {uploaded_file.name}: {result.error}")
 
-    documents_result = get_documents()
+    with st.spinner("Loading documents..."):
+        documents_result = get_documents()
     if not documents_result.ok:
         render_warning(f"Document list unavailable: {documents_result.error}")
         return
 
     documents = documents_result.data or []
     if not documents:
-        render_empty_state("No documents uploaded yet.")
+        render_empty_state("No documents uploaded yet. Upload a PDF or CSV to enable document Q&A.")
         return
+
+    section_header("Document Library", "Uploaded documents and processing status.")
+    status_counts = {}
+    for document in documents:
+        status = str(document.get("status") or "unknown")
+        status_counts[status] = status_counts.get(status, 0) + 1
+
+    status_cols = st.columns(3)
+    status_cols[0].metric("Documents", len(documents))
+    status_cols[1].metric("Processed", status_counts.get("processed", 0))
+    status_cols[2].metric("Needs processing", len(documents) - status_counts.get("processed", 0))
 
     rows = [
         {
@@ -545,21 +605,39 @@ def render_documents_rag() -> None:
     }
     selected_label = st.selectbox("Document", list(options.keys()))
     selected_document_id = options[selected_label]
+    selected_document = next((doc for doc in documents if doc.get("id") == selected_document_id), {})
+    selected_status = selected_document.get("status")
+
+    st.markdown(
+        f"""
+        <div class="riskops-soft-box">
+            <div class="riskops-card-title">Selected document</div>
+            <div class="riskops-card-value">{html.escape(str(selected_document.get("filename") or selected_label))}</div>
+            <div class="riskops-card-subtitle">Status: {status_badge(selected_status)}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     col1, col2 = st.columns([1, 2])
     with col1:
         if st.button("Process selected document", use_container_width=True):
-            result = safe_post(f"/documents/{selected_document_id}/process", timeout=120)
+            with st.spinner("Processing document and creating embeddings..."):
+                result = safe_post(f"/documents/{selected_document_id}/process", timeout=120)
             if result.ok:
                 render_success(
                     f"Document {result.data.get('document_id')} processed: {result.data.get('chunks_created')} chunks created."
                 )
             else:
-                render_error(f"Processing failed: {result.error}")
+                render_error(f"Processing failed: {_friendly_rag_error(result.error)}")
 
     with col2:
-        st.caption("Processing creates embeddings. Use small demo files to control OpenAI API cost.")
+        if str(selected_status).lower() != "processed":
+            render_warning("This document is not processed yet. Process it before asking RAG questions.")
+        else:
+            render_success("Document is processed and ready for RAG questions.")
 
+    section_header("Ask a Question", "Ask only about the selected processed document.")
     with st.form("rag-question-form"):
         question = st.text_input(
             "Question",
@@ -574,18 +652,23 @@ def render_documents_rag() -> None:
             timeout=120,
         )
         if result.ok:
-            st.markdown("#### Answer")
-            st.write(result.data.get("answer"))
+            answer = result.data.get("answer") or "No answer returned."
+            st.markdown("#### RAG Answer")
+            _render_insight("Answer", answer, "#2563EB")
             sources = result.data.get("sources") or []
             if sources:
                 st.markdown("#### Sources")
-                for source in sources:
-                    with st.expander(
-                        f"Document {source.get('document_id')} - chunk {source.get('chunk_id')} - score {source.get('similarity_score')}"
-                    ):
+                for index, source in enumerate(sources, start=1):
+                    score = source.get("similarity_score")
+                    with st.expander(f"Source {index} - chunk {source.get('chunk_id')} - score {score}"):
                         st.write(source.get("content_preview"))
+            else:
+                render_empty_state("No sources returned. The document may not contain relevant passages.")
+
+            with st.expander("Technical details"):
+                safe_json_preview(result.data)
         else:
-            render_error(f"RAG request failed: {result.error}")
+            render_error(f"RAG request failed: {_friendly_rag_error(result.error)}")
 
 
 def render_ai_assistant() -> None:
@@ -670,58 +753,104 @@ def render_ai_assistant() -> None:
 def render_data_pipeline() -> None:
     section_header(
         "Data Pipeline",
-        "Local orchestration for API checks, customer ingestion, dbt models, ML training and reports.",
+        "Understand how customer data moves through ingestion, SQL transformations, ML training and reporting.",
     )
 
-    ready = get_ready()
-    weekly = get_weekly_report()
-    cols = st.columns(3)
+    if st.button("Refresh pipeline status"):
+        st.rerun()
+
+    with st.spinner("Checking pipeline-facing services..."):
+        health = get_health()
+        ready = get_ready()
+        weekly = get_weekly_report()
+
+    cols = st.columns(4)
     with cols[0]:
         metric_card("Backend", "Ready" if ready.ok else "Not ready", ready.error or "FastAPI readiness", risk_color("low" if ready.ok else "high"))
     with cols[1]:
-        metric_card("Airflow", "Local UI", "http://localhost:8080", "#2563EB")
+        metric_card("Airflow DAG", "riskops_daily_pipeline", "Local orchestration", "#2563EB")
     with cols[2]:
-        metric_card("dbt", "SQL models", "staging -> intermediate -> mart", "#2563EB")
+        metric_card("dbt", "SQL transforms", "staging -> intermediate -> mart", "#2563EB")
+    with cols[3]:
+        metric_card("Health", "Healthy" if health.ok else "Error", "Backend API check", risk_color("low" if health.ok else "high"))
 
-    st.markdown("#### Pipeline flow")
+    st.link_button("Open Airflow UI", "http://localhost:8080", use_container_width=False)
+
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        _render_insight(
+            "Airflow role",
+            "Airflow schedules and runs the daily workflow in the right order.",
+            "#2563EB",
+        )
+    with col2:
+        _render_insight(
+            "dbt role",
+            "dbt turns raw PostgreSQL tables into tested analytics tables for reporting.",
+            "#2563EB",
+        )
+
+    section_header("Pipeline Tasks", "DAG tasks prepared for the local data engineering workflow.")
+    task_cols = st.columns(2)
+    for index, task in enumerate(PIPELINE_TASKS):
+        with task_cols[index % 2]:
+            st.markdown(status_badge("ready") + f" {html.escape(task)}", unsafe_allow_html=True)
+
+    section_header("Data Flow", "Main data movement in the portfolio pipeline.")
     st.markdown(
         """
         <div class="riskops-soft-box">
-        API health check -> customer CSV import -> dbt models -> dbt tests -> churn model training -> weekly risk report -> pipeline summary.
+        <strong>Customers CSV</strong><br>
+        -> PostgreSQL<br>
+        -> dbt transformations<br>
+        -> XGBoost training<br>
+        -> Weekly risk report
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     if weekly.ok and weekly.data:
-        st.markdown("#### Latest business output")
+        section_header("Latest Weekly Risk Output", "Business result generated from the data pipeline.")
         report = weekly.data
         report_cols = st.columns(3)
         report_cols[0].metric("Total customers", report.get("total_customers"))
         report_cols[1].metric("High risk", report.get("high_risk_customers"))
         report_cols[2].metric("Medium risk", report.get("medium_risk_customers"))
-        st.write(report.get("executive_summary"))
+        _render_insight("Weekly report summary", report.get("executive_summary") or "Weekly report has no summary yet.", "#F59E0B")
     else:
         render_warning(f"Weekly report unavailable: {weekly.error}")
 
     with st.expander("Technical details"):
-        safe_json_preview({"ready": ready.data if ready.ok else ready.error, "weekly_report": weekly.data if weekly.ok else weekly.error})
+        safe_json_preview(
+            {
+                "health": health.data if health.ok else health.error,
+                "ready": ready.data if ready.ok else ready.error,
+                "weekly_report": weekly.data if weekly.ok else weekly.error,
+                "dag_name": "riskops_daily_pipeline",
+                "tasks": PIPELINE_TASKS,
+            }
+        )
 
 
 def render_monitoring() -> None:
     section_header(
         "Monitoring",
-        "Check health, readiness, ML report status and recent LLM/RAG traces.",
+        "Check application health, readiness, ML report status and recent LLM/RAG activity.",
     )
 
-    health = get_health()
-    ready = get_ready()
-    llm_summary = get_llm_summary()
-    ml_report = get_ml_report_status()
+    if st.button("Refresh monitoring"):
+        st.rerun()
+
+    with st.spinner("Loading monitoring signals..."):
+        health = get_health()
+        ready = get_ready()
+        llm_summary = get_llm_summary()
+        ml_report = get_ml_report_status()
 
     cols = st.columns(4)
     with cols[0]:
-        metric_card("Health", "Healthy" if health.ok else "Error", health.error or "API and database", risk_color("low" if health.ok else "high"))
+        metric_card("API Health", "Healthy" if health.ok else "Error", health.error or "API and database", risk_color("low" if health.ok else "high"))
     with cols[1]:
         metric_card("Readiness", "Ready" if ready.ok else "Not ready", ready.error or "Tables, model and folders", risk_color("low" if ready.ok else "high"))
     with cols[2]:
@@ -731,8 +860,22 @@ def render_monitoring() -> None:
         report_exists = ml_report.data.get("report_exists") if ml_report.ok and isinstance(ml_report.data, dict) else False
         metric_card("ML report", "Available" if report_exists else "Missing", "Data quality HTML", risk_color("low" if report_exists else "medium"))
 
+    status_col1, status_col2 = st.columns([1, 1])
+    with status_col1:
+        st.markdown("#### Service status")
+        st.markdown(status_badge("healthy" if health.ok else "error") + " API Health", unsafe_allow_html=True)
+        st.markdown(status_badge("ready" if ready.ok else "warning") + " Readiness", unsafe_allow_html=True)
+    with status_col2:
+        st.markdown("#### Report status")
+        if ml_report.ok and isinstance(ml_report.data, dict) and ml_report.data.get("report_exists"):
+            st.markdown(status_badge("healthy") + " ML monitoring report available", unsafe_allow_html=True)
+        else:
+            st.markdown(status_badge("warning") + " No ML monitoring report generated yet", unsafe_allow_html=True)
+            render_empty_state("No ML monitoring report yet. Generate one before a portfolio demo.")
+
     if st.button("Generate ML monitoring report", type="primary"):
-        result = safe_post("/monitoring/ml/generate-report", timeout=120)
+        with st.spinner("Generating ML monitoring report..."):
+            result = safe_post("/monitoring/ml/generate-report", timeout=120)
         if result.ok:
             render_success(result.data.get("summary", "ML monitoring report generated."))
         else:
@@ -743,7 +886,7 @@ def render_monitoring() -> None:
 
     traces = get_llm_traces(limit=10)
     if traces.ok and traces.data:
-        st.markdown("#### Recent LLM/RAG calls")
+        section_header("Recent LLM/RAG Calls", "Latest agent and RAG traces recorded locally.")
         trace_rows = [
             {
                 "Timestamp": trace.get("timestamp"),
@@ -757,7 +900,7 @@ def render_monitoring() -> None:
         ]
         st.dataframe(pd.DataFrame(trace_rows), use_container_width=True, hide_index=True)
     elif traces.ok:
-        render_empty_state("No LLM trace recorded yet.")
+        render_empty_state("No LLM trace recorded yet. Ask the AI Assistant or run a RAG question to create traces.")
     else:
         render_warning(f"LLM traces unavailable: {traces.error}")
 
@@ -767,6 +910,7 @@ def render_monitoring() -> None:
                 "health": health.data if health.ok else health.error,
                 "ready": ready.data if ready.ok else ready.error,
                 "llm_summary": llm_summary.data if llm_summary.ok else llm_summary.error,
+                "llm_traces": traces.data if traces.ok else traces.error,
                 "ml_report": ml_report.data if ml_report.ok else ml_report.error,
             }
         )
@@ -775,7 +919,7 @@ def render_monitoring() -> None:
 def render_about_project() -> None:
     section_header(
         "About Project",
-        "A portfolio V1 showing how AI, data and monitoring support customer risk operations.",
+        "A recruiter-ready summary of the business problem, architecture and engineering value.",
     )
 
     cols = st.columns(3)
@@ -786,33 +930,65 @@ def render_about_project() -> None:
     with cols[2]:
         metric_card("AI", "RAG + ML + Agent", "Documents, prediction and routing", "#2563EB")
 
-    st.markdown("#### What the demo shows")
-    st.markdown(
-        format_list_items(
-            [
-                "Managers can identify risky customers quickly.",
-                "Risk analysis combines ML signals and business rules.",
-                "Documents can be searched with RAG and sources.",
-                "The agent routes questions to controlled tools.",
-                "Monitoring tracks health, ML report status and LLM traces.",
-            ]
+    content = [
+        (
+            "Business Problem",
+            "Risk signals are scattered across CSV exports, contracts, support activity and unpaid invoices.",
+            "#DC2626",
         ),
-        unsafe_allow_html=True,
-    )
+        (
+            "Solution",
+            "AI RiskOps Copilot prioritizes risky customers, explains why they are risky and recommends actions.",
+            "#2563EB",
+        ),
+        (
+            "Architecture Summary",
+            "Streamlit calls FastAPI. FastAPI uses PostgreSQL, pgvector, XGBoost, RAG, LangGraph and monitoring services.",
+            "#2563EB",
+        ),
+        (
+            "Main Features",
+            "Customer import, risk scoring, weekly report, controlled AI agent, document RAG, Airflow/dbt pipeline and monitoring.",
+            "#16A34A",
+        ),
+        (
+            "Technology Stack",
+            "FastAPI, Streamlit, PostgreSQL, pgvector, SQLAlchemy, Pydantic, XGBoost, MLflow, LangGraph, Airflow, dbt and Docker.",
+            "#2563EB",
+        ),
+        (
+            "What This Project Demonstrates",
+            "Product thinking, backend APIs, data engineering, ML serving, RAG, controlled agents and MLOps/LLMOps basics.",
+            "#16A34A",
+        ),
+        (
+            "Current Limitations",
+            "Local portfolio release, no authentication, small demo dataset and no cloud infrastructure yet.",
+            "#F59E0B",
+        ),
+        (
+            "Next Improvements",
+            "AWS deployment, authentication, stronger RAG evaluation, alerting and richer production monitoring.",
+            "#2563EB",
+        ),
+    ]
 
-    st.markdown("#### Recommended demo order")
-    st.markdown(
-        format_list_items(
-            [
-                "Open Executive Overview.",
-                "Import sample customers in Client Risk.",
-                "Analyze one customer and review recommended actions.",
-                "Ask the AI Assistant for priority customers.",
-                "Upload and process the small RAG demo CSV.",
-                "Open Monitoring and generate the ML report.",
-            ]
-        ),
-        unsafe_allow_html=True,
+    for index in range(0, len(content), 2):
+        col1, col2 = st.columns(2)
+        for column, item in zip([col1, col2], content[index : index + 2]):
+            with column:
+                _render_insight(item[0], item[1], item[2])
+
+    section_header("Recommended Demo Order", "Lead with business value, then show engineering depth.")
+    _render_action_checklist(
+        [
+            "Executive Overview",
+            "Client Risk",
+            "AI Assistant",
+            "Documents and RAG",
+            "Data Pipeline",
+            "Monitoring",
+        ]
     )
 
 
@@ -834,6 +1010,8 @@ def main() -> None:
         render_monitoring()
     elif active_page == "About Project":
         render_about_project()
+
+    _render_footer()
 
 
 if __name__ == "__main__":

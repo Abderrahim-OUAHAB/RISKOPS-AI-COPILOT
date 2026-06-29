@@ -35,6 +35,9 @@ Say: "A manager can inspect one customer, see the risk drivers and review the re
 5. Open AI Assistant and ask: `Which customers are high risk this week?`
 Say: "The agent is controlled. It routes the question to the right business tool instead of improvising."
 
+Close with:
+"The rest of the app shows document RAG, Airflow/dbt data engineering and monitoring, so the project is more than a chatbot demo."
+
 ## 5-Minute Demo
 
 1. Start with the business problem.
@@ -55,16 +58,19 @@ Say: "Each analysis can be persisted, so the team can follow how risk evolves."
 6. Show AI Assistant.
 Say: "The agent routes questions to known tools: priority customers, weekly report, customer analysis or RAG."
 
-7. Show RAG endpoints.
-Say: "Documents can be uploaded, chunked, embedded and queried with source traceability."
+7. Show Documents and RAG.
+Say: "Documents can be uploaded, processed, embedded and queried with source traceability. The RAG path requires an OpenAI API key."
 
-8. Show Airflow.
-Say: "The pipeline can be scheduled and repeated."
+8. Show Data Pipeline.
+Say: "Airflow orchestrates the workflow. dbt transforms PostgreSQL data into analytics-ready tables."
 
-9. Show monitoring.
+9. Show Monitoring.
 Say: "The project includes readiness checks, ML monitoring reports and LLM traces."
 
-10. Close with limits.
+10. Show About Project.
+Say: "This page summarizes the business value, stack, limitations and next improvements for an interview."
+
+11. Close with limits.
 Say: "This is a local portfolio release. Next steps would be AWS deployment, auth and stronger evaluation."
 
 ## Screens To Show
@@ -100,6 +106,17 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 4. Documents and RAG
 5. Data Pipeline
 6. Monitoring
+7. About Project
+
+## Phrases To Say By Page
+
+- Executive Overview: "This is the manager view: KPIs, top risky customers and today's action plan."
+- Client Risk: "This page explains one customer's score, reasons and recommended actions."
+- AI Assistant: "The agent is controlled and routes questions to known tools."
+- Documents and RAG: "This page adds document intelligence with source traceability."
+- Data Pipeline: "Airflow orchestrates and dbt transforms the data."
+- Monitoring: "This page shows health, readiness, ML report status and LLM traces."
+- About Project: "This is the recruiter summary of what the project demonstrates."
 
 ## Errors To Avoid
 
