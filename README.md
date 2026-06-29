@@ -137,6 +137,22 @@ Docker build note:
 - A first uncached build can take several minutes because backend ML/RAG packages and Airflow/dbt packages are installed.
 - `.env` is optional for Docker Compose; secrets are not required for local CI validation.
 
+## Final Product UI
+
+The Streamlit interface is organized as a recruiter-ready product shell with seven pages:
+
+- Executive Overview
+- Client Risk
+- Documents and RAG
+- AI Assistant
+- Data Pipeline
+- Monitoring
+- About Project
+
+Reusable UI components live in `frontend/components.py`, and API calls are centralized in `frontend/api_client.py`. The interface uses KPI cards, risk badges, status badges, empty states and technical detail expanders so business users are not exposed to raw JSON by default.
+
+See [docs/ui-guide.md](docs/ui-guide.md) for the UI structure, colors, components and recommended demo flow.
+
 ## Demo Mode
 
 Prepare a complete local demo:

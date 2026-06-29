@@ -50,7 +50,7 @@ services:
     ports:
       - "8501:8501"
     volumes:
-      - ./frontend/app.py:/app/app.py
+      - ./frontend:/app
     depends_on:
       - backend
     healthcheck:
