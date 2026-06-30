@@ -1,5 +1,12 @@
 from app.schemas.customer import CustomerCreate, CustomerImportResponse, CustomerRead
 from app.schemas.agent import AgentAnalyzeRequest, AgentAnalyzeResponse
+from app.schemas.action import (
+    ActionBoardResponse,
+    ActionBoardSummary,
+    ActionItemCreate,
+    ActionItemResponse,
+    ActionItemUpdate,
+)
 from app.schemas.document import (
     DocumentChunkRead,
     DocumentCreate,
@@ -30,6 +37,11 @@ __all__ = [
     "CustomerRead",
     "AgentAnalyzeRequest",
     "AgentAnalyzeResponse",
+    "ActionBoardResponse",
+    "ActionBoardSummary",
+    "ActionItemCreate",
+    "ActionItemResponse",
+    "ActionItemUpdate",
     "DocumentChunkRead",
     "DocumentCreate",
     "DocumentProcessResponse",

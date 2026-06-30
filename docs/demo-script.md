@@ -32,7 +32,13 @@ Say: "The interface turns risk scores and document evidence into concrete busine
 4. Open Client Risk and analyze `CUST-001`.
 Say: "A manager can inspect one customer, see the risk drivers, document evidence, owner and recommended next step."
 
-5. Open AI Assistant and ask: `Which customers are high risk this week?`
+5. Open Action Board.
+Say: "The recommended actions are now tracked with status, owner, due date and evidence count."
+
+6. Click `Sync Recommended Actions`, filter the board and complete one action.
+Say: "This turns recommendations into an operational workflow."
+
+7. Open AI Assistant and ask: `Which customers are high risk this week?`
 Say: "The agent is controlled. It routes the question to the right business tool instead of improvising."
 
 Close with:
@@ -55,19 +61,22 @@ Say: "The model output is converted into a business risk score, reasons, documen
 5. Show Client 360 and Customer Risk History.
 Say: "The Client 360 section brings customer profile, risk explanation, document evidence, actions and history into one view."
 
-6. Show AI Assistant.
+6. Show Action Board.
+Say: "The team can sync recommended actions, filter by owner/status/priority and mark work as completed."
+
+7. Show AI Assistant.
 Say: "The agent routes questions to known tools: priority customers, weekly report, customer analysis or RAG."
 
-7. Show Documents and RAG.
+8. Show Documents and RAG.
 Say: "Documents can be uploaded, processed, embedded and queried with source traceability. Document risk uses simple keyword extraction and does not require OpenAI."
 
-8. Show Data Pipeline.
+9. Show Data Pipeline.
 Say: "Airflow orchestrates the workflow. dbt transforms PostgreSQL data into analytics-ready tables."
 
-9. Show Monitoring.
+10. Show Monitoring.
 Say: "The project includes readiness checks, ML monitoring reports and LLM traces."
 
-10. Show About Project.
+11. Show About Project.
 Say: "This page summarizes the business value, stack, limitations and next improvements for an interview."
 
 11. Close with limits.
@@ -95,6 +104,11 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 - `GET /risk/document-risk/CUST-001`
 - `GET /risk/client-360/CUST-001`
 - `GET /risk/action-plan`
+- `GET /actions/plan`
+- `POST /actions/sync`
+- `GET /actions`
+- `GET /actions/board`
+- `POST /actions/{action_id}/complete`
 - `GET /risk/priority-customers`
 - `GET /reports/weekly-risk`
 - `POST /agent/analyze`
@@ -105,16 +119,18 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 
 1. Executive Overview
 2. Client Risk
-3. AI Assistant
+3. Action Board
 4. Documents and RAG
-5. Data Pipeline
-6. Monitoring
-7. About Project
+5. AI Assistant
+6. Data Pipeline
+7. Monitoring
+8. About Project
 
 ## Phrases To Say By Page
 
 - Executive Overview: "This is the manager view: KPIs, top risky customers and the action plan."
 - Client Risk: "This page explains one customer's score, document evidence, reasons and recommended actions."
+- Action Board: "This page turns recommendations into tracked work with owners and statuses."
 - AI Assistant: "The agent is controlled and routes questions to known tools."
 - Documents and RAG: "This page adds document intelligence with source traceability."
 - Data Pipeline: "Airflow orchestrates and dbt transforms the data."

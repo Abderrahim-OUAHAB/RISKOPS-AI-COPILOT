@@ -27,6 +27,7 @@ The project provides a local AI application with:
 - RAG over processed document chunks,
 - document risk extraction linked to customer ids,
 - Client 360 summaries and action plans,
+- persisted action workflow with owner, status and due date tracking,
 - XGBoost churn prediction with MLflow tracking,
 - a controlled LangGraph agent for routing questions,
 - Airflow and dbt pipelines,
@@ -73,6 +74,8 @@ Streamlit
 - Link processed documents to customers when a `customer_id` appears in the filename or extracted chunks.
 - Extract document risk signals such as unpaid invoices, support escalations, penalties, termination and legal risk.
 - Generate a Client 360 view and an operational action plan.
+- Persist recommended actions into an Action Board.
+- Track action status: open, in progress, completed and cancelled.
 - Import sample customer data from CSV.
 - Train a churn model.
 - Analyze customer risk.
@@ -99,6 +102,12 @@ Streamlit
 - `GET /risk/document-risk/{customer_id}`
 - `GET /risk/client-360/{customer_id}`
 - `GET /risk/action-plan`
+- `GET /actions/plan`
+- `POST /actions/sync`
+- `GET /actions`
+- `PATCH /actions/{action_id}`
+- `POST /actions/{action_id}/complete`
+- `GET /actions/board`
 - `GET /risk/priority-customers`
 - `GET /risk/history`
 - `GET /reports/weekly-risk`
@@ -171,13 +180,22 @@ Recommended final UI demo order:
 
 1. Executive Overview
 2. Client Risk
-3. AI Assistant
+3. Action Board
 4. Documents and RAG
-5. Data Pipeline
-6. Monitoring
-7. About Project
+5. AI Assistant
+6. Data Pipeline
+7. Monitoring
+8. About Project
 
-The first three pages show the business value first: risk prioritization, one-customer analysis, document-backed evidence and controlled agent routing. The remaining pages show document intelligence, data engineering, observability and project positioning.
+The first three pages show the business value first: risk prioritization, one-customer analysis, document-backed evidence and tracked ownership. The remaining pages show document intelligence, controlled agent routing, data engineering, observability and project positioning.
+
+Action workflow demo:
+
+1. Open Executive Overview and review the automatic action plan.
+2. Open Action Board.
+3. Click `Sync Recommended Actions`.
+4. Filter by owner, status or priority.
+5. Complete one action and verify the status changes to completed.
 
 Document risk demo:
 

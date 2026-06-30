@@ -2,7 +2,7 @@ from sqlalchemy import text
 
 from app.db.base import Base
 from app.db.session import engine
-from app.models import Customer, Document, DocumentChunk, RiskPrediction  # noqa: F401
+from app.models import ActionItem, Customer, Document, DocumentChunk, RiskPrediction  # noqa: F401
 
 
 def init_db() -> None:
@@ -85,6 +85,38 @@ def init_db() -> None:
                 """
                 CREATE INDEX IF NOT EXISTS ix_risk_predictions_created_at
                 ON risk_predictions (created_at)
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
+                CREATE INDEX IF NOT EXISTS ix_action_items_customer_id
+                ON action_items (customer_id)
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
+                CREATE INDEX IF NOT EXISTS ix_action_items_status
+                ON action_items (status)
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
+                CREATE INDEX IF NOT EXISTS ix_action_items_owner
+                ON action_items (owner)
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
+                CREATE INDEX IF NOT EXISTS ix_action_items_priority
+                ON action_items (priority)
                 """
             )
         )

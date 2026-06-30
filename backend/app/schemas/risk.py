@@ -106,6 +106,7 @@ class Client360Response(BaseModel):
     document_risk: dict[str, Any]
     linked_documents: list[dict[str, Any]] = Field(default_factory=list)
     recent_predictions: list[dict[str, Any]] = Field(default_factory=list)
+    tracked_actions: list[dict[str, Any]] = Field(default_factory=list)
     recommended_actions: list[str] = Field(default_factory=list)
     next_best_action: str
     owner: str

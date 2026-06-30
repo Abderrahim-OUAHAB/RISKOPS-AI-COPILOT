@@ -10,7 +10,7 @@ The UI focuses on:
 - recommended actions,
 - platform readiness,
 - controlled AI assistant usage,
-- document risk, Client 360, action plan, pipeline and monitoring access.
+- document risk, Client 360, persisted Action Board, pipeline and monitoring access.
 
 ## Final Navigation
 
@@ -18,6 +18,7 @@ The sidebar exposes seven pages:
 
 - Executive Overview
 - Client Risk
+- Action Board
 - Documents and RAG
 - AI Assistant
 - Data Pipeline
@@ -105,10 +106,11 @@ Streamlit does not display Python stack traces for API failures.
 4. Show Action Plan to prove the system gives business actions, not only scores.
 5. Open Client Risk.
 6. Analyze `CUST-001` and review the score bar, document risk, evidence, Client 360 summary, recommended actions and prediction history.
-7. Open AI Assistant.
-8. Ask: `Which customers are high risk this week?`
-9. Ask: `What actions should I take today?`
-10. Keep Documents and RAG, Data Pipeline and Monitoring as supporting pages for the longer demo.
+7. Open Action Board.
+8. Click `Sync Recommended Actions`, filter by owner/status/priority and complete one action.
+9. Open AI Assistant.
+10. Ask: `Which customers are high risk this week?`
+11. Keep Documents and RAG, Data Pipeline and Monitoring as supporting pages for the longer demo.
 
 ## Business Pages
 
@@ -141,6 +143,21 @@ The page displays a risk score bar, risk badge, churn probability, score breakdo
 ### Action Plan
 
 Executive Overview calls `GET /risk/action-plan` and displays the top 3 to 5 actions with customer, priority, action label, owner, due date and reason.
+
+### Action Board
+
+The Action Board persists recommended actions and supports workflow follow-up.
+
+It uses:
+
+- `GET /actions/plan`
+- `POST /actions/sync`
+- `GET /actions`
+- `PATCH /actions/{action_id}`
+- `POST /actions/{action_id}/complete`
+- `GET /actions/board`
+
+The page displays KPI cards for open, in progress, completed, overdue and high-priority actions. It also provides filters by owner, status and priority. Technical payloads remain hidden in an expander.
 
 ### Document Risk Demo
 

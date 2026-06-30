@@ -8,8 +8,11 @@ from api_client import (
     analyze_agent,
     analyze_customer_risk,
     ask_rag,
+    complete_action,
     explain_customer_risk,
     get_action_plan,
+    get_actions,
+    get_action_board,
     get_client_360,
     get_customers,
     get_document_risk,
@@ -23,6 +26,7 @@ from api_client import (
     get_risk_history,
     get_weekly_report,
     safe_post,
+    sync_recommended_actions,
 )
 from components import (
     format_list_items,
@@ -45,6 +49,7 @@ from translations import LANGUAGE_OPTIONS, translate
 PAGE_KEYS = [
     "executive_overview",
     "client_risk",
+    "action_board",
     "documents_rag",
     "ai_assistant",
     "data_pipeline",
@@ -497,6 +502,61 @@ def _render_action_plan_table(actions: list[dict[str, Any]]) -> None:
     st.markdown("\n".join(markdown))
 
 
+def _priority_label(priority: str | None) -> str:
+    key = str(priority or "").strip().lower()
+    if key == "high":
+        return t("high_priority")
+    if key == "medium":
+        return t("medium_priority")
+    if key == "low":
+        return t("low_priority")
+    return str(priority or "-")
+
+
+def _action_status_label(status: str | None) -> str:
+    key = str(status or "").strip().lower()
+    labels = {
+        "open": t("open_actions"),
+        "in_progress": t("in_progress"),
+        "completed": t("completed"),
+        "cancelled": t("cancelled"),
+    }
+    return labels.get(key, str(status or "-").replace("_", " ").title())
+
+
+def _render_tracked_actions(actions: list[dict[str, Any]], allow_complete: bool = False) -> None:
+    if not actions:
+        render_empty_state(t("no_tracked_actions"))
+        return
+
+    for action in actions:
+        col1, col2, col3, col4, col5, col6 = st.columns([1.2, 1, 2.2, 1.2, 1, 1])
+        with col1:
+            st.markdown(f"**{action.get('customer_name') or action.get('customer_id')}**")
+            st.caption(action.get("customer_id") or "")
+        with col2:
+            st.markdown(status_badge(action.get("priority"), _priority_label(action.get("priority"))), unsafe_allow_html=True)
+        with col3:
+            st.write(action.get("action_label") or "-")
+            st.caption(action.get("reason") or "")
+        with col4:
+            st.write(action.get("owner") or "-")
+        with col5:
+            st.write(action.get("due_date") or "-")
+            st.markdown(status_badge(action.get("status"), _action_status_label(action.get("status"))), unsafe_allow_html=True)
+        with col6:
+            st.write(action.get("evidence_count", 0))
+            if allow_complete and action.get("status") in {"open", "in_progress"}:
+                if st.button(t("complete_action"), key=f"complete-{action.get('action_id')}"):
+                    result = complete_action(action.get("action_id"))
+                    if result.ok:
+                        render_success(t("action_completed"))
+                        st.rerun()
+                    else:
+                        render_error(result.error or t("error"))
+        st.divider()
+
+
 def _render_priority_customer_cards(priority_rows: list[dict]) -> None:
     if not priority_rows:
         render_empty_state(t("no_priority_customers"))
@@ -813,6 +873,7 @@ def render_client_risk() -> None:
             if client_360_result.ok:
                 client_360 = client_360_result.data or {}
                 customer_profile = client_360.get("customer") or {}
+                tracked_actions = client_360.get("tracked_actions") or []
                 summary_text = (
                     f"{customer_profile.get('customer_id', selected_customer_id)} - "
                     f"{customer_profile.get('name') or _customer_name(selected_customer)} | "
@@ -820,6 +881,13 @@ def render_client_risk() -> None:
                     f"{t('document_risk_score')}: {document_risk.get('document_risk_score', 0)}/100"
                 )
                 _render_insight(t("client_360"), summary_text, "#2563EB")
+                st.markdown(f"#### {t('tracked_actions')}")
+                for status_key in ["open", "in_progress", "completed"]:
+                    status_actions = [
+                        action for action in tracked_actions if action.get("status") == status_key
+                    ]
+                    st.markdown(f"##### {_action_status_label(status_key)}")
+                    _render_tracked_actions(status_actions, allow_complete=False)
             else:
                 render_warning(client_360_result.error or t("system_not_ready"))
 
@@ -851,6 +919,86 @@ def render_client_risk() -> None:
 
     with st.expander(t("customer_records")):
         _risk_table(customers)
+
+
+def render_action_board() -> None:
+    section_header(t("page.action_board"), t("action_board_subtitle"))
+
+    sync_cols = st.columns([1, 3])
+    with sync_cols[0]:
+        if st.button(t("sync_recommended_actions"), use_container_width=True, type="primary"):
+            with st.spinner(t("syncing_actions")):
+                result = sync_recommended_actions(limit=10, language=current_language())
+            if result.ok:
+                render_success(t("actions_synced", count=len(result.data or [])))
+                st.rerun()
+            else:
+                render_error(t("action_sync_failed", error=result.error))
+
+    board = get_action_board(language=current_language(), limit=200)
+    all_actions_result = get_actions(limit=200)
+    all_actions = all_actions_result.data if all_actions_result.ok and all_actions_result.data else []
+    summary = (board.data or {}).get("summary", {}) if board.ok else {}
+
+    kpi_cols = st.columns(5)
+    with kpi_cols[0]:
+        metric_card(t("open_actions"), summary.get("open_actions", 0), t("tracked_actions"), "#2563EB")
+    with kpi_cols[1]:
+        metric_card(t("in_progress"), summary.get("in_progress", 0), t("tracked_actions"), "#F59E0B")
+    with kpi_cols[2]:
+        metric_card(t("completed"), summary.get("completed", 0), t("tracked_actions"), "#16A34A")
+    with kpi_cols[3]:
+        metric_card(t("overdue"), summary.get("overdue", 0), t("due_date"), "#DC2626")
+    with kpi_cols[4]:
+        metric_card(t("high_priority"), summary.get("high_priority", 0), t("priority"), "#DC2626")
+
+    owners = sorted({str(action.get("owner")) for action in all_actions if action.get("owner")})
+    filter_cols = st.columns(3)
+    status_options = ["", "open", "in_progress", "completed", "cancelled"]
+    priority_options = ["", "high", "medium", "low"]
+    with filter_cols[0]:
+        selected_status = st.selectbox(
+            t("filter_by_status"),
+            status_options,
+            format_func=lambda value: t("all") if value == "" else _action_status_label(value),
+        )
+    with filter_cols[1]:
+        selected_owner = st.selectbox(
+            t("filter_by_owner"),
+            [""] + owners,
+            format_func=lambda value: t("all") if value == "" else value,
+        )
+    with filter_cols[2]:
+        selected_priority = st.selectbox(
+            t("filter_by_priority"),
+            priority_options,
+            format_func=lambda value: t("all") if value == "" else _priority_label(value),
+        )
+
+    filtered = get_actions(
+        status=selected_status or None,
+        owner=selected_owner or None,
+        priority=selected_priority or None,
+        limit=200,
+    )
+
+    section_header(t("tracked_actions"), t("action_board_subtitle"))
+    if filtered.ok:
+        _render_tracked_actions(filtered.data or [], allow_complete=True)
+    else:
+        render_error(filtered.error or t("error"))
+
+    with st.expander(t("technical_details")):
+        safe_json_preview(
+            {
+                "board": board.data if board.ok else board.error,
+                "filters": {
+                    "status": selected_status,
+                    "owner": selected_owner,
+                    "priority": selected_priority,
+                },
+            }
+        )
 
 
 def render_documents_rag() -> None:
@@ -1318,6 +1466,8 @@ def main() -> None:
         render_executive_overview()
     elif active_page == "client_risk":
         render_client_risk()
+    elif active_page == "action_board":
+        render_action_board()
     elif active_page == "documents_rag":
         render_documents_rag()
     elif active_page == "ai_assistant":

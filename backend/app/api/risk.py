@@ -18,6 +18,7 @@ from app.schemas import (
     RiskPredictionRequest,
     RiskPredictionResponse,
 )
+from app.services.action_service import generate_action_plan, list_actions
 from app.services.document_intelligence_service import calculate_document_risk
 from app.services.model_service import (
     ModelNotTrainedError,
@@ -221,6 +222,7 @@ def client_360(
         document_risk=document_risk_result.__dict__,
         linked_documents=document_risk_result.linked_documents,
         recent_predictions=[_prediction_payload(prediction) for prediction in predictions],
+        tracked_actions=[_action_payload(action) for action in list_actions(db, customer_id=customer_id, limit=50)],
         recommended_actions=analysis.recommended_actions,
         next_best_action=analysis.next_best_action,
         owner=analysis.owner,
@@ -237,7 +239,7 @@ def action_plan(
     db: Session = Depends(get_db),
 ) -> ActionPlanResponse:
     try:
-        priority_rows = get_priority_customers(db, limit=limit)
+        return generate_action_plan(db=db, language=language, limit=limit)
     except ModelNotTrainedError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -248,36 +250,6 @@ def action_plan(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),
         ) from exc
-
-    actions = []
-    for index, row in enumerate(priority_rows, start=1):
-        document_risk_result = calculate_document_risk(
-            db=db,
-            customer_id=row.customer_id,
-            language=language,
-        )
-        actions.append(
-            {
-                "action_id": f"risk-action-{index}",
-                "customer_id": row.customer_id,
-                "customer_name": row.name,
-                "risk_level": row.risk_level,
-                "priority": _priority_from_level(row.risk_level),
-                "action_label": row.next_best_action or (row.recommended_actions[0] if row.recommended_actions else "Review customer"),
-                "reason": row.top_reasons[0] if row.top_reasons else "Risk score requires review.",
-                "owner": row.owner or "Customer Success Manager",
-                "due_date": row.due_date or "",
-                "evidence_count": len(document_risk_result.document_evidence),
-                "status": "open",
-            }
-        )
-
-    summary = (
-        f"{len(actions)} priority actions generated from customer risk and document evidence."
-        if not str(language).lower().startswith("fr")
-        else f"{len(actions)} actions prioritaires generees a partir du risque client et des preuves documentaires."
-    )
-    return ActionPlanResponse(summary=summary, actions=actions, language="fr" if str(language).lower().startswith("fr") else "en")
 
 
 @router.get("/priority-customers", response_model=list[PriorityCustomerRead])
@@ -390,6 +362,26 @@ def _prediction_payload(prediction: RiskPrediction) -> dict:
         "recommended_actions": prediction.recommended_actions,
         "model_version": prediction.model_version,
         "created_at": prediction.created_at,
+    }
+
+
+def _action_payload(action: object) -> dict:
+    return {
+        "action_id": getattr(action, "action_id", None),
+        "customer_id": getattr(action, "customer_id", None),
+        "customer_name": getattr(action, "customer_name", None),
+        "risk_level": getattr(action, "risk_level", None),
+        "priority": getattr(action, "priority", None),
+        "action_label": getattr(action, "action_label", None),
+        "reason": getattr(action, "reason", None),
+        "owner": getattr(action, "owner", None),
+        "due_date": getattr(action, "due_date", None),
+        "status": getattr(action, "status", None),
+        "evidence_count": getattr(action, "evidence_count", None),
+        "source": getattr(action, "source", None),
+        "created_at": getattr(action, "created_at", None),
+        "updated_at": getattr(action, "updated_at", None),
+        "completed_at": getattr(action, "completed_at", None),
     }
 
 

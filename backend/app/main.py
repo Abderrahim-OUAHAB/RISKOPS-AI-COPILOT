@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.agent import router as agent_router
+from app.api.actions import router as actions_router
 from app.api.customers import router as customers_router
 from app.api.documents import router as documents_router
 from app.api.health import router as health_router
@@ -45,4 +46,5 @@ app.include_router(customers_router)
 app.include_router(risk_router)
 app.include_router(reports_router)
 app.include_router(agent_router)
+app.include_router(actions_router)
 app.include_router(monitoring_router)

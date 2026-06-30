@@ -133,10 +133,63 @@ def get_client_360(customer_id: str, language: str = "en") -> ApiResult:
 
 def get_action_plan(limit: int = 5, language: str = "en") -> ApiResult:
     return safe_get(
-        "/risk/action-plan",
+        "/actions/plan",
         params={"limit": limit, "language": language},
         timeout=60,
     )
+
+
+def sync_recommended_actions(limit: int = 10, language: str = "en") -> ApiResult:
+    return safe_post(
+        f"/actions/sync?limit={limit}&language={language}",
+        json=None,
+        timeout=60,
+    )
+
+
+def get_actions(
+    status: str | None = None,
+    owner: str | None = None,
+    priority: str | None = None,
+    customer_id: str | None = None,
+    limit: int = 100,
+) -> ApiResult:
+    params = {
+        "status": status,
+        "owner": owner,
+        "priority": priority,
+        "customer_id": customer_id,
+        "limit": limit,
+    }
+    return safe_get(
+        "/actions",
+        params={key: value for key, value in params.items() if value},
+        timeout=30,
+    )
+
+
+def get_action_board(language: str = "en", limit: int = 100) -> ApiResult:
+    return safe_get(
+        "/actions/board",
+        params={"language": language, "limit": limit},
+        timeout=30,
+    )
+
+
+def update_action(action_id: str, payload: dict[str, Any]) -> ApiResult:
+    try:
+        response = requests.patch(
+            f"{API_BASE_URL}/actions/{action_id}",
+            json=payload,
+            timeout=30,
+        )
+        return _parse_response(response)
+    except requests.RequestException as exc:
+        return _friendly_error(exc)
+
+
+def complete_action(action_id: str) -> ApiResult:
+    return safe_post(f"/actions/{action_id}/complete", timeout=30)
 
 
 def get_weekly_report() -> ApiResult:
