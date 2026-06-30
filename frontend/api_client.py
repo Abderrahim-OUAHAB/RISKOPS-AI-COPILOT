@@ -111,6 +111,29 @@ def get_documents() -> ApiResult:
     return safe_get("/documents", timeout=10)
 
 
+def ask_rag(question: str, document_id: int | None = None, language: str = "en") -> ApiResult:
+    return safe_post(
+        "/rag/ask",
+        json={
+            "question": question,
+            "document_id": document_id,
+            "language": language,
+        },
+        timeout=120,
+    )
+
+
+def analyze_agent(question: str, language: str = "en") -> ApiResult:
+    return safe_post(
+        "/agent/analyze",
+        json={
+            "question": question,
+            "language": language,
+        },
+        timeout=60,
+    )
+
+
 def get_risk_history(customer_id: str, limit: int = 5) -> ApiResult:
     return safe_get("/risk/history", params={"customer_id": customer_id, "limit": limit}, timeout=10)
 

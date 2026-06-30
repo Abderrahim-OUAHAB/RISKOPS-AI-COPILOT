@@ -18,11 +18,23 @@ def analyze_question(
     _: None = Depends(rate_limit_by_ip),
     db: Session = Depends(get_db),
 ) -> AgentAnalyzeResponse:
-    with trace_llm_call(operation="agent", question=payload.question) as trace:
+    with trace_llm_call(
+        operation="agent",
+        question=payload.question,
+        language=payload.language,
+        response_type="agent_answer",
+    ) as trace:
         try:
-            result = analyze_with_agent(db=db, question=payload.question)
+            result = analyze_with_agent(
+                db=db,
+                question=payload.question,
+                language=payload.language,
+            )
             trace["selected_tool"] = result.get("selected_tool")
             trace["number_of_sources"] = len(result.get("sources", []))
+            trace["source_count"] = len(result.get("sources", []))
+            trace["confidence"] = result.get("confidence")
+            trace["language"] = result.get("language")
         except ModelNotTrainedError as exc:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

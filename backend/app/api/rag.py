@@ -23,6 +23,8 @@ def ask_rag_question(
         operation="rag",
         question=payload.question,
         document_id=payload.document_id,
+        language=payload.language,
+        response_type="rag_answer",
     ) as trace:
         if payload.document_id is not None and db.get(Document, payload.document_id) is None:
             raise HTTPException(
@@ -35,8 +37,13 @@ def ask_rag_question(
                 db=db,
                 question=payload.question,
                 document_id=payload.document_id,
+                language=payload.language,
+                response_mode=payload.response_mode,
             )
             trace["number_of_sources"] = len(result.sources)
+            trace["source_count"] = len(result.sources)
+            trace["confidence"] = result.confidence
+            trace["language"] = result.language
         except OpenAIConfigurationError as exc:
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -53,4 +60,12 @@ def ask_rag_question(
                 detail="Could not search document chunks.",
             ) from exc
 
-        return RAGAnswer(answer=result.answer, sources=result.sources)
+        return RAGAnswer(
+            answer=result.answer,
+            reasoning_summary=result.reasoning_summary,
+            confidence=result.confidence,
+            sources=result.sources,
+            actions=result.actions or [],
+            missing_information=result.missing_information or [],
+            response_mode=result.response_mode,
+        )

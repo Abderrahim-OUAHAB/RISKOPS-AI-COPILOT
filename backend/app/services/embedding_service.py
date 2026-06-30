@@ -45,18 +45,33 @@ def create_embeddings(texts: list[str]) -> list[list[float]]:
     return embeddings
 
 
-def generate_answer(question: str, context_chunks: list[str]) -> str:
+def generate_answer(question: str, context_chunks: list[str], language: str = "en") -> str:
     client = _get_client()
     context = "\n\n".join(context_chunks)
+    language = "fr" if str(language or "").lower().startswith("fr") else "en"
+    if language == "fr":
+        language_instruction = (
+            "Reponds en francais professionnel. Garde les noms techniques, noms de champs "
+            "et identifiants clients tels quels."
+        )
+    else:
+        language_instruction = (
+            "Answer in professional English. Keep technical names, field names and customer "
+            "identifiers unchanged."
+        )
     system_prompt = (
-        "You are AI RiskOps Copilot. Answer in French. "
-        "Use only the provided sources. If the sources are insufficient, say that "
-        "you do not know instead of inventing information."
+        "You are AI RiskOps Copilot, a careful risk intelligence assistant. "
+        f"{language_instruction} "
+        "Use only the provided sources. Cite source markers such as "
+        "[document_id=1, chunk_id=2] when using facts. Distinguish facts, risks and "
+        "recommended actions when relevant. If the sources are insufficient, say that "
+        "the information is unavailable instead of inventing information. Do not reveal "
+        "hidden chain-of-thought; provide only a concise business answer."
     )
     user_prompt = (
         f"Question:\n{question}\n\n"
         f"Sources:\n{context}\n\n"
-        "Answer with a concise business-risk summary grounded in the sources."
+        "Answer with a concise business-risk response grounded in the sources."
     )
 
     try:

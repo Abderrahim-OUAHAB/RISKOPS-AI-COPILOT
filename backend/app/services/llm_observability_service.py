@@ -20,6 +20,10 @@ def trace_llm_call(
     question: str,
     document_id: int | None = None,
     selected_tool: str | None = None,
+    language: str | None = None,
+    response_type: str | None = None,
+    confidence: float | None = None,
+    source_count: int | None = None,
 ) -> Iterator[dict[str, Any]]:
     started_at = time.perf_counter()
     trace: dict[str, Any] = {
@@ -28,10 +32,14 @@ def trace_llm_call(
         "question": question,
         "document_id": document_id,
         "selected_tool": selected_tool,
+        "language": language,
+        "response_type": response_type,
+        "confidence": confidence,
+        "source_count": source_count or 0,
         "latency_ms": None,
         "status": "success",
         "error": None,
-        "number_of_sources": 0,
+        "number_of_sources": source_count or 0,
         "estimated_cost": None,
     }
 
@@ -127,10 +135,13 @@ def send_langfuse_trace(trace: dict[str, Any]) -> None:
                 "status": trace.get("status"),
                 "selected_tool": trace.get("selected_tool"),
                 "number_of_sources": trace.get("number_of_sources"),
+                "confidence": trace.get("confidence"),
             },
             metadata={
                 "latency_ms": trace.get("latency_ms"),
                 "document_id": trace.get("document_id"),
+                "language": trace.get("language"),
+                "response_type": trace.get("response_type"),
                 "error": trace.get("error"),
             },
         )

@@ -5,6 +5,8 @@ import pandas as pd
 import streamlit as st
 
 from api_client import (
+    analyze_agent,
+    ask_rag,
     get_customers,
     get_documents,
     get_health,
@@ -338,6 +340,56 @@ def _render_action_checklist(actions: list[str]) -> None:
         for action in actions
     )
     st.markdown(f'<ul class="riskops-checklist">{items}</ul>', unsafe_allow_html=True)
+
+
+def _format_confidence(confidence: Any) -> str:
+    try:
+        return f"{float(confidence) * 100:.0f}%"
+    except (TypeError, ValueError):
+        return "0%"
+
+
+def _render_structured_response(data: dict[str, Any]) -> None:
+    confidence = data.get("confidence")
+    if confidence is not None:
+        metric_card(t("confidence"), _format_confidence(confidence), t("response_mode"), "#2563EB")
+
+    reasoning_summary = data.get("reasoning_summary")
+    if reasoning_summary:
+        _render_insight(t("reasoning_summary"), str(reasoning_summary), "#0F766E")
+
+    actions = data.get("actions") or []
+    if actions:
+        st.markdown(f"#### {t('actions')}")
+        _render_action_checklist([str(action) for action in actions])
+
+    missing_information = data.get("missing_information") or []
+    if missing_information:
+        st.markdown(f"#### {t('missing_information')}")
+        st.markdown(format_list_items([str(item) for item in missing_information], t("no_items")), unsafe_allow_html=True)
+
+
+def _render_sources(sources: list[dict[str, Any]]) -> None:
+    if not sources:
+        render_empty_state(t("no_sources"))
+        return
+
+    st.markdown(f"#### {t('sources')}")
+    for index, source in enumerate(sources, start=1):
+        score = source.get("similarity_score")
+        filename = source.get("document_name") or source.get("filename") or source.get("document_id")
+        chunk_label = source.get("chunk_index")
+        title = (
+            f"{index}. {filename} | chunk {chunk_label} | "
+            f"{t('similarity')}: {score}"
+        )
+        with st.expander(title):
+            st.caption(
+                f"{t('source_document')}: {filename} | "
+                f"{t('type')}: {source.get('document_type') or '-'} | "
+                f"chunk_id: {source.get('chunk_id')}"
+            )
+            st.write(source.get("content_preview") or source)
 
 
 def _render_priority_customer_cards(priority_rows: list[dict]) -> None:
@@ -754,24 +806,13 @@ def render_documents_rag() -> None:
         ask_submitted = st.form_submit_button(t("ask_copilot"))
 
     if ask_submitted:
-        result = safe_post(
-            "/rag/ask",
-            json={"question": question, "document_id": selected_document_id},
-            timeout=120,
-        )
+        result = ask_rag(question, selected_document_id, current_language())
         if result.ok:
             answer = result.data.get("answer") or t("no_answer_returned")
             st.markdown(f"#### {t('rag_answer')}")
             _render_insight(t("answer"), answer, "#2563EB")
-            sources = result.data.get("sources") or []
-            if sources:
-                st.markdown(f"#### {t('sources')}")
-                for index, source in enumerate(sources, start=1):
-                    score = source.get("similarity_score")
-                    with st.expander(t("source_label", index=index, chunk_id=source.get("chunk_id"), score=score)):
-                        st.write(source.get("content_preview"))
-            else:
-                render_empty_state(t("no_sources"))
+            _render_structured_response(result.data)
+            _render_sources(result.data.get("sources") or [])
 
             with st.expander(t("technical_details")):
                 safe_json_preview(result.data)
@@ -816,7 +857,7 @@ def render_ai_assistant() -> None:
             return
 
         with st.spinner(t("running_agent")):
-            result = safe_post("/agent/analyze", json={"question": question}, timeout=60)
+            result = analyze_agent(question, current_language())
 
         if result.ok:
             data = result.data or {}
@@ -832,13 +873,10 @@ def render_ai_assistant() -> None:
             )
             selected_tool = data.get("selected_tool") or "agent_tool"
             st.markdown(status_badge(selected_tool, str(selected_tool).replace("_", " ").title()), unsafe_allow_html=True)
-
+            _render_structured_response(data)
             sources = data.get("sources") or []
             if sources:
-                st.markdown(f"#### {t('sources')}")
-                for source in sources:
-                    with st.expander(f"{t('sources')} {source.get('chunk_id', '')}".strip()):
-                        st.write(source.get("content_preview") or source)
+                _render_sources(sources)
 
             summary_data = data.get("data") or {}
             if isinstance(summary_data, dict) and summary_data:
