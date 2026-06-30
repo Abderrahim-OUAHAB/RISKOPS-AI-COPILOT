@@ -1,4 +1,6 @@
-﻿# Demo Script
+# Demo Script
+
+Version: `v1.3.3-action-workflow`
 
 ## Preparation Before Recording
 
@@ -23,22 +25,19 @@ powershell -ExecutionPolicy Bypass -File scripts/dev/demo-seed.ps1
 1. Show Executive Overview.
 Say: "This is AI RiskOps Copilot, a local AI product for customer risk operations."
 
-2. Show KPI cards and Top Priority Customers.
-Say: "The system combines structured customer data and a churn model to prioritize accounts."
+2. Show KPI cards, Top Priority Customers and Action Plan.
+Say: "The system combines structured customer data, churn prediction and document evidence to prioritize accounts."
 
-3. Show Action Plan.
-Say: "The interface turns risk scores and document evidence into concrete business actions."
+3. Open Client Risk and analyze `CUST-001`.
+Say: "A manager can inspect one customer, see Risk Score v2, Document Risk evidence, Client 360, owner and recommended next step."
 
-4. Open Client Risk and analyze `CUST-001`.
-Say: "A manager can inspect one customer, see the risk drivers, document evidence, owner and recommended next step."
+4. Open Action Board.
+Say: "The recommended actions are tracked with status, owner, due date and evidence count."
 
-5. Open Action Board.
-Say: "The recommended actions are now tracked with status, owner, due date and evidence count."
-
-6. Click `Sync Recommended Actions`, filter the board and complete one action.
+5. Click `Sync Recommended Actions`, filter the board and complete one action.
 Say: "This turns recommendations into an operational workflow."
 
-7. Open AI Assistant and ask: `Which customers are high risk this week?`
+6. Open AI Assistant and ask: `Which customers are high risk this week?`
 Say: "The agent is controlled. It routes the question to the right business tool instead of improvising."
 
 Close with:
@@ -56,19 +55,19 @@ Say: "The stack uses Streamlit, FastAPI, PostgreSQL, pgvector, XGBoost, LangGrap
 Say: "The main page is designed for managers: KPIs, priority customers, weekly summary and action plan."
 
 4. Show Client Risk and analyze `CUST-001`.
-Say: "The model output is converted into a business risk score, reasons, document risk evidence and recommended actions."
+Say: "The model output is converted into a business risk score, reasons, Document Risk evidence and recommended actions."
 
 5. Show Client 360 and Customer Risk History.
-Say: "The Client 360 section brings customer profile, risk explanation, document evidence, actions and history into one view."
+Say: "The Client 360 section brings customer profile, risk explanation, document evidence, tracked actions and history into one view."
 
 6. Show Action Board.
 Say: "The team can sync recommended actions, filter by owner/status/priority and mark work as completed."
 
-7. Show AI Assistant.
-Say: "The agent routes questions to known tools: priority customers, weekly report, customer analysis or RAG."
+7. Show Documents and RAG.
+Say: "Documents can be uploaded, processed, embedded and queried with source traceability. Document Risk uses simple keyword extraction and does not require OpenAI."
 
-8. Show Documents and RAG.
-Say: "Documents can be uploaded, processed, embedded and queried with source traceability. Document risk uses simple keyword extraction and does not require OpenAI."
+8. Show AI Assistant.
+Say: "The agent routes questions to known tools: priority customers, weekly report, customer analysis or RAG."
 
 9. Show Data Pipeline.
 Say: "Airflow orchestrates the workflow. dbt transforms PostgreSQL data into analytics-ready tables."
@@ -79,21 +78,27 @@ Say: "The project includes readiness checks, ML monitoring reports and LLM trace
 11. Show About Project.
 Say: "This page summarizes the business value, stack, limitations and next improvements for an interview."
 
-11. Close with limits.
+12. Close with limits.
 Say: "This is a local portfolio release. Next steps would be AWS deployment, auth and stronger evaluation."
 
 ## Screens To Show
 
 - Streamlit Executive Overview
-- Streamlit Client Risk
+- Streamlit Client Risk with `CUST-001`
+- Streamlit Action Board
+- Streamlit Documents and RAG
 - Streamlit AI Assistant
+- Streamlit Data Pipeline
+- Streamlit Monitoring
 - FastAPI `/docs`
+- Airflow `riskops_daily_pipeline`
 - `/health` and `/ready`
 - `/risk/priority-customers`
+- `/risk/document-risk/CUST-001`
+- `/risk/client-360/CUST-001`
 - `/reports/weekly-risk`
 - `/agent/analyze`
 - ML monitoring HTML report
-- Airflow DAG page
 
 ## Endpoints To Show
 
@@ -131,8 +136,8 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 - Executive Overview: "This is the manager view: KPIs, top risky customers and the action plan."
 - Client Risk: "This page explains one customer's score, document evidence, reasons and recommended actions."
 - Action Board: "This page turns recommendations into tracked work with owners and statuses."
-- AI Assistant: "The agent is controlled and routes questions to known tools."
 - Documents and RAG: "This page adds document intelligence with source traceability."
+- AI Assistant: "The agent is controlled and routes questions to known tools."
 - Data Pipeline: "Airflow orchestrates and dbt transforms the data."
 - Monitoring: "This page shows health, readiness, ML report status and LLM traces."
 - About Project: "This is the recruiter summary of what the project demonstrates."

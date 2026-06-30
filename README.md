@@ -157,10 +157,11 @@ Docker build note:
 
 ## Final Product UI
 
-The Streamlit interface is finalized as `v1.1.0-ui-final`, a recruiter-ready product shell with seven pages:
+The Streamlit interface is finalized for `v1.3.3-action-workflow`, a recruiter-ready product shell with eight pages:
 
 - Executive Overview
 - Client Risk
+- Action Board
 - Documents and RAG
 - AI Assistant
 - Data Pipeline
@@ -176,7 +177,9 @@ Risk colors:
 - Low risk and healthy: green `#16A34A`
 - Primary actions: blue `#2563EB`
 
-Recommended final UI demo order:
+## Recommended Demo Flow
+
+This version demonstrates an end-to-end AI RiskOps workflow from data ingestion and document intelligence to explainable risk scoring and tracked business actions.
 
 1. Executive Overview
 2. Client Risk
@@ -188,6 +191,44 @@ Recommended final UI demo order:
 8. About Project
 
 The first three pages show the business value first: risk prioritization, one-customer analysis, document-backed evidence and tracked ownership. The remaining pages show document intelligence, controlled agent routing, data engineering, observability and project positioning.
+
+## Product Screenshots
+
+### Executive Overview
+
+![Executive Overview](docs/screenshots/screenshot-executive-overview.png)
+
+### Client Risk
+
+![Client Risk](docs/screenshots/screenshot-client-risk.png)
+
+### Action Board
+
+![Action Board](docs/screenshots/screenshot-action-board.png)
+
+### AI Assistant
+
+![AI Assistant](docs/screenshots/screenshot-ai-assistant.png)
+
+### Documents and RAG
+
+![Documents and RAG](docs/screenshots/screenshot-documents-rag.png)
+
+### Data Pipeline
+
+![Data Pipeline](docs/screenshots/screenshot-data-pipeline.png)
+
+### Monitoring
+
+![Monitoring](docs/screenshots/screenshot-monitoring.png)
+
+### Airflow DAG
+
+![Airflow DAG](docs/screenshots/screenshot-airflow-dag.png)
+
+### FastAPI Docs
+
+![FastAPI Docs](docs/screenshots/screenshot-fastapi-docs.png)
 
 Action workflow demo:
 
@@ -204,16 +245,6 @@ Upload and process a small CSV or PDF containing a sentence such as:
 `Customer CUST-001 has two unpaid invoices, repeated support escalations and a contract penalty for late payment.`
 
 After processing, `/risk/document-risk/CUST-001` links the document to the customer, extracts signals, returns evidence previews and feeds the document component of Risk Score v2.
-
-Screenshots to add before publishing:
-
-- `docs/screenshots/screenshot-executive-overview.png`
-- `docs/screenshots/screenshot-client-risk.png`
-- `docs/screenshots/screenshot-ai-assistant.png`
-- `docs/screenshots/screenshot-documents-rag.png`
-- `docs/screenshots/screenshot-data-pipeline.png`
-- `docs/screenshots/screenshot-monitoring.png`
-- `docs/screenshots/screenshot-airflow-dag.png`
 
 Deployment readiness:
 
@@ -262,18 +293,6 @@ This release includes lightweight safeguards for local portfolio demos:
 - Secrets stay outside Git through `.env`; only `.env.example` is committed.
 
 This is still a portfolio/demo system. It is not enterprise-ready without authentication, authorization, audit logging, malware scanning, managed secrets and production infrastructure.
-
-## Screenshots
-
-Suggested screenshots for a portfolio page:
-
-- `docs/screenshots/streamlit-dashboard.png`
-- `docs/screenshots/fastapi-docs.png`
-- `docs/screenshots/airflow-dag.png`
-- `docs/screenshots/ml-monitoring-report.png`
-- `docs/screenshots/llm-traces.png`
-
-The screenshot directory is intentionally not required for the app to run.
 
 ## Data Pipeline
 
