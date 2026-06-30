@@ -10,6 +10,7 @@ from app.schemas import (
     CustomerRiskAnalysisResponse,
     CustomerRiskRead,
     PriorityCustomerRead,
+    RiskExplanationResponse,
     RiskHistoryRead,
     RiskPredictionRequest,
     RiskPredictionResponse,
@@ -41,7 +42,11 @@ def predict_risk(
         )
 
     try:
-        analysis = analyze_customer_risk(db=db, customer=customer)
+        analysis = analyze_customer_risk(
+            db=db,
+            customer=customer,
+            language=payload.language,
+        )
     except ModelNotTrainedError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -67,6 +72,14 @@ def predict_risk(
         reasons=analysis.reasons,
         recommended_actions=analysis.recommended_actions,
         prediction_id=analysis.prediction_id,
+        confidence=analysis.confidence,
+        score_breakdown=analysis.score_breakdown,
+        weighted_score_breakdown=analysis.weighted_score_breakdown,
+        business_impact=analysis.business_impact,
+        next_best_action=analysis.next_best_action,
+        owner=analysis.owner,
+        due_date=analysis.due_date,
+        language=analysis.language,
     )
 
 
@@ -79,7 +92,11 @@ def analyze_customer(
     customer = _get_customer_or_404(db, payload.customer_id)
 
     try:
-        analysis = analyze_customer_risk(db=db, customer=customer)
+        analysis = analyze_customer_risk(
+            db=db,
+            customer=customer,
+            language=payload.language,
+        )
     except ModelNotTrainedError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -98,6 +115,41 @@ def analyze_customer(
         ) from exc
 
     return CustomerRiskAnalysisResponse(**analysis.__dict__)
+
+
+@router.get("/explain/{customer_id}", response_model=RiskExplanationResponse)
+def explain_customer_risk(
+    customer_id: str,
+    language: str = Query(default="en"),
+    _: None = Depends(rate_limit_by_ip),
+    db: Session = Depends(get_db),
+) -> RiskExplanationResponse:
+    customer = _get_customer_or_404(db, customer_id)
+
+    try:
+        analysis = analyze_customer_risk(
+            db=db,
+            customer=customer,
+            language=language,
+        )
+    except ModelNotTrainedError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(exc),
+        ) from exc
+    except ModelPredictionError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        ) from exc
+    except SQLAlchemyError as exc:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Could not explain the customer risk.",
+        ) from exc
+
+    return RiskExplanationResponse(**analysis.__dict__)
 
 
 @router.get("/priority-customers", response_model=list[PriorityCustomerRead])

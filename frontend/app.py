@@ -6,7 +6,9 @@ import streamlit as st
 
 from api_client import (
     analyze_agent,
+    analyze_customer_risk,
     ask_rag,
+    explain_customer_risk,
     get_customers,
     get_documents,
     get_health,
@@ -392,6 +394,37 @@ def _render_sources(sources: list[dict[str, Any]]) -> None:
             st.write(source.get("content_preview") or source)
 
 
+def _breakdown_label(key: str) -> str:
+    labels = {
+        "ml": t("ml_risk"),
+        "payment": t("payment_risk"),
+        "support": t("support_risk"),
+        "contract": t("contract_risk"),
+        "document": t("document_risk"),
+        "trend": t("trend_risk"),
+        "recency": t("recency_weighting"),
+    }
+    return labels.get(key, key.replace("_", " ").title())
+
+
+def _render_score_breakdown(analysis: dict[str, Any]) -> None:
+    breakdown = analysis.get("score_breakdown") or {}
+    weighted = analysis.get("weighted_score_breakdown") or {}
+    if not breakdown:
+        render_empty_state(t("no_items"))
+        return
+
+    rows = [
+        {
+            t("risk_factor"): _breakdown_label(key),
+            t("signal_score"): breakdown.get(key, 0),
+            t("weighted_points"): weighted.get(key, 0),
+        }
+        for key in ["ml", "payment", "support", "contract", "document", "trend", "recency"]
+    ]
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
 def _render_priority_customer_cards(priority_rows: list[dict]) -> None:
     if not priority_rows:
         render_empty_state(t("no_priority_customers"))
@@ -404,6 +437,9 @@ def _render_priority_customer_cards(priority_rows: list[dict]) -> None:
         customer_id = _customer_external_id(customer)
         reasons = format_list_items(customer.get("top_reasons") or [], t("no_items"))
         actions = format_list_items(customer.get("recommended_actions") or [], t("no_items"))
+        next_action = customer.get("next_best_action") or "-"
+        owner = customer.get("owner") or "-"
+        due_date = customer.get("due_date") or "-"
         st.markdown(
             f"""
             <div class="riskops-customer-card">
@@ -426,6 +462,10 @@ def _render_priority_customer_cards(priority_rows: list[dict]) -> None:
                 {reasons}
                 <strong>{html.escape(t("recommended_actions"))}</strong>
                 {actions}
+                <div style="height:0.5rem;"></div>
+                <strong>{html.escape(t("recommended_ownership"))}</strong>
+                <p>{html.escape(t("next_best_action"))}: {html.escape(str(next_action))}</p>
+                <p>{html.escape(t("owner"))}: {html.escape(str(owner))} | {html.escape(t("due_date"))}: {html.escape(str(due_date))}</p>
             </div>
             """,
             unsafe_allow_html=True,
@@ -619,12 +659,12 @@ def render_client_risk() -> None:
 
     if st.button(t("analyze_customer"), use_container_width=True, type="primary"):
         with st.spinner(t("analyzing_customer")):
-            result = safe_post("/risk/analyze-customer", json={"customer_id": selected_customer_id}, timeout=60)
+            result = analyze_customer_risk(selected_customer_id, current_language())
 
         if result.ok:
             analysis = result.data
             section_header(t("customer_risk_profile"), t("customer_risk_profile_subtitle"))
-            card_cols = st.columns([1.1, 1])
+            card_cols = st.columns([1.1, 1, 1])
             with card_cols[0]:
                 render_risk_score(
                     analysis.get("risk_score"),
@@ -642,11 +682,36 @@ def render_client_risk() -> None:
                         <div style="height:0.75rem;"></div>
                         <div>{risk_badge(analysis.get("risk_level"), _risk_label(analysis.get("risk_level")))}</div>
                         <p><strong>{html.escape(t("churn_probability"))}:</strong> {_as_percent(analysis.get("churn_probability"))}</p>
+                        <p><strong>{html.escape(t("confidence"))}:</strong> {_format_confidence(analysis.get("confidence"))}</p>
                         <p><strong>{html.escape(t("prediction_id"))}:</strong> {html.escape(str(analysis.get("prediction_id", "-")))}</p>
                     </div>
                     """,
                     unsafe_allow_html=True,
                 )
+            with card_cols[2]:
+                st.markdown(
+                    f"""
+                    <div class="riskops-soft-box">
+                        <div class="riskops-card-title">{html.escape(t("recommended_ownership"))}</div>
+                        <div class="riskops-card-value" style="font-size:1.35rem;">{html.escape(str(analysis.get("owner") or "-"))}</div>
+                        <div class="riskops-card-subtitle">{html.escape(t("owner"))}: {html.escape(str(analysis.get("owner") or "-"))}</div>
+                        <div class="riskops-card-subtitle">{html.escape(t("due_date"))}: {html.escape(str(analysis.get("due_date") or "-"))}</div>
+                        <div style="height:0.75rem;"></div>
+                        <strong>{html.escape(t("next_best_action"))}</strong>
+                        <p>{html.escape(str(analysis.get("next_best_action") or "-"))}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+            _render_insight(
+                t("business_impact"),
+                str(analysis.get("business_impact") or "-"),
+                "#F59E0B",
+            )
+
+            section_header(t("why_this_score"), t("score_breakdown"))
+            _render_score_breakdown(analysis)
 
             col1, col2 = st.columns([1, 1])
             with col1:

@@ -25,6 +25,10 @@ def get_priority_customers(
                 risk_level=analysis.risk_level,
                 top_reasons=analysis.reasons[:3],
                 recommended_actions=analysis.recommended_actions[:4],
+                confidence=analysis.confidence,
+                next_best_action=analysis.next_best_action,
+                owner=analysis.owner,
+                due_date=analysis.due_date,
             )
         )
 

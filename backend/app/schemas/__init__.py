@@ -13,9 +13,11 @@ from app.schemas.risk import (
     CustomerRiskAnalysisResponse,
     CustomerRiskRead,
     PriorityCustomerRead,
+    RiskExplanationResponse,
     RiskHistoryRead,
     RiskPredictionRequest,
     RiskPredictionResponse,
+    RiskScoreBreakdown,
 )
 
 __all__ = [
@@ -36,7 +38,9 @@ __all__ = [
     "CustomerRiskAnalysisResponse",
     "CustomerRiskRead",
     "PriorityCustomerRead",
+    "RiskExplanationResponse",
     "RiskHistoryRead",
     "RiskPredictionRequest",
     "RiskPredictionResponse",
+    "RiskScoreBreakdown",
 ]

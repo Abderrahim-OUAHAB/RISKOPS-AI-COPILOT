@@ -99,6 +99,22 @@ def get_priority_customers() -> ApiResult:
     return safe_get("/risk/priority-customers", timeout=60)
 
 
+def analyze_customer_risk(customer_id: str, language: str = "en") -> ApiResult:
+    return safe_post(
+        "/risk/analyze-customer",
+        json={"customer_id": customer_id, "language": language},
+        timeout=60,
+    )
+
+
+def explain_customer_risk(customer_id: str, language: str = "en") -> ApiResult:
+    return safe_get(
+        f"/risk/explain/{customer_id}",
+        params={"language": language},
+        timeout=60,
+    )
+
+
 def get_weekly_report() -> ApiResult:
     return safe_get("/reports/weekly-risk", timeout=60)
 
