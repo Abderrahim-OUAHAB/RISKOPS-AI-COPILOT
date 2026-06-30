@@ -1,10 +1,15 @@
 from dataclasses import dataclass
 from datetime import date, timedelta
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy.orm import Session
 
 from app.models import Customer, RiskPrediction
+from app.services.document_intelligence_service import (
+    DocumentRiskResult,
+    calculate_document_risk,
+)
 from app.services.model_service import predict_churn_probability
 from app.services.recommendation_service import recommend_actions
 
@@ -38,6 +43,10 @@ class RiskAnalysisResult:
     owner: str
     due_date: str
     language: str
+    document_risk_score: int
+    document_risk_level: str
+    document_risk_signals: list[str]
+    document_evidence: list[dict[str, Any]]
 
 
 def analyze_customer_risk(
@@ -47,16 +56,31 @@ def analyze_customer_risk(
 ) -> RiskAnalysisResult:
     language = _normalize_language(language)
     churn_probability = predict_churn_probability(customer)
+    document_risk = calculate_document_risk(
+        db=db,
+        customer_id=customer.customer_external_id or "",
+        language=language,
+    )
     risk_score, reasons, score_breakdown, weighted_score_breakdown = (
-        calculate_global_risk_score(customer, churn_probability, language=language)
+        calculate_global_risk_score(
+            customer,
+            churn_probability,
+            language=language,
+            document_risk_score=document_risk.document_risk_score,
+        )
     )
     risk_level = risk_level_from_score(risk_score)
-    english_reasons = _english_reasons(customer, churn_probability)
+    english_reasons = _english_reasons(customer, churn_probability, document_risk)
     recommended_actions = recommend_actions(customer, english_reasons, risk_score)
+    if document_risk.document_risk_score >= 70:
+        recommended_actions.append("Review document evidence")
+    elif document_risk.document_risk_score >= 40:
+        recommended_actions.append("Validate document risk signals")
     if language == "fr":
         recommended_actions = [_translate_action(action) for action in recommended_actions]
-    confidence = _confidence_score(customer)
-    business_impact = _business_impact(customer, risk_level, language)
+    recommended_actions = list(dict.fromkeys(recommended_actions))
+    confidence = _confidence_score(customer, document_risk)
+    business_impact = _business_impact(customer, risk_level, language, document_risk)
     next_best_action = _next_best_action(weighted_score_breakdown, risk_level, language)
     owner = _recommended_owner(weighted_score_breakdown, language)
     due_date = _recommended_due_date(risk_level)
@@ -95,6 +119,10 @@ def analyze_customer_risk(
         owner=owner,
         due_date=due_date,
         language=language,
+        document_risk_score=document_risk.document_risk_score,
+        document_risk_level=document_risk.document_risk_level,
+        document_risk_signals=document_risk.document_risk_signals,
+        document_evidence=document_risk.document_evidence,
     )
 
 
@@ -102,11 +130,13 @@ def calculate_global_risk_score(
     customer: Customer,
     churn_probability: float,
     language: str = "en",
+    document_risk_score: int = 0,
 ) -> tuple[int, list[str], dict[str, float], dict[str, float]]:
     return _calculate_global_risk_score(
         customer,
         churn_probability,
         language=_normalize_language(language),
+        document_risk_score=document_risk_score,
     )
 
 
@@ -114,17 +144,24 @@ def _calculate_global_risk_score(
     customer: Customer,
     churn_probability: float,
     language: str,
+    document_risk_score: int,
 ) -> tuple[int, list[str], dict[str, float], dict[str, float]]:
-    score_breakdown = _score_breakdown(customer, churn_probability)
+    score_breakdown = _score_breakdown(
+        customer,
+        churn_probability,
+        document_risk_score=document_risk_score,
+    )
     weighted_score_breakdown = {
         key: round(score_breakdown[key] * weight, 2)
         for key, weight in RISK_WEIGHTS.items()
     }
     risk_score = int(round(max(0, min(100, sum(weighted_score_breakdown.values())))))
-    reasons = _localized_reasons(
-        _english_reasons(customer, churn_probability),
-        language,
-    )
+    english_reasons = _english_reasons(customer, churn_probability)
+    if document_risk_score >= 70:
+        english_reasons.append("High document risk evidence")
+    elif document_risk_score >= 40:
+        english_reasons.append("Document risk signals detected")
+    reasons = _localized_reasons(english_reasons, language)
     if not reasons:
         reasons.append(
             "No major risk driver detected"
@@ -163,7 +200,11 @@ def _normalize_language(language: str | None) -> str:
     return "fr" if str(language or "en").strip().lower().startswith("fr") else "en"
 
 
-def _score_breakdown(customer: Customer, churn_probability: float) -> dict[str, float]:
+def _score_breakdown(
+    customer: Customer,
+    churn_probability: float,
+    document_risk_score: int = 0,
+) -> dict[str, float]:
     late_payments = max(customer.late_payments or 0, customer.unpaid_invoice_count or 0)
     support_tickets = max(customer.support_tickets or 0, customer.support_ticket_count or 0)
     contract_type = _normalize_contract_type(customer.contract_type)
@@ -179,8 +220,7 @@ def _score_breakdown(customer: Customer, churn_probability: float) -> dict[str, 
     support_risk = min(max(support_tickets, 0), 10) / 10 * 100
     trend_risk = min((payment_risk + support_risk) / 2, 100)
 
-    # No document-level risk signal is stored on Customer yet, so this stays neutral.
-    document_risk = 0.0
+    document_risk = max(0, min(100, document_risk_score))
     # No event timestamp exists for recent risk signals yet; short tenure is the closest stable proxy.
     recency_risk = 0.0
     if tenure is not None:
@@ -200,7 +240,11 @@ def _score_breakdown(customer: Customer, churn_probability: float) -> dict[str, 
     }
 
 
-def _english_reasons(customer: Customer, churn_probability: float) -> list[str]:
+def _english_reasons(
+    customer: Customer,
+    churn_probability: float,
+    document_risk: DocumentRiskResult | None = None,
+) -> list[str]:
     reasons: list[str] = []
     if churn_probability >= 0.7:
         reasons.append("High churn probability")
@@ -219,6 +263,10 @@ def _english_reasons(customer: Customer, churn_probability: float) -> list[str]:
     total_charges = float(customer.total_charges or 0)
     if total_charges >= 5000 and churn_probability >= 0.4:
         reasons.append("High value exposure")
+    if document_risk is not None and document_risk.document_risk_score >= 70:
+        reasons.append("High document risk evidence")
+    elif document_risk is not None and document_risk.document_risk_score >= 40:
+        reasons.append("Document risk signals detected")
     return reasons
 
 
@@ -234,6 +282,8 @@ def _localized_reasons(reasons: list[str], language: str) -> list[str]:
         "Short customer tenure": "Anciennete client courte",
         "Month-to-month contract": "Contrat mensuel",
         "High value exposure": "Exposition revenu elevee",
+        "High document risk evidence": "Preuves documentaires de risque eleve",
+        "Document risk signals detected": "Signaux de risque documentaire detectes",
     }
     return [translations.get(reason, reason) for reason in reasons]
 
@@ -249,11 +299,16 @@ def _translate_action(action: str) -> str:
         "Propose an onboarding check-in": "Proposer un point d'onboarding",
         "Offer a longer-term contract incentive": "Proposer une incitation a contrat plus long",
         "Assign account owner review": "Assigner une revue par le responsable de compte",
+        "Review document evidence": "Revoir les preuves documentaires",
+        "Validate document risk signals": "Valider les signaux de risque documentaire",
     }
     return translations.get(action, action)
 
 
-def _confidence_score(customer: Customer) -> float:
+def _confidence_score(
+    customer: Customer,
+    document_risk: DocumentRiskResult | None = None,
+) -> float:
     fields = [
         customer.tenure,
         customer.monthly_charges,
@@ -264,20 +319,32 @@ def _confidence_score(customer: Customer) -> float:
     ]
     completeness = sum(value is not None for value in fields) / len(fields)
     if completeness >= 0.95:
-        return 0.9
-    if completeness >= 0.65:
-        return 0.7
-    if completeness >= 0.35:
-        return 0.55
-    return 0.3
+        base_confidence = 0.9
+    elif completeness >= 0.65:
+        base_confidence = 0.7
+    elif completeness >= 0.35:
+        base_confidence = 0.55
+    else:
+        base_confidence = 0.3
+
+    if document_risk is not None and document_risk.linked_documents:
+        base_confidence = min(0.95, base_confidence + 0.03)
+    return round(base_confidence, 2)
 
 
-def _business_impact(customer: Customer, risk_level: str, language: str) -> str:
+def _business_impact(
+    customer: Customer,
+    risk_level: str,
+    language: str,
+    document_risk: DocumentRiskResult | None = None,
+) -> str:
     payment_signal = max(customer.late_payments or 0, customer.unpaid_invoice_count or 0) > 0
     support_signal = max(customer.support_tickets or 0, customer.support_ticket_count or 0) >= 5
     short_tenure = customer.tenure is not None and customer.tenure < 12
 
     if language == "fr":
+        if document_risk is not None and document_risk.document_risk_score >= 70:
+            return "Risque documentaire eleve avec preuves liees aux paiements, au contrat ou au support."
         if risk_level == "high":
             return "Exposition revenu elevee avec retards de paiement et signaux support repetes."
         if risk_level == "medium" and (support_signal or short_tenure):
@@ -286,6 +353,8 @@ def _business_impact(customer: Customer, risk_level: str, language: str) -> str:
             return "Risque operationnel lie au comportement de paiement a surveiller."
         return "Risque actuel faible avec usage et comportement de paiement stables."
 
+    if document_risk is not None and document_risk.document_risk_score >= 70:
+        return "High document-backed risk with evidence linked to payments, contract or support."
     if risk_level == "high":
         return "High revenue exposure with payment delays and repeated support signals."
     if risk_level == "medium" and (support_signal or short_tenure):

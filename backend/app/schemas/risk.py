@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -34,6 +35,10 @@ class RiskPredictionResponse(BaseModel):
     owner: str | None = None
     due_date: str | None = None
     language: str = "en"
+    document_risk_score: int = 0
+    document_risk_level: str = "low"
+    document_risk_signals: list[str] = Field(default_factory=list)
+    document_evidence: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class CustomerRiskRead(BaseModel):
@@ -60,6 +65,10 @@ class CustomerRiskAnalysisResponse(BaseModel):
     owner: str
     due_date: str
     language: str = "en"
+    document_risk_score: int = 0
+    document_risk_level: str = "low"
+    document_risk_signals: list[str] = Field(default_factory=list)
+    document_evidence: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class PriorityCustomerRead(BaseModel):
@@ -77,6 +86,52 @@ class PriorityCustomerRead(BaseModel):
 
 class RiskExplanationResponse(CustomerRiskAnalysisResponse):
     pass
+
+
+class DocumentRiskResponse(BaseModel):
+    customer_id: str
+    document_risk_score: int
+    document_risk_level: str
+    document_risk_signals: list[str] = Field(default_factory=list)
+    document_evidence: list[dict[str, Any]] = Field(default_factory=list)
+    linked_documents: list[dict[str, Any]] = Field(default_factory=list)
+    confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    language: str = "en"
+
+
+class Client360Response(BaseModel):
+    customer: dict[str, Any]
+    latest_risk_analysis: dict[str, Any]
+    risk_explanation: dict[str, Any]
+    document_risk: dict[str, Any]
+    linked_documents: list[dict[str, Any]] = Field(default_factory=list)
+    recent_predictions: list[dict[str, Any]] = Field(default_factory=list)
+    recommended_actions: list[str] = Field(default_factory=list)
+    next_best_action: str
+    owner: str
+    due_date: str
+    confidence: float
+    language: str = "en"
+
+
+class ActionPlanItem(BaseModel):
+    action_id: str
+    customer_id: str
+    customer_name: str | None = None
+    risk_level: str
+    priority: str
+    action_label: str
+    reason: str
+    owner: str
+    due_date: str
+    evidence_count: int
+    status: str = "open"
+
+
+class ActionPlanResponse(BaseModel):
+    summary: str
+    actions: list[ActionPlanItem] = Field(default_factory=list)
+    language: str = "en"
 
 
 class RiskHistoryRead(BaseModel):

@@ -115,6 +115,30 @@ def explain_customer_risk(customer_id: str, language: str = "en") -> ApiResult:
     )
 
 
+def get_document_risk(customer_id: str, language: str = "en") -> ApiResult:
+    return safe_get(
+        f"/risk/document-risk/{customer_id}",
+        params={"language": language},
+        timeout=60,
+    )
+
+
+def get_client_360(customer_id: str, language: str = "en") -> ApiResult:
+    return safe_get(
+        f"/risk/client-360/{customer_id}",
+        params={"language": language},
+        timeout=60,
+    )
+
+
+def get_action_plan(limit: int = 5, language: str = "en") -> ApiResult:
+    return safe_get(
+        "/risk/action-plan",
+        params={"limit": limit, "language": language},
+        timeout=60,
+    )
+
+
 def get_weekly_report() -> ApiResult:
     return safe_get("/reports/weekly-risk", timeout=60)
 

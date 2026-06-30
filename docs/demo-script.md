@@ -26,11 +26,11 @@ Say: "This is AI RiskOps Copilot, a local AI product for customer risk operation
 2. Show KPI cards and Top Priority Customers.
 Say: "The system combines structured customer data and a churn model to prioritize accounts."
 
-3. Show Today's Action Plan.
-Say: "The interface turns risk scores into concrete business actions."
+3. Show Action Plan.
+Say: "The interface turns risk scores and document evidence into concrete business actions."
 
 4. Open Client Risk and analyze `CUST-001`.
-Say: "A manager can inspect one customer, see the risk drivers and review the recommended next step."
+Say: "A manager can inspect one customer, see the risk drivers, document evidence, owner and recommended next step."
 
 5. Open AI Assistant and ask: `Which customers are high risk this week?`
 Say: "The agent is controlled. It routes the question to the right business tool instead of improvising."
@@ -50,16 +50,16 @@ Say: "The stack uses Streamlit, FastAPI, PostgreSQL, pgvector, XGBoost, LangGrap
 Say: "The main page is designed for managers: KPIs, priority customers, weekly summary and action plan."
 
 4. Show Client Risk and analyze `CUST-001`.
-Say: "The model output is converted into a business risk score, reasons and recommended actions."
+Say: "The model output is converted into a business risk score, reasons, document risk evidence and recommended actions."
 
-5. Show Customer Risk History.
-Say: "Each analysis can be persisted, so the team can follow how risk evolves."
+5. Show Client 360 and Customer Risk History.
+Say: "The Client 360 section brings customer profile, risk explanation, document evidence, actions and history into one view."
 
 6. Show AI Assistant.
 Say: "The agent routes questions to known tools: priority customers, weekly report, customer analysis or RAG."
 
 7. Show Documents and RAG.
-Say: "Documents can be uploaded, processed, embedded and queried with source traceability. The RAG path requires an OpenAI API key."
+Say: "Documents can be uploaded, processed, embedded and queried with source traceability. Document risk uses simple keyword extraction and does not require OpenAI."
 
 8. Show Data Pipeline.
 Say: "Airflow orchestrates the workflow. dbt transforms PostgreSQL data into analytics-ready tables."
@@ -92,6 +92,9 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 - `GET /ready`
 - `GET /customers`
 - `POST /risk/analyze-customer`
+- `GET /risk/document-risk/CUST-001`
+- `GET /risk/client-360/CUST-001`
+- `GET /risk/action-plan`
 - `GET /risk/priority-customers`
 - `GET /reports/weekly-risk`
 - `POST /agent/analyze`
@@ -110,8 +113,8 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 
 ## Phrases To Say By Page
 
-- Executive Overview: "This is the manager view: KPIs, top risky customers and today's action plan."
-- Client Risk: "This page explains one customer's score, reasons and recommended actions."
+- Executive Overview: "This is the manager view: KPIs, top risky customers and the action plan."
+- Client Risk: "This page explains one customer's score, document evidence, reasons and recommended actions."
 - AI Assistant: "The agent is controlled and routes questions to known tools."
 - Documents and RAG: "This page adds document intelligence with source traceability."
 - Data Pipeline: "Airflow orchestrates and dbt transforms the data."
@@ -125,3 +128,11 @@ Say: "This is a local portfolio release. Next steps would be AWS deployment, aut
 - Do not show `.env`.
 - Do not claim this is production cloud infrastructure.
 - Do not overstate the sample ML dataset.
+
+## Document Risk Demo File
+
+Use a non-sensitive test file containing:
+
+`Customer CUST-001 has two unpaid invoices, repeated support escalations and a contract penalty for late payment.`
+
+Upload it as a small CSV or PDF, process it, then show `/risk/document-risk/CUST-001` and the Client Risk page.

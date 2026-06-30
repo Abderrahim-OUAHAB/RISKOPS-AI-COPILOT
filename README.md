@@ -25,6 +25,8 @@ The project provides a local AI application with:
 - PostgreSQL and pgvector for business data and vector search,
 - PDF/CSV upload and document processing,
 - RAG over processed document chunks,
+- document risk extraction linked to customer ids,
+- Client 360 summaries and action plans,
 - XGBoost churn prediction with MLflow tracking,
 - a controlled LangGraph agent for routing questions,
 - Airflow and dbt pipelines,
@@ -68,6 +70,9 @@ Streamlit
 - Chunk document text.
 - Create embeddings and store vectors with pgvector.
 - Ask RAG questions with source chunks.
+- Link processed documents to customers when a `customer_id` appears in the filename or extracted chunks.
+- Extract document risk signals such as unpaid invoices, support escalations, penalties, termination and legal risk.
+- Generate a Client 360 view and an operational action plan.
 - Import sample customer data from CSV.
 - Train a churn model.
 - Analyze customer risk.
@@ -90,6 +95,10 @@ Streamlit
 - `POST /customers/import`
 - `GET /customers`
 - `POST /risk/analyze-customer`
+- `GET /risk/explain/{customer_id}`
+- `GET /risk/document-risk/{customer_id}`
+- `GET /risk/client-360/{customer_id}`
+- `GET /risk/action-plan`
 - `GET /risk/priority-customers`
 - `GET /risk/history`
 - `GET /reports/weekly-risk`
@@ -168,7 +177,15 @@ Recommended final UI demo order:
 6. Monitoring
 7. About Project
 
-The first three pages show the business value first: risk prioritization, one-customer analysis and controlled agent routing. The remaining pages show document intelligence, data engineering, observability and project positioning.
+The first three pages show the business value first: risk prioritization, one-customer analysis, document-backed evidence and controlled agent routing. The remaining pages show document intelligence, data engineering, observability and project positioning.
+
+Document risk demo:
+
+Upload and process a small CSV or PDF containing a sentence such as:
+
+`Customer CUST-001 has two unpaid invoices, repeated support escalations and a contract penalty for late payment.`
+
+After processing, `/risk/document-risk/CUST-001` links the document to the customer, extracts signals, returns evidence previews and feeds the document component of Risk Score v2.
 
 Screenshots to add before publishing:
 

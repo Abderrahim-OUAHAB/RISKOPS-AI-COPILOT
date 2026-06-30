@@ -2,7 +2,7 @@
 
 ## Objective
 
-The Streamlit interface is the final product shell for AI RiskOps Copilot `v1.1.0-ui-final`. It is designed for a manager or recruiter who needs to understand the system quickly without reading API payloads.
+The Streamlit interface is the final product shell for AI RiskOps Copilot. It is designed for a manager or recruiter who needs to understand the system quickly without reading API payloads.
 
 The UI focuses on:
 
@@ -10,7 +10,7 @@ The UI focuses on:
 - recommended actions,
 - platform readiness,
 - controlled AI assistant usage,
-- document, pipeline and monitoring access.
+- document risk, Client 360, action plan, pipeline and monitoring access.
 
 ## Final Navigation
 
@@ -73,7 +73,7 @@ API calls are centralized in `frontend/api_client.py`.
 
 ## UX Rules
 
-- The interface language is English.
+- The interface supports English and French from the sidebar language selector.
 - JSON is not shown by default.
 - Technical payloads are placed inside `Technical details` expanders.
 - Error messages are short and user-readable.
@@ -102,9 +102,9 @@ Streamlit does not display Python stack traces for API failures.
 1. Open Executive Overview.
 2. Explain the KPI cards: total customers, risk levels, recommended actions and system status.
 3. Show Top Priority Customers and the reason/action cards.
-4. Show Today's Action Plan to prove the system gives business actions, not only scores.
+4. Show Action Plan to prove the system gives business actions, not only scores.
 5. Open Client Risk.
-6. Analyze `CUST-001` and review the score bar, reasons, recommended actions and prediction history.
+6. Analyze `CUST-001` and review the score bar, document risk, evidence, Client 360 summary, recommended actions and prediction history.
 7. Open AI Assistant.
 8. Ask: `Which customers are high risk this week?`
 9. Ask: `What actions should I take today?`
@@ -132,9 +132,19 @@ It uses:
 
 - `GET /customers`
 - `POST /risk/analyze-customer`
+- `GET /risk/document-risk/{customer_id}`
+- `GET /risk/client-360/{customer_id}`
 - `GET /risk/history?customer_id=...`
 
-The page displays a risk score bar, risk badge, churn probability, reasons, recommended actions, prediction id, prediction history and technical details.
+The page displays a risk score bar, risk badge, churn probability, score breakdown, document risk score, document signals, linked documents, evidence previews, Client 360 summary, ownership, recommended actions, prediction history and technical details.
+
+### Action Plan
+
+Executive Overview calls `GET /risk/action-plan` and displays the top 3 to 5 actions with customer, priority, action label, owner, due date and reason.
+
+### Document Risk Demo
+
+Upload and process a CSV or PDF containing a customer id such as `CUST-001` and risk language such as `unpaid invoice`, `support escalation` or `contract penalty`. The app links the document to the customer when the id appears in the filename or processed chunks.
 
 ### AI Assistant
 

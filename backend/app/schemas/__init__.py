@@ -10,8 +10,12 @@ from app.schemas.document import (
 from app.schemas.rag import RAGAnswer, RAGQuestion, RAGSource
 from app.schemas.report import WeeklyRiskReport
 from app.schemas.risk import (
+    ActionPlanItem,
+    ActionPlanResponse,
+    Client360Response,
     CustomerRiskAnalysisResponse,
     CustomerRiskRead,
+    DocumentRiskResponse,
     PriorityCustomerRead,
     RiskExplanationResponse,
     RiskHistoryRead,
@@ -35,8 +39,12 @@ __all__ = [
     "RAGQuestion",
     "RAGSource",
     "WeeklyRiskReport",
+    "ActionPlanItem",
+    "ActionPlanResponse",
+    "Client360Response",
     "CustomerRiskAnalysisResponse",
     "CustomerRiskRead",
+    "DocumentRiskResponse",
     "PriorityCustomerRead",
     "RiskExplanationResponse",
     "RiskHistoryRead",

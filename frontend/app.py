@@ -9,7 +9,10 @@ from api_client import (
     analyze_customer_risk,
     ask_rag,
     explain_customer_risk,
+    get_action_plan,
+    get_client_360,
     get_customers,
+    get_document_risk,
     get_documents,
     get_health,
     get_llm_summary,
@@ -425,6 +428,75 @@ def _render_score_breakdown(analysis: dict[str, Any]) -> None:
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 
+def _render_document_risk(document_risk: dict[str, Any]) -> None:
+    score = document_risk.get("document_risk_score", 0)
+    level = document_risk.get("document_risk_level", "low")
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        render_risk_score(score, level, t("document_risk_score"), _risk_label(level))
+    with col2:
+        signals = document_risk.get("document_risk_signals") or []
+        if signals:
+            _render_insight(t("document_signals"), ", ".join(signals), risk_color(level))
+        else:
+            render_empty_state(t("no_document_risk_detected"))
+
+    linked_documents = document_risk.get("linked_documents") or []
+    st.markdown(f"#### {t('linked_documents')}")
+    if linked_documents:
+        doc_rows = [
+            {
+                t("documents"): doc.get("filename"),
+                t("type"): doc.get("document_type"),
+                t("status"): doc.get("status"),
+            }
+            for doc in linked_documents
+        ]
+        st.dataframe(pd.DataFrame(doc_rows), use_container_width=True, hide_index=True)
+    else:
+        render_empty_state(t("no_linked_documents"))
+
+
+def _render_document_evidence(evidence: list[dict[str, Any]]) -> None:
+    st.markdown(f"#### {t('evidence_from_documents')}")
+    if not evidence:
+        render_empty_state(t("no_document_risk_detected"))
+        return
+
+    for item in evidence[:5]:
+        title = f"{item.get('signal')} | {item.get('filename')} | chunk {item.get('chunk_index', '-')}"
+        with st.expander(title):
+            st.caption(", ".join(item.get("matched_keywords") or []))
+            st.write(item.get("content_preview"))
+
+
+def _render_action_plan_table(actions: list[dict[str, Any]]) -> None:
+    if not actions:
+        render_empty_state(t("no_items"))
+        return
+
+    headers = [t("customer"), t("priority"), t("action"), t("owner"), t("due_date"), t("reason")]
+    rows = []
+    for action in actions[:5]:
+        rows.append(
+            [
+                str(action.get("customer_name") or action.get("customer_id") or "-"),
+                str(action.get("priority") or "-"),
+                str(action.get("action_label") or "-"),
+                str(action.get("owner") or "-"),
+                str(action.get("due_date") or "-"),
+                str(action.get("reason") or "-"),
+            ]
+        )
+
+    markdown = [
+        "| " + " | ".join(headers) + " |",
+        "| " + " | ".join(["---"] * len(headers)) + " |",
+    ]
+    markdown.extend("| " + " | ".join(row) + " |" for row in rows)
+    st.markdown("\n".join(markdown))
+
+
 def _render_priority_customer_cards(priority_rows: list[dict]) -> None:
     if not priority_rows:
         render_empty_state(t("no_priority_customers"))
@@ -536,6 +608,7 @@ def render_executive_overview() -> None:
         health = get_health()
         ready = get_ready()
         llm_summary = get_llm_summary()
+        action_plan = get_action_plan(limit=5, language=current_language())
 
     customers = customers_result.data if customers_result.ok and customers_result.data else []
     priority_rows = priority.data if priority.ok and priority.data else []
@@ -576,6 +649,12 @@ def render_executive_overview() -> None:
     else:
         render_empty_state(t("no_priority_customers"))
 
+    section_header(t("action_plan"), t("action_plan_subtitle"))
+    if action_plan.ok:
+        _render_action_plan_table((action_plan.data or {}).get("actions") or [])
+    else:
+        render_warning(t("action_plan_unavailable", error=action_plan.error))
+
     col1, col2 = st.columns([1, 1])
     with col1:
         section_header(t("weekly_risk_summary"), t("weekly_risk_subtitle"))
@@ -605,6 +684,7 @@ def render_executive_overview() -> None:
                 "customers_status": customers_result.status_code,
                 "health_status": health.status_code,
                 "weekly_report": report,
+                "action_plan": action_plan.data if action_plan.ok else action_plan.error,
                 "readiness_status": ready.status_code,
                 "llm_summary": llm_summary.data if llm_summary.ok else llm_summary.error,
             }
@@ -663,6 +743,15 @@ def render_client_risk() -> None:
 
         if result.ok:
             analysis = result.data
+            document_risk_result = get_document_risk(selected_customer_id, current_language())
+            client_360_result = get_client_360(selected_customer_id, current_language())
+            document_risk = document_risk_result.data if document_risk_result.ok else {
+                "document_risk_score": analysis.get("document_risk_score", 0),
+                "document_risk_level": analysis.get("document_risk_level", "low"),
+                "document_risk_signals": analysis.get("document_risk_signals") or [],
+                "document_evidence": analysis.get("document_evidence") or [],
+                "linked_documents": [],
+            }
             section_header(t("customer_risk_profile"), t("customer_risk_profile_subtitle"))
             card_cols = st.columns([1.1, 1, 1])
             with card_cols[0]:
@@ -712,6 +801,27 @@ def render_client_risk() -> None:
 
             section_header(t("why_this_score"), t("score_breakdown"))
             _render_score_breakdown(analysis)
+
+            section_header(t("document_risk"), t("documents_linked_to_customer"))
+            if document_risk_result.ok:
+                _render_document_risk(document_risk)
+                _render_document_evidence(document_risk.get("document_evidence") or [])
+            else:
+                render_warning(document_risk_result.error or t("no_linked_documents"))
+
+            section_header(t("client_360"), t("client_360_subtitle"))
+            if client_360_result.ok:
+                client_360 = client_360_result.data or {}
+                customer_profile = client_360.get("customer") or {}
+                summary_text = (
+                    f"{customer_profile.get('customer_id', selected_customer_id)} - "
+                    f"{customer_profile.get('name') or _customer_name(selected_customer)} | "
+                    f"{t('risk_score')}: {analysis.get('risk_score')}/100 | "
+                    f"{t('document_risk_score')}: {document_risk.get('document_risk_score', 0)}/100"
+                )
+                _render_insight(t("client_360"), summary_text, "#2563EB")
+            else:
+                render_warning(client_360_result.error or t("system_not_ready"))
 
             col1, col2 = st.columns([1, 1])
             with col1:
