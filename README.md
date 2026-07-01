@@ -155,6 +155,12 @@ Docker build note:
 - A first uncached build can take several minutes because backend ML/RAG packages and Airflow/dbt packages are installed.
 - `.env` is optional for Docker Compose; secrets are not required for local CI validation.
 
+## Deployment Readiness
+
+The project includes GitHub Actions for Python validation, repository hygiene checks and Docker image builds. The Docker workflow builds backend and frontend images on pull requests and pushes, and can publish tagged releases to GitHub Container Registry on tags matching `v*`.
+
+See [docs/deployment.md](docs/deployment.md) for local Docker Compose deployment, environment variables, health checks, a simple VPS path and production limits.
+
 ## Final Product UI
 
 The Streamlit interface is finalized for `v1.3.3-action-workflow`, a recruiter-ready product shell with eight pages:
