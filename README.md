@@ -254,9 +254,9 @@ Document risk demo:
 
 Upload and process a small CSV or PDF containing a sentence such as:
 
-`Customer CUST-001 has two unpaid invoices, repeated support escalations and a contract penalty for late payment.`
+`A high-risk customer has two unpaid invoices, repeated support escalations and a contract penalty for late payment.`
 
-After processing, `/risk/document-risk/CUST-001` links the document to the customer, extracts signals, returns evidence previews and feeds the document component of Risk Score v2.
+After processing, the document risk endpoint links the document to the selected customer, extracts signals, returns evidence previews and feeds the document component of Risk Score v2.
 
 Deployment readiness:
 
@@ -287,7 +287,7 @@ The demo seed script:
 - waits for the backend,
 - imports `data/sample/customers_sample.csv`,
 - verifies or trains the churn model,
-- analyzes `CUST-001`,
+- analyzes a sample customer,
 - lists priority customers,
 - generates the weekly risk report,
 - generates the ML monitoring report,

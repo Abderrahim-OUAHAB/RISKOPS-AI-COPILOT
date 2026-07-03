@@ -123,4 +123,4 @@ Activate it only after:
 - GitHub issue is created.
 - Markdown report is created.
 - Final Automation Summary returns success.
-- No CUST-* identifiers are exposed.
+- No raw customer identifiers are exposed.
