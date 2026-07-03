@@ -2,28 +2,79 @@
 
 This folder contains the validated n8n workflow export for the AI RiskOps Copilot portfolio.
 
-## What The Workflow Does
+## Workflows
+
+- Main workflow: `AI RiskOps GitHub Maintainer`
+- Error workflow: `AI RiskOps Error Handler`
+
+The main export is stored in `docs/n8n/ai-riskops-github-maintainer.json`. The Error Handler workflow is documented here; no separate safe export is included unless a dedicated JSON file is provided.
+
+## Main Workflow Capabilities
 
 `AI RiskOps GitHub Maintainer` runs a weekly RiskOps automation:
 
-- checks the RiskOps API health,
-- retrieves priority customers,
-- checks the Action Board,
-- syncs recommended actions when the board is empty,
-- builds an anonymized RiskOps briefing payload,
-- uses an AI Agent to generate a RiskOps report,
-- normalizes the report,
-- generates an OpenAI RiskOps visual snapshot,
-- uploads the image to GitHub,
-- injects the image into the Markdown report and GitHub issue body,
-- creates a GitHub issue,
-- creates a Markdown report in `docs/reports`,
-- returns a final automation summary.
+- API health check,
+- priority customer retrieval,
+- Action Board retrieval,
+- recommended action sync when the board is empty,
+- anonymized briefing payload creation,
+- AI report generation,
+- RiskOps Quality Gate validation,
+- OpenAI visual snapshot generation,
+- GitHub image upload,
+- GitHub issue creation,
+- Markdown report creation in `docs/reports`,
+- final automation summary.
+
+## Enterprise Hardening
+
+The hardened workflow adds:
+
+- retry on external API nodes,
+- RiskOps Quality Gate validation before publishing,
+- GitHub issue labels for generated issues,
+- `AI RiskOps Error Handler` workflow for execution failures,
+- GitHub incident issue creation on failure,
+- weekly duplicate issue guard,
+- safe skip behavior when a weekly issue already exists.
+
+## Weekly Duplicate Guard
+
+Before calling the AI Agent, the workflow searches GitHub for an existing weekly issue with the same report date.
+
+If an issue already exists, the workflow stops safely and returns:
+
+```json
+{
+  "automation_status": "skipped",
+  "reason": "weekly_issue_already_exists"
+}
+```
+
+In this skipped path:
+
+- no new AI report is generated,
+- no new OpenAI image is generated,
+- no duplicate GitHub issue is created,
+- no unnecessary OpenAI image cost is incurred.
+
+## Error Handling
+
+`AI RiskOps Error Handler` is designed to run from an n8n Error Trigger during real executions.
+
+When the main workflow fails, the Error Handler creates a GitHub incident issue with labels such as:
+
+- `riskops`
+- `automation`
+- `incident`
+- `workflow-failure`
+
+Review incident issues before using this automation in production.
 
 ## Required Services
 
 - n8n: `http://localhost:5678`
-- FastAPI: `http://localhost:8000`
+- FastAPI backend: `http://localhost:8000`
 - FastAPI docs: `http://localhost:8000/docs`
 - GitHub repository access
 - OpenAI API access
@@ -66,7 +117,7 @@ GITHUB_REPO=RISKOPS-AI-COPILOT
 ## Configure GitHub
 
 1. Create or select a GitHub credential in n8n.
-2. Use a token with the minimum permissions needed to create issues and upload report/image files.
+2. Use a token with the minimum permissions needed to search issues, create issues and upload report/image files.
 3. Use the `GITHUB_TOKEN` value from your local secret store.
 4. Confirm owner and repository values:
 
@@ -82,6 +133,7 @@ GITHUB_REPO=RISKOPS-AI-COPILOT
 3. Click **Execute workflow**.
 4. Review the final automation summary.
 5. Verify the generated GitHub issue, Markdown report and image.
+6. If the workflow returns `automation_status: skipped`, confirm a weekly issue already exists for that report date.
 
 ## Activate The Schedule Later
 
@@ -93,6 +145,7 @@ Activate it only after:
 - GitHub credentials are configured,
 - the RiskOps backend URL is correct,
 - manual execution succeeds,
+- duplicate guard behavior is reviewed,
 - generated issues have been reviewed.
 
 ## Generated Outputs
@@ -100,6 +153,8 @@ Activate it only after:
 - GitHub issue
 - Markdown report in `docs/reports`
 - OpenAI generated RiskOps visual image
+- GitHub incident issue on failure
+- Skip summary when a weekly issue already exists
 - Final automation summary
 
 ## Security And Privacy Rules
@@ -110,17 +165,20 @@ Activate it only after:
 - Keep Schedule Trigger disabled until credentials are configured.
 - Review generated GitHub issues before using this in production.
 - Use anonymized customer aliases only.
-- Do not expose raw customer IDs in reports, images or issue bodies.
+- Do not expose raw customer identifiers in reports, images or issue bodies.
 
 ## Manual Validation Checklist
 
 - Backend health check returns ok.
 - Priority customers are retrieved.
 - Action Board is retrieved.
-- AI report is generated.
+- Weekly duplicate guard is evaluated before AI generation.
+- AI report is generated when no duplicate weekly issue exists.
+- Quality Gate passes before publishing.
 - Image is generated.
 - Image is uploaded to GitHub.
-- GitHub issue is created.
+- GitHub issue is created with labels.
 - Markdown report is created.
 - Final Automation Summary returns success.
+- Duplicate weekly runs return skipped status.
 - No raw customer identifiers are exposed.

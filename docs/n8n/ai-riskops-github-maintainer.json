@@ -1,17 +1,6 @@
-﻿{
+{
   "name": "AI RiskOps GitHub Maintainer",
   "nodes": [
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -480,
-        -112
-      ],
-      "id": "5f3069f2-0032-4fca-81ae-5a007a827025",
-      "name": "When clicking â€˜Execute workflowâ€™"
-    },
     {
       "parameters": {
         "rule": {
@@ -29,8 +18,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -480,
-        -304
+        -496,
+        -224
       ],
       "id": "d1005dcf-a73d-407b-970f-bad1d335cf32",
       "name": "Schedule Trigger",
@@ -45,8 +34,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -256,
-        -208
+        -48,
+        -224
       ],
       "id": "7d0d59a7-27f8-4ad1-9ecb-700a8f052433",
       "name": "Set Workflow Config"
@@ -66,8 +55,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        -32,
-        -208
+        176,
+        -224
       ],
       "id": "de62dc0d-d50c-4fef-bf15-96bce45e6c77",
       "name": "Check RiskOps API Health"
@@ -99,8 +88,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        192,
-        -208
+        400,
+        -224
       ],
       "id": "ba832c95-bf02-4c35-aa4b-dbbad2c81404",
       "name": "Is Backend Healthy?"
@@ -120,8 +109,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        416,
-        -208
+        624,
+        -224
       ],
       "id": "663a68d5-d812-49af-8361-487c156efe36",
       "name": "Get Priority Customers"
@@ -133,8 +122,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        640,
-        -208
+        848,
+        -224
       ],
       "id": "17c00d6e-5104-4296-b9f8-3e3c6251e336",
       "name": "Package Priority Customers"
@@ -153,8 +142,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        864,
-        -208
+        1072,
+        -224
       ],
       "id": "ce8a93af-d4fd-461c-8b94-f0e1c12f02cd",
       "name": "Get Action Board"
@@ -186,8 +175,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1088,
-        -208
+        1296,
+        -224
       ],
       "id": "00dc4a62-da33-4ca0-96df-586aaba1d627",
       "name": "Is Action Board Empty?"
@@ -207,8 +196,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1312,
-        -272
+        1520,
+        -288
       ],
       "id": "c64070de-4ae8-42c9-98bc-5b5babaaaa0e",
       "name": "Sync Recommended Actions"
@@ -220,8 +209,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1536,
-        -272
+        1744,
+        -288
       ],
       "id": "49e706ea-bc19-4982-9784-96a44b89ea03",
       "name": "Package Sync Result"
@@ -240,8 +229,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1760,
-        -272
+        1968,
+        -288
       ],
       "id": "de7d3da4-8152-4f11-9b4e-38759837dac6",
       "name": "Get Action Board After Sync"
@@ -253,8 +242,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1968,
-        16
+        2192,
+        -224
       ],
       "id": "7af95853-dffd-4a97-9945-6177a2af6da7",
       "name": "Build RiskOps Briefing Payload"
@@ -271,8 +260,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        2208,
-        -208
+        2832,
+        -224
       ],
       "id": "42da82f7-74fe-4617-b005-652871e6f931",
       "name": "AI RiskOps Analyst Agent"
@@ -295,8 +284,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.3,
       "position": [
-        2288,
-        16
+        2208,
+        0
       ],
       "id": "8d36fc38-2b47-41df-898c-1398106823a0",
       "name": "OpenAI Chat Model",
@@ -314,8 +303,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2560,
-        -208
+        3184,
+        -224
       ],
       "id": "aaea23d1-3860-402e-93e0-801281bf428e",
       "name": "Parse and Normalize AI Report"
@@ -347,8 +336,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        4032,
-        -208
+        5168,
+        -224
       ],
       "id": "a18543a5-3332-4cdb-a889-3d8d0e4d85bd",
       "name": "Is Report Valid?"
@@ -360,8 +349,8 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        4256,
-        -112
+        5248,
+        128
       ],
       "id": "1c12f5ca-4a8e-4e6c-bbd2-d7d587982a98",
       "name": "Stop Invalid Report"
@@ -384,14 +373,27 @@
         },
         "title": "={{ $json.github_issue_title }}",
         "body": "={{ $json.github_issue_body }}",
-        "labels": [],
+        "labels": [
+          {
+            "label": "riskops"
+          },
+          {
+            "label": "automation"
+          },
+          {
+            "label": "weekly-report"
+          },
+          {
+            "label": "ai-generated"
+          }
+        ],
         "assignees": []
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
       "position": [
-        4256,
-        -304
+        5392,
+        -320
       ],
       "id": "be6a67cd-be2f-4c32-b040-caf193748af4",
       "name": "Create an issue",
@@ -432,8 +434,8 @@
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
       "position": [
-        4464,
-        -304
+        5616,
+        -320
       ],
       "id": "48b9754b-700b-491a-a809-797ffb8b104b",
       "name": "Create Weekly Report File",
@@ -452,7 +454,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4640,
+        5840,
         -320
       ],
       "id": "4ec0143a-ae3d-4595-90d5-eb1b9ca2d341",
@@ -465,8 +467,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2768,
-        -208
+        3824,
+        -224
       ],
       "id": "04fdf62f-8de3-4331-8eef-41819b76b094",
       "name": "Generate RiskOps Image Prompt"
@@ -524,8 +526,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        2976,
-        -208
+        4048,
+        -224
       ],
       "id": "f8c0fc77-3ace-453d-a8e5-f43cee70fd05",
       "name": "Generate RiskOps Image"
@@ -537,8 +539,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3184,
-        -208
+        4272,
+        -224
       ],
       "id": "6f8c572d-ce16-40d6-b734-e484ad0d8e11",
       "name": "Prepare Image Binary"
@@ -550,8 +552,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3392,
-        -208
+        4496,
+        -224
       ],
       "id": "a35b1287-2fea-4542-b3c9-922a618a34df",
       "name": "Prepare GitHub Image Upload"
@@ -599,8 +601,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        3600,
-        -208
+        4720,
+        -224
       ],
       "id": "b88fbdc9-c116-4b9e-9303-2a8d8ab34b52",
       "name": "Upload RiskOps Image to GitHub"
@@ -612,27 +614,149 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3808,
-        -208
+        4944,
+        -224
       ],
       "id": "2fc28ac5-2082-40da-9503-07698858cc77",
       "name": "Inject Image Into Report"
+    },
+    {
+      "parameters": {
+        "jsCode": "const report = $json;\n\nconst fullText = JSON.stringify(report);\nconst issues = [];\n\nconst rawCustomerPrefix = [\"CU\", \"ST\"].join(\"\") + \"-\";\nconst openAiKeyPrefix = [\"s\", \"k\"].join(\"\") + \"-\";\nconst openAiProjectKey = openAiKeyPrefix + \"proj\";\nconst githubTokenPrefix = [\"github\", \"pat\"].join(\"_\");\n\nconst forbiddenPatterns = [\n  {\n    name: \"raw_customer_identifier_detected\",\n    regex: new RegExp(rawCustomerPrefix, \"i\")\n  },\n  {\n    name: \"openai_project_key_detected\",\n    regex: new RegExp(openAiProjectKey, \"i\")\n  },\n  {\n    name: \"github_token_detected\",\n    regex: new RegExp(githubTokenPrefix, \"i\")\n  },\n  {\n    name: \"bearer_openai_key_detected\",\n    regex: new RegExp(\"Bearer\\\\s+\" + openAiKeyPrefix, \"i\")\n  },\n  {\n    name: \"bearer_github_token_detected\",\n    regex: new RegExp(\"Bearer\\\\s+\" + githubTokenPrefix, \"i\")\n  }\n];\n\nfor (const item of forbiddenPatterns) {\n  if (item.regex.test(fullText)) {\n    issues.push(item.name);\n  }\n}\n\nconst issueBody = String(report.github_issue_body || \"\");\nconst markdownReport = String(report.markdown_report || \"\");\nconst confidence = Number(report.confidence || 0);\n\nif (issueBody.length < 300) {\n  issues.push(\"github_issue_body_too_short\");\n}\n\nif (markdownReport.length < 600) {\n  issues.push(\"markdown_report_too_short\");\n}\n\nif (!Array.isArray(report.top_risks)) {\n  issues.push(\"top_risks_not_array\");\n}\n\nif (Array.isArray(report.top_risks) && report.top_risks.length === 0) {\n  issues.push(\"top_risks_empty\");\n}\n\nif (!Number.isFinite(confidence)) {\n  issues.push(\"confidence_not_number\");\n}\n\nif (confidence < 0.6) {\n  issues.push(\"confidence_too_low\");\n}\n\nreturn [\n  {\n    json: {\n      ...report,\n      quality_gate: {\n        passed: issues.length === 0,\n        issue_count: issues.length,\n        issues,\n        checked_at: new Date().toISOString()\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3392,
+        -224
+      ],
+      "id": "c24ad7f9-83a4-4a7d-b689-46d21fac0692",
+      "name": "RiskOps Quality Gate"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "302f8cb5-3f4e-4b75-959c-4993bae7e89e",
+              "leftValue": "={{ $json.quality_gate.passed }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3600,
+        -208
+      ],
+      "id": "da943135-ffb9-4274-90b4-bdcb352dd1ad",
+      "name": "Is Quality Gate Passed?"
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/search/issues",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ 'repo:Abderrahim-OUAHAB/RISKOPS-AI-COPILOT is:issue in:title \"Weekly RiskOps Briefing - ' + ($json.report_date || $json.reportDate || $now.format('yyyy-MM-dd')) + '\"' }}"
+            },
+            {
+              "name": "per_page",
+              "value": "5"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept ",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer GITHUB_TOKEN_HERE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2400,
+        -224
+      ],
+      "id": "8b9dc058-51de-4118-8ebe-79ce4a062097",
+      "name": "Search Existing Weekly Issue"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d6f18b67-0e0f-4828-a0f4-ea2a0465f290",
+              "leftValue": "={{ $json.total_count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2608,
+        -224
+      ],
+      "id": "5ff45a2b-c096-4823-a7b6-fb71296ba3a9",
+      "name": "Weekly Issue Already Exists?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $('Build RiskOps Briefing Payload').first().json;\nconst search = $json;\n\nconst existingIssue = search.items?.[0] || null;\n\nreturn [\n  {\n    json: {\n      automation_status: \"skipped\",\n      reason: \"weekly_issue_already_exists\",\n      report_date: payload.report_date || payload.reportDate || new Date().toISOString().slice(0, 10),\n      existing_issue: existingIssue\n        ? {\n            number: existingIssue.number,\n            title: existingIssue.title,\n            url: existingIssue.html_url,\n            state: existingIssue.state\n          }\n        : null,\n      message: \"A Weekly RiskOps issue already exists for this date. No new AI report was generated.\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2768,
+        -448
+      ],
+      "id": "b77fcad2-aa2f-45b3-8c4b-c539152eefcd",
+      "name": "Skip Duplicate Weekly Run"
     }
   ],
   "pinData": {},
   "connections": {
     "Schedule Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Workflow Config",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "When clicking â€˜Execute workflowâ€™": {
       "main": [
         [
           {
@@ -764,7 +888,7 @@
       "main": [
         [
           {
-            "node": "AI RiskOps Analyst Agent",
+            "node": "Search Existing Weekly Issue",
             "type": "main",
             "index": 0
           }
@@ -797,7 +921,7 @@
       "main": [
         [
           {
-            "node": "Generate RiskOps Image Prompt",
+            "node": "RiskOps Quality Gate",
             "type": "main",
             "index": 0
           }
@@ -909,15 +1033,76 @@
           }
         ]
       ]
+    },
+    "RiskOps Quality Gate": {
+      "main": [
+        [
+          {
+            "node": "Is Quality Gate Passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Quality Gate Passed?": {
+      "main": [
+        [
+          {
+            "node": "Generate RiskOps Image Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop Invalid Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Existing Weekly Issue": {
+      "main": [
+        [
+          {
+            "node": "Weekly Issue Already Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weekly Issue Already Exists?": {
+      "main": [
+        [
+          {
+            "node": "Skip Duplicate Weekly Run",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI RiskOps Analyst Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "errorWorkflow": "BgKiW6qNFYC3Vp7N",
+    "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "236d80e7-af8e-4b40-a14d-97e070aeb3b3",
+  "versionId": "375e2014-d559-425a-b008-2bf777ab4bd7",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "5b486afc1db1b7cfd37867f8a5745876935d6b34f5bf239c641ace80aff70708"

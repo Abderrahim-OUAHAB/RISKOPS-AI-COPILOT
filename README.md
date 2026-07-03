@@ -163,9 +163,9 @@ See [docs/deployment.md](docs/deployment.md) for local Docker Compose deployment
 
 ## n8n Automation Layer
 
-The portfolio includes an n8n workflow named `AI RiskOps GitHub Maintainer` for weekly RiskOps automation. It checks the RiskOps API, generates an AI report, creates an OpenAI visual snapshot, opens a GitHub issue and writes a Markdown report in `docs/reports`.
+The portfolio includes an n8n workflow named `AI RiskOps GitHub Maintainer` for weekly RiskOps automation. It checks the RiskOps API, generates an AI report, runs a RiskOps Quality Gate, creates an OpenAI visual snapshot, opens a labeled GitHub issue and writes a Markdown report in `docs/reports`.
 
-The workflow uses anonymized customer aliases only, so customer IDs are not exposed in generated reports, images or issue bodies. See [docs/n8n/README.md](docs/n8n/README.md) for import, credential and security instructions.
+The hardened automation also documents an `AI RiskOps Error Handler` workflow for incident issue creation and includes a weekly duplicate issue guard to avoid duplicate reports and unnecessary OpenAI image cost. The workflow uses anonymized customer aliases only, so raw customer identifiers are not exposed in generated reports, images or issue bodies. See [docs/n8n/README.md](docs/n8n/README.md) for import, credential and security instructions.
 
 ## Final Product UI
 
