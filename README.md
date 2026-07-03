@@ -161,6 +161,12 @@ The project includes GitHub Actions for Python validation, repository hygiene ch
 
 See [docs/deployment.md](docs/deployment.md) for local Docker Compose deployment, environment variables, health checks, a simple VPS path and production limits.
 
+## n8n Automation Layer
+
+The portfolio includes an n8n workflow named `AI RiskOps GitHub Maintainer` for weekly RiskOps automation. It checks the RiskOps API, generates an AI report, creates an OpenAI visual snapshot, opens a GitHub issue and writes a Markdown report in `docs/reports`.
+
+The workflow uses anonymized customer aliases only, so customer IDs are not exposed in generated reports, images or issue bodies. See [docs/n8n/README.md](docs/n8n/README.md) for import, credential and security instructions.
+
 ## Final Product UI
 
 The Streamlit interface is finalized for `v1.3.3-action-workflow`, a recruiter-ready product shell with eight pages:

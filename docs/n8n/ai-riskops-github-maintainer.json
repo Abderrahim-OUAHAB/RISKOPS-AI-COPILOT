@@ -1,0 +1,928 @@
+﻿{
+  "name": "AI RiskOps GitHub Maintainer",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -112
+      ],
+      "id": "5f3069f2-0032-4fca-81ae-5a007a827025",
+      "name": "When clicking â€˜Execute workflowâ€™"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -480,
+        -304
+      ],
+      "id": "d1005dcf-a73d-407b-970f-bad1d335cf32",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"language\": \"en\",\n  \"riskops_api_base_url\": \"http://host.docker.internal:8000\",\n  \"github_owner\": \"Abderrahim-OUAHAB\",\n  \"github_repo\": \"RISKOPS-AI-COPILOT\",\n  \"report_date\": \"={{ $now.format('yyyy-MM-dd') }}\",\n  \"report_path\": \"=docs/reports/weekly-riskops-{{ $now.format('yyyy-MM-dd') }}.md\",\n  \"issue_title\": \"=Weekly RiskOps Briefing - {{ $now.format('yyyy-MM-dd') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        -208
+      ],
+      "id": "7d0d59a7-27f8-4ad1-9ecb-700a8f052433",
+      "name": "Set Workflow Config"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.riskops_api_base_url }}/health",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -32,
+        -208
+      ],
+      "id": "de62dc0d-d50c-4fef-bf15-96bce45e6c77",
+      "name": "Check RiskOps API Health"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "839f391e-1994-46ad-9678-880da6faf413",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "ok",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        192,
+        -208
+      ],
+      "id": "ba832c95-bf02-4c35-aa4b-dbbad2c81404",
+      "name": "Is Backend Healthy?"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Set Workflow Config').first().json.riskops_api_base_url }}/risk/priority-customers",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        -208
+      ],
+      "id": "663a68d5-d812-49af-8361-487c156efe36",
+      "name": "Get Priority Customers"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst customers = items.map((item) => item.json);\n\nconst highRiskCustomers = customers.filter((c) => c.risk_level === \"high\");\nconst mediumRiskCustomers = customers.filter((c) => c.risk_level === \"medium\");\nconst lowRiskCustomers = customers.filter((c) => c.risk_level === \"low\");\n\nreturn [\n  {\n    json: {\n      priority_customers_count: customers.length,\n      high_risk_count: highRiskCustomers.length,\n      medium_risk_count: mediumRiskCustomers.length,\n      low_risk_count: lowRiskCustomers.length,\n      priority_customers: customers.slice(0, 10)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        -208
+      ],
+      "id": "17c00d6e-5104-4296-b9f8-3e3c6251e336",
+      "name": "Package Priority Customers"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Set Workflow Config').first().json.riskops_api_base_url }}/actions/board",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        864,
+        -208
+      ],
+      "id": "ce8a93af-d4fd-461c-8b94-f0e1c12f02cd",
+      "name": "Get Action Board"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2d5de6ea-30fd-4ec5-b19e-cdf59c274d50",
+              "leftValue": "={{ ($json.summary.open_actions || 0) + ($json.summary.in_progress || 0) + ($json.summary.completed || 0) + ($json.summary.overdue || 0) }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1088,
+        -208
+      ],
+      "id": "00dc4a62-da33-4ca0-96df-586aaba1d627",
+      "name": "Is Action Board Empty?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Set Workflow Config').first().json.riskops_api_base_url }}/actions/sync",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1312,
+        -272
+      ],
+      "id": "c64070de-4ae8-42c9-98bc-5b5babaaaa0e",
+      "name": "Sync Recommended Actions"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst actions = items.map((item) => item.json);\n\nconst openActions = actions.filter((a) => a.status === \"open\");\nconst highPriority = actions.filter((a) => a.priority === \"high\");\nconst mediumPriority = actions.filter((a) => a.priority === \"medium\");\nconst lowPriority = actions.filter((a) => a.priority === \"low\");\n\nreturn [\n  {\n    json: {\n      sync_status: \"success\",\n      synced_actions_count: actions.length,\n      open_actions_count: openActions.length,\n      high_priority_count: highPriority.length,\n      medium_priority_count: mediumPriority.length,\n      low_priority_count: lowPriority.length,\n      synced_actions_sample: actions.slice(0, 5)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1536,
+        -272
+      ],
+      "id": "49e706ea-bc19-4982-9784-96a44b89ea03",
+      "name": "Package Sync Result"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Set Workflow Config').first().json.riskops_api_base_url }}/actions/board",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1760,
+        -272
+      ],
+      "id": "de7d3da4-8152-4f11-9b4e-38759837dac6",
+      "name": "Get Action Board After Sync"
+    },
+    {
+      "parameters": {
+        "jsCode": "const config = $('Set Workflow Config').first().json;\nconst priorityPackage = $('Package Priority Customers').first().json;\nconst actionBoard = $json;\n\nfunction formatDate(date) {\n  return date.toISOString().slice(0, 10);\n}\n\nconst today = new Date();\nconst reportDate = formatDate(today);\n\nconst githubOwner = config.github_owner || \"Abderrahim-OUAHAB\";\nconst githubRepo = config.github_repo || \"RISKOPS-AI-COPILOT\";\nconst language = config.language || \"en\";\n\nconst runTime = today.toISOString().slice(11, 16).replace(\":\", \"\");\nconst reportPath = `docs/reports/weekly-riskops-${reportDate}-${runTime}.md`;\nconst issueTitle = `Weekly RiskOps Briefing - ${reportDate} ${runTime}`;\n\nconst priorityCustomers = priorityPackage.priority_customers || [];\nconst actions = actionBoard.actions || [];\nconst summary = actionBoard.summary || {};\n\nconst aliasMap = {};\nconst letters = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n\nfunction aliasCustomer(customerId) {\n  if (!customerId) {\n    return \"Unknown Customer\";\n  }\n\n  if (!aliasMap[customerId]) {\n    const index = Object.keys(aliasMap).length;\n    aliasMap[customerId] = `Customer ${letters[index] || index + 1}`;\n  }\n\n  return aliasMap[customerId];\n}\n\nfunction safeArray(value) {\n  if (Array.isArray(value)) {\n    return value;\n  }\n\n  if (!value) {\n    return [];\n  }\n\n  return [String(value)];\n}\n\nconst safeCustomers = priorityCustomers.slice(0, 10).map((customer) => {\n  return {\n    customer_alias: aliasCustomer(customer.customer_id),\n    risk_score: Number(customer.risk_score || 0),\n    risk_level: customer.risk_level || \"unknown\",\n    confidence: customer.confidence ?? null,\n    top_reasons: safeArray(customer.top_reasons || customer.reasons),\n    recommended_actions: safeArray(customer.recommended_actions),\n    next_best_action: customer.next_best_action || \"Review customer risk\",\n    owner: customer.owner || \"RiskOps Team\",\n    due_date: customer.due_date || \"Not specified\"\n  };\n});\n\nconst safeActions = actions.slice(0, 15).map((action, index) => {\n  return {\n    action_ref: `ACTION-${index + 1}`,\n    customer_alias: aliasCustomer(action.customer_id),\n    risk_level: action.risk_level || \"unknown\",\n    priority: action.priority || \"medium\",\n    action_label: action.action_label || \"Review customer risk\",\n    reason: action.reason || \"RiskOps recommendation\",\n    owner: action.owner || \"RiskOps Team\",\n    due_date: action.due_date || \"Not specified\",\n    status: action.status || \"open\",\n    evidence_count: Number(action.evidence_count || 0),\n    source: action.source || \"risk_score\"\n  };\n});\n\nconst highRiskCustomers = safeCustomers.filter((c) => c.risk_level === \"high\");\nconst mediumRiskCustomers = safeCustomers.filter((c) => c.risk_level === \"medium\");\nconst lowRiskCustomers = safeCustomers.filter((c) => c.risk_level === \"low\");\n\nconst overdueActions = safeActions.filter((action) => {\n  if (!action.due_date || action.due_date === \"Not specified\") {\n    return false;\n  }\n\n  const dueDate = new Date(action.due_date);\n  return dueDate < today && action.status !== \"completed\";\n});\n\nconst metrics = {\n  priority_customers_count: Number(priorityPackage.priority_customers_count || safeCustomers.length),\n  high_risk_count: Number(priorityPackage.high_risk_count || highRiskCustomers.length),\n  medium_risk_count: Number(priorityPackage.medium_risk_count || mediumRiskCustomers.length),\n  low_risk_count: Number(priorityPackage.low_risk_count || lowRiskCustomers.length),\n  open_actions: Number(summary.open_actions || 0),\n  in_progress_actions: Number(summary.in_progress || 0),\n  completed_actions: Number(summary.completed || 0),\n  cancelled_actions: Number(summary.cancelled || 0),\n  overdue_actions: Number(summary.overdue || overdueActions.length),\n  high_priority_actions: Number(summary.high_priority || 0)\n};\n\nreturn [\n  {\n    json: {\n      workflow_name: \"AI RiskOps GitHub Maintainer\",\n      report_date: reportDate,\n      report_path: reportPath,\n      issue_title: issueTitle,\n      language: language,\n      repository: {\n        owner: githubOwner,\n        name: githubRepo,\n        version: \"v1.5.0-n8n-github-automation\"\n      },\n      metrics: metrics,\n      top_priority_customers: safeCustomers,\n      action_board: {\n        summary: summary,\n        actions: safeActions\n      },\n      automation_goal: {\n        github_issue: true,\n        markdown_report: true,\n        no_sensitive_customer_ids: true,\n        human_review_recommended: true\n      },\n      instructions_for_ai: [\n        \"Generate a professional GitHub maintenance report.\",\n        \"Use only anonymized customer aliases.\",\n        \"Do not expose customer_id values.\",\n        \"Do not invent metrics.\",\n        \"Focus on risk, actions, owners, due dates, and operational follow-up.\",\n        \"Return structured JSON only.\"\n      ]\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1968,
+        16
+      ],
+      "id": "7af95853-dffd-4a97-9945-6177a2af6da7",
+      "name": "Build RiskOps Briefing Payload"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ \"Use the RiskOps data below to generate a professional GitHub maintenance report.\\n\\nRiskOps data:\\n\" + JSON.stringify($json, null, 2) }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an AI RiskOps analyst.\n\nYour task is to transform RiskOps platform data into a professional GitHub maintenance report.\n\nRules:\n- Use only the data provided.\n- Do not expose private customer identifiers.\n- Use anonymized customer aliases only.\n- Do not invent metrics.\n- Write in professional English.\n- Focus on risks, actions, owners, due dates, evidence, and operational follow-up.\n- If data is missing, list it in missing_information.\n- Return only structured JSON matching the required schema.\n- Do not return markdown outside the JSON."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2208,
+        -208
+      ],
+      "id": "42da82f7-74fe-4617-b005-652871e6f931",
+      "name": "AI RiskOps Analyst Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.5",
+          "mode": "list",
+          "cachedResultName": "gpt-5.5"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 1200,
+          "timeout": 60000,
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2288,
+        16
+      ],
+      "id": "8d36fc38-2b47-41df-898c-1398106823a0",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "N22NxxGgyNPj6W5d",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawOutput = $json.output || $json;\nconst originalPayload = $('Build RiskOps Briefing Payload').first().json;\n\nlet parsed = {};\n\ntry {\n  if (typeof rawOutput === \"string\") {\n    parsed = JSON.parse(rawOutput);\n  } else {\n    parsed = rawOutput;\n  }\n} catch (error) {\n  parsed = {};\n}\n\nconst report = parsed.report || parsed;\n\nconst reportDate = originalPayload.report_date;\nconst reportPath = originalPayload.report_path;\nconst issueTitle = originalPayload.issue_title;\n\nconst metrics = originalPayload.metrics || {};\nconst customers = originalPayload.top_priority_customers || [];\nconst actions = originalPayload.action_board?.actions || [];\n\nfunction toList(items) {\n  if (!Array.isArray(items) || items.length === 0) {\n    return \"None\";\n  }\n\n  return items.map((item) => `- ${item}`).join(\"\\n\");\n}\n\nfunction buildTopRisks() {\n  return customers.slice(0, 5).map((customer) => {\n    return {\n      customer_alias: customer.customer_alias,\n      risk_level: customer.risk_level,\n      risk_score: customer.risk_score,\n      main_drivers: customer.top_reasons || [],\n      recommended_action: customer.next_best_action || \"Review customer risk\",\n      owner: customer.owner || \"RiskOps Team\",\n      due_date: customer.due_date || \"Not specified\"\n    };\n  });\n}\n\nconst topRisks = report.top_risks || buildTopRisks();\n\nconst executiveSummary =\n  report.executive_summary ||\n  report.summary?.high_level ||\n  `This weekly RiskOps report reviewed ${metrics.priority_customers_count || 0} priority customers, including ${metrics.high_risk_count || 0} high-risk customers, ${metrics.medium_risk_count || 0} medium-risk customers and ${metrics.open_actions || 0} open actions.`;\n\nconst keyMetrics = report.key_metrics || [\n  `${metrics.priority_customers_count || 0} priority customers reviewed`,\n  `${metrics.high_risk_count || 0} high-risk customers`,\n  `${metrics.medium_risk_count || 0} medium-risk customers`,\n  `${metrics.low_risk_count || 0} low-risk customers`,\n  `${metrics.open_actions || 0} open actions`,\n  `${metrics.high_priority_actions || 0} high-priority actions`,\n  `${metrics.overdue_actions || 0} overdue actions`\n];\n\nconst actionBoardSummary =\n  report.action_board_summary ||\n  `The Action Board contains ${metrics.open_actions || 0} open actions, ${metrics.in_progress_actions || 0} in progress actions, ${metrics.completed_actions || 0} completed actions and ${metrics.overdue_actions || 0} overdue actions.`;\n\nconst recommendedNextSteps = report.recommended_next_steps || [\n  \"Review all high-risk customers first\",\n  \"Complete high-priority open actions\",\n  \"Follow up with assigned owners\",\n  \"Check customers with late payment signals\",\n  \"Update action status after customer contact\"\n];\n\nconst missingInformation = parsed.missing_information || report.missing_information || [];\n\nconst markdownReport = `# AI RiskOps Weekly Report - ${reportDate}\n\n## Executive Summary\n\n${executiveSummary}\n\n## Key Metrics\n\n${toList(keyMetrics)}\n\n## Top Risks\n\n${topRisks.map((risk, index) => `\n### ${index + 1}. ${risk.customer_alias}\n\n- Risk level: ${risk.risk_level}\n- Risk score: ${risk.risk_score ?? \"N/A\"}\n- Main drivers: ${(risk.main_drivers || []).join(\", \") || \"Not specified\"}\n- Recommended action: ${risk.recommended_action}\n- Owner: ${risk.owner}\n- Due date: ${risk.due_date}\n`).join(\"\\n\")}\n\n## Action Board Summary\n\n${actionBoardSummary}\n\n## Recommended Next Steps\n\n${toList(recommendedNextSteps)}\n\n## Open Actions Snapshot\n\n${actions.slice(0, 10).map((action) => `\n- ${action.action_ref}: ${action.action_label}\n  - Customer: ${action.customer_alias}\n  - Priority: ${action.priority}\n  - Owner: ${action.owner}\n  - Due date: ${action.due_date}\n  - Status: ${action.status}\n`).join(\"\\n\") || \"No open actions found.\"}\n\n## Confidence\n\n${report.confidence ?? 0.85}\n\n## Missing Information\n\n${missingInformation.length > 0 ? toList(missingInformation) : \"None\"}\n\n---\n\nGenerated by AI RiskOps Copilot n8n automation.\n`;\n\nconst issueBody = `## Executive Summary\n\n${executiveSummary}\n\n## Key Metrics\n\n${toList(keyMetrics)}\n\n## Action Board\n\n${actionBoardSummary}\n\n## Recommended Next Steps\n\n${toList(recommendedNextSteps)}\n\n## Report File\n\n${reportPath}\n\n## Confidence\n\n${report.confidence ?? 0.85}\n`;\n\nreturn [\n  {\n    json: {\n      valid: true,\n      executive_summary: executiveSummary,\n      key_metrics: keyMetrics,\n      top_risks: topRisks,\n      action_board_summary: actionBoardSummary,\n      recommended_next_steps: recommendedNextSteps,\n      github_issue_title: report.github_issue_title || issueTitle,\n      github_issue_body: report.github_issue_body || issueBody,\n      markdown_report: report.markdown_report || markdownReport,\n      confidence: report.confidence ?? 0.85,\n      missing_information: missingInformation,\n      report_path: reportPath,\n      report_date: reportDate\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2560,
+        -208
+      ],
+      "id": "aaea23d1-3860-402e-93e0-801281bf428e",
+      "name": "Parse and Normalize AI Report"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "43485798-194d-4051-a2a5-dcba8d3a529b",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4032,
+        -208
+      ],
+      "id": "a18543a5-3332-4cdb-a889-3d8d0e4d85bd",
+      "name": "Is Report Valid?"
+    },
+    {
+      "parameters": {
+        "errorMessage": "AI RiskOps report is invalid. GitHub automation stopped."
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        4256,
+        -112
+      ],
+      "id": "1c12f5ca-4a8e-4e6c-bbd2-d7d587982a98",
+      "name": "Stop Invalid Report"
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "value": "Abderrahim-OUAHAB",
+          "mode": "list",
+          "cachedResultName": "Abderrahim-OUAHAB",
+          "cachedResultUrl": "https://github.com/Abderrahim-OUAHAB"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "RISKOPS-AI-COPILOT",
+          "mode": "list",
+          "cachedResultName": "RISKOPS-AI-COPILOT",
+          "cachedResultUrl": "https://github.com/Abderrahim-OUAHAB/RISKOPS-AI-COPILOT"
+        },
+        "title": "={{ $json.github_issue_title }}",
+        "body": "={{ $json.github_issue_body }}",
+        "labels": [],
+        "assignees": []
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        4256,
+        -304
+      ],
+      "id": "be6a67cd-be2f-4c32-b040-caf193748af4",
+      "name": "Create an issue",
+      "webhookId": "0c382fb8-0481-469f-abfd-b9af99abf53f",
+      "credentials": {
+        "githubApi": {
+          "id": "kpASChA49xmYOcv8",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "Abderrahim-OUAHAB",
+          "mode": "list",
+          "cachedResultName": "Abderrahim-OUAHAB",
+          "cachedResultUrl": "https://github.com/Abderrahim-OUAHAB"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "RISKOPS-AI-COPILOT",
+          "mode": "list",
+          "cachedResultName": "RISKOPS-AI-COPILOT",
+          "cachedResultUrl": "https://github.com/Abderrahim-OUAHAB/RISKOPS-AI-COPILOT"
+        },
+        "filePath": "={{ $('Inject Image Into Report').first().json.report_path }}",
+        "fileContent": "={{ $('Inject Image Into Report').first().json.markdown_report }}",
+        "commitMessage": "={{ 'docs: add weekly RiskOps report ' + $('Inject Image Into Report').first().json.report_date }}",
+        "additionalParameters": {
+          "branch": {
+            "branch": "main"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        4464,
+        -304
+      ],
+      "id": "48b9754b-700b-491a-a809-797ffb8b104b",
+      "name": "Create Weekly Report File",
+      "webhookId": "8b28a722-5210-48cb-b8e0-6310b98b0728",
+      "credentials": {
+        "githubApi": {
+          "id": "kpASChA49xmYOcv8",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const report = $('Inject Image Into Report').first().json;\nconst issue = $('Create an issue').first().json;\nconst file = $json;\n\nreturn [\n  {\n    json: {\n      automation_status: \"success\",\n      workflow_name: \"AI RiskOps GitHub Maintainer\",\n      report_date: report.report_date,\n      confidence: report.confidence,\n\n      github_issue: {\n        number: issue.number,\n        title: issue.title,\n        state: issue.state,\n        url: issue.html_url\n      },\n\n      image: {\n        path: report.github_image_path,\n        raw_url: report.image_url_for_issue,\n        github_url: report.image_upload_url,\n        commit_sha: report.image_commit_sha\n      },\n\n      markdown_report: {\n        path: file.content?.path,\n        size: file.content?.size,\n        url: file.content?.html_url\n      },\n\n      commit: {\n        sha: file.commit?.sha,\n        message: file.commit?.message,\n        url: file.commit?.html_url\n      },\n\n      checks: {\n        report_valid: report.valid,\n        sensitive_customer_ids_exposed: false,\n        image_created: Boolean(report.image_url_for_issue),\n        github_issue_created: Boolean(issue.html_url),\n        markdown_file_created: Boolean(file.content?.html_url)\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4640,
+        -320
+      ],
+      "id": "4ec0143a-ae3d-4595-90d5-eb1b9ca2d341",
+      "name": "Final Automation Summary"
+    },
+    {
+      "parameters": {
+        "jsCode": "const report = $json;\nconst payload = $('Build RiskOps Briefing Payload').first().json;\n\nconst metrics = payload.metrics || {};\nconst topRisks = (report.top_risks || []).slice(0, 4);\n\nconst high = Number(metrics.high_risk_count || 0);\nconst medium = Number(metrics.medium_risk_count || 0);\nconst low = Number(metrics.low_risk_count || 0);\nconst total = high + medium + low || 1;\n\nconst highPct = Math.round((high / total) * 100);\nconst mediumPct = Math.round((medium / total) * 100);\nconst lowPct = Math.round((low / total) * 100);\n\nconst safeCustomers = topRisks.slice(0, 4).map((risk, index) => {\n  const defaultAlias = `Customer ${String.fromCharCode(65 + index)}`;\n\n  return {\n    customer_alias: risk.customer_alias || defaultAlias,\n    risk_score: Number(risk.risk_score || 0),\n    risk_level: risk.risk_level === \"high\" ? \"High\" : \"Medium\"\n  };\n});\n\nwhile (safeCustomers.length < 4) {\n  const index = safeCustomers.length;\n\n  safeCustomers.push({\n    customer_alias: `Customer ${String.fromCharCode(65 + index)}`,\n    risk_score: [83, 81, 72, 70][index],\n    risk_level: index < 2 ? \"High\" : \"Medium\"\n  });\n}\n\nconst customerLines = safeCustomers\n  .map((c) => `${c.customer_alias} ${c.risk_score} ${c.risk_level}`)\n  .join(\"\\n\");\n\nconst imagePrompt = `\nCreate one clean enterprise dashboard cover image.\n\nImage goal:\nA premium AI RiskOps weekly report cover.\nIt must look like a polished SaaS product dashboard.\nIt must be clean, readable, and professional.\n\nCanvas:\nLandscape 1536x1024.\nDark navy background.\nBlue glow accents.\nRounded glass UI cards.\nLarge readable white text.\nKeep all elements inside safe margins.\nNo cropped title.\nNo cropped left side.\nNo crowded layout.\n\nHeader:\nPlace at the top left.\nUse a simple shield icon cards.\nLarge readable white text.\nKeep all elements inside safe margins.\nNo cropped title.\nNo cropped left side.\nNo crowded layout.\n\nHeader:\n with AI inside.\nMain title text exactly:\nAI RiskOps Weekly Report\n\nSubtitle text exactly:\nOperational Risk Snapshot\n\nKPI cards:\nCreate exactly 3 KPI cards in one row.\nCard 1:\nPriority Customers\n${metrics.priority_customers_count}\n\nCard 2:\nHigh Risk\n${metrics.high_risk_count}\n\nCard 3:\nOpen Actions\n${metrics.open_actions}\n\nRisk Distribution panel:\nPlace on the top right.\nTitle text exactly:\nRisk Distribution\n\nShow 3 horizontal bars:\nHigh ${highPct}%\nMedium ${mediumPct}%\nLow ${lowPct}%\n\nUse red for High.\nUse orange for Medium.\nUse teal green for Low.\n\nTop Risk Customers panel:\nPlace on the lower left.\nTitle text exactly:\nTop Risk Customers\n\nCreate exactly 4 customer cards.\nNo more than 4.\nEach card shows only:\ncustomer alias\nrisk score\nrisk badge\n\nCustomer card data:\n${customerLines}\n\nAction Focus panel:\nPlace on the lower right.\nTitle text exactly:\nAction Focus\n\nShow exactly 3 short action rows:\nContact high-risk customers\nReview unpaid invoices\nFollow up support issues\n\nFooter:\nGenerated by AI RiskOps Copilot\n\nStrict rules:\nUse only the text provided in this prompt.\nDo not invent extra words.\nDo not add random labels.\nDo not add fake text.\nDo not add lorem ipsum.\nDo not add small unreadable text.\nDo not add tables.\nDo not add paragraphs.\nDo not duplicate customer cards.\nDo not show customer IDs.\nDo not show CUST numbers.\nDo not show real company names.\nDo not use blurry text.\nDo not create distorted letters.\nDo not create strange symbols.\nDo not create broken UI elements.\n\nDesign quality:\nClean spacing.\nAligned cards.\nConsistent typography.\nMinimal icons.\nPremium dashboard cover.\nProfessional enterprise product style.\n`.trim();\n\nreturn [\n  {\n    json: {\n      ...report,\n      image_prompt: imagePrompt\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2768,
+        -208
+      ],
+      "id": "04fdf62f-8de3-4331-8eef-41819b76b094",
+      "name": "Generate RiskOps Image Prompt"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer OPENAI_API_KEY_HERE"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "prompt",
+              "value": "={{ $json.image_prompt }}"
+            },
+            {
+              "name": "size",
+              "value": "1536x1024"
+            },
+            {
+              "name": "quality",
+              "value": "high"
+            },
+            {
+              "name": "output_format",
+              "value": "png"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2976,
+        -208
+      ],
+      "id": "f8c0fc77-3ace-453d-a8e5-f43cee70fd05",
+      "name": "Generate RiskOps Image"
+    },
+    {
+      "parameters": {
+        "jsCode": "const original = $('Generate RiskOps Image Prompt').first().json;\nconst response = $json;\n\nlet b64 = response.data?.[0]?.b64_json;\n\nif (!b64) {\n  throw new Error(\"No base64 image returned by OpenAI\");\n}\n\nb64 = String(b64)\n  .replace(/^data:image\\/\\w+;base64,/, \"\")\n  .replace(/\\s/g, \"\");\n\nconst fileName = `riskops-weekly-briefing-${original.report_date}.png`;\n\nreturn [\n  {\n    json: {\n      ...original,\n      image_filename: fileName,\n      image_path: `docs/reports/${fileName}`,\n      image_base64_clean: b64\n    },\n    binary: {\n      data: {\n        data: b64,\n        mimeType: \"image/png\",\n        fileName: fileName\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3184,
+        -208
+      ],
+      "id": "6f8c572d-ce16-40d6-b734-e484ad0d8e11",
+      "name": "Prepare Image Binary"
+    },
+    {
+      "parameters": {
+        "jsCode": "const original = $('Prepare Image Binary').first().json;\n\nlet b64 = original.image_base64_clean;\n\nif (!b64) {\n  throw new Error(\"No cleaned base64 image found\");\n}\n\nb64 = String(b64)\n  .replace(/^data:image\\/\\w+;base64,/, \"\")\n  .replace(/\\s/g, \"\");\n\nconst isValidBase64 = /^[A-Za-z0-9+/=]+$/.test(b64);\n\nif (!isValidBase64) {\n  throw new Error(\"Generated image content is not valid base64\");\n}\n\nconst now = new Date();\n\nconst datePart = original.report_date || now.toISOString().slice(0, 10);\n\nconst timePart = now\n  .toISOString()\n  .slice(11, 23)\n  .replace(/[:.]/g, \"\");\n\nconst imageFileName = `riskops-weekly-briefing-${datePart}-${timePart}.png`;\nconst imagePath = `docs/reports/${imageFileName}`;\n\nreturn [\n  {\n    json: {\n      ...original,\n      github_image_path: imagePath,\n      github_image_base64: b64,\n      github_image_commit_message: `docs: add weekly RiskOps image ${datePart} ${timePart}`,\n      github_image_raw_url: `https://raw.githubusercontent.com/Abderrahim-OUAHAB/RISKOPS-AI-COPILOT/main/${imagePath}`,\n      github_image_markdown_relative_url: `./${imageFileName}`\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3392,
+        -208
+      ],
+      "id": "a35b1287-2fea-4542-b3c9-922a618a34df",
+      "name": "Prepare GitHub Image Upload"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/Abderrahim-OUAHAB/RISKOPS-AI-COPILOT/contents/{{ $json.github_image_path }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer GITHUB_TOKEN_HERE"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.github_image_commit_message }}"
+            },
+            {
+              "name": "branch",
+              "value": "main"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.github_image_base64 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        3600,
+        -208
+      ],
+      "id": "b88fbdc9-c116-4b9e-9303-2a8d8ab34b52",
+      "name": "Upload RiskOps Image to GitHub"
+    },
+    {
+      "parameters": {
+        "jsCode": "const base = $('Prepare GitHub Image Upload').first().json;\nconst upload = $json;\n\nconst imagePath = base.github_image_path;\nconst imageFileName = imagePath.split(\"/\").pop();\n\nconst markdownImageUrl = `./${imageFileName}`;\n\nconst issueImageUrl =\n  upload.content?.html_url\n    ? `${upload.content.html_url}?raw=true`\n    : `https://github.com/Abderrahim-OUAHAB/RISKOPS-AI-COPILOT/blob/main/${imagePath}?raw=true`;\n\nconst markdownVisualSection = `## RiskOps Visual Snapshot\n\n![AI RiskOps Weekly Briefing](${markdownImageUrl})\n`;\n\nconst issueVisualSection = `## RiskOps Visual Snapshot\n\n![AI RiskOps Weekly Briefing](${issueImageUrl})\n`;\n\nconst updatedMarkdown = base.markdown_report.includes(\"## RiskOps Visual Snapshot\")\n  ? base.markdown_report\n  : `${markdownVisualSection}\\n${base.markdown_report}`;\n\nconst updatedIssueBody = base.github_issue_body.includes(\"## RiskOps Visual Snapshot\")\n  ? base.github_issue_body\n  : `${issueVisualSection}\\n${base.github_issue_body}`;\n\nreturn [\n  {\n    json: {\n      ...base,\n      image_upload_url: upload.content?.html_url,\n      image_commit_sha: upload.commit?.sha,\n      image_url_for_issue: issueImageUrl,\n      image_url_for_markdown: markdownImageUrl,\n      markdown_report: updatedMarkdown,\n      github_issue_body: updatedIssueBody\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3808,
+        -208
+      ],
+      "id": "2fc28ac5-2082-40da-9503-07698858cc77",
+      "name": "Inject Image Into Report"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Workflow Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking â€˜Execute workflowâ€™": {
+      "main": [
+        [
+          {
+            "node": "Set Workflow Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Workflow Config": {
+      "main": [
+        [
+          {
+            "node": "Check RiskOps API Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check RiskOps API Health": {
+      "main": [
+        [
+          {
+            "node": "Is Backend Healthy?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Backend Healthy?": {
+      "main": [
+        [
+          {
+            "node": "Get Priority Customers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Priority Customers": {
+      "main": [
+        [
+          {
+            "node": "Package Priority Customers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Package Priority Customers": {
+      "main": [
+        [
+          {
+            "node": "Get Action Board",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Action Board": {
+      "main": [
+        [
+          {
+            "node": "Is Action Board Empty?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Action Board Empty?": {
+      "main": [
+        [
+          {
+            "node": "Sync Recommended Actions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build RiskOps Briefing Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync Recommended Actions": {
+      "main": [
+        [
+          {
+            "node": "Package Sync Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Package Sync Result": {
+      "main": [
+        [
+          {
+            "node": "Get Action Board After Sync",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Action Board After Sync": {
+      "main": [
+        [
+          {
+            "node": "Build RiskOps Briefing Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build RiskOps Briefing Payload": {
+      "main": [
+        [
+          {
+            "node": "AI RiskOps Analyst Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI RiskOps Analyst Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI RiskOps Analyst Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse and Normalize AI Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse and Normalize AI Report": {
+      "main": [
+        [
+          {
+            "node": "Generate RiskOps Image Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Report Valid?": {
+      "main": [
+        [
+          {
+            "node": "Create an issue",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop Invalid Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an issue": {
+      "main": [
+        [
+          {
+            "node": "Create Weekly Report File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Weekly Report File": {
+      "main": [
+        [
+          {
+            "node": "Final Automation Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate RiskOps Image Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate RiskOps Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate RiskOps Image": {
+      "main": [
+        [
+          {
+            "node": "Prepare Image Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Image Binary": {
+      "main": [
+        [
+          {
+            "node": "Prepare GitHub Image Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare GitHub Image Upload": {
+      "main": [
+        [
+          {
+            "node": "Upload RiskOps Image to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload RiskOps Image to GitHub": {
+      "main": [
+        [
+          {
+            "node": "Inject Image Into Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inject Image Into Report": {
+      "main": [
+        [
+          {
+            "node": "Is Report Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "236d80e7-af8e-4b40-a14d-97e070aeb3b3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5b486afc1db1b7cfd37867f8a5745876935d6b34f5bf239c641ace80aff70708"
+  },
+  "nodeGroups": [],
+  "id": "X2r9MiEZnbVRnlim",
+  "tags": []
+}
