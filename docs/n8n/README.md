@@ -9,6 +9,10 @@ This folder contains the validated n8n workflow export for the AI RiskOps Copilo
 
 The main export is stored in `docs/n8n/ai-riskops-github-maintainer.json`. The Error Handler workflow is documented here; no separate safe export is included unless a dedicated JSON file is provided.
 
+Operations runbook: [OPERATIONS.md](OPERATIONS.md)
+
+Local validation script: [`scripts/validate_n8n_workflows.py`](../../scripts/validate_n8n_workflows.py)
+
 ## Main Workflow Capabilities
 
 `AI RiskOps GitHub Maintainer` runs a weekly RiskOps automation:
@@ -97,6 +101,14 @@ GITHUB_REPO=RISKOPS-AI-COPILOT
 - `GET /risk/priority-customers`
 - `GET /actions/board`
 - `POST /actions/sync`
+
+## Local Validation
+
+Run the local validation script before committing workflow changes:
+
+```bash
+python scripts/validate_n8n_workflows.py
+```
 
 ## Import Into n8n
 

@@ -167,6 +167,8 @@ The portfolio includes an n8n workflow named `AI RiskOps GitHub Maintainer` for 
 
 The hardened automation also documents an `AI RiskOps Error Handler` workflow for incident issue creation and includes a weekly duplicate issue guard to avoid duplicate reports and unnecessary OpenAI image cost. The workflow uses anonymized customer aliases only, so raw customer identifiers are not exposed in generated reports, images or issue bodies. See [docs/n8n/README.md](docs/n8n/README.md) for import, credential and security instructions.
 
+Operational runbook and validation tooling are available under `docs/n8n`.
+
 ## Final Product UI
 
 The Streamlit interface is finalized for `v1.3.3-action-workflow`, a recruiter-ready product shell with eight pages:
