@@ -36,7 +36,7 @@ The project provides a local AI application with:
 
 ## Architecture
 
-![AI RiskOps Copilot architecture](docs/architecture-tech-map.svg)
+![AI RiskOps Copilot technical architecture](docs/architecture-technical.png)
 
 Mermaid version: [docs/architecture-final.md](docs/architecture-final.md)
 
