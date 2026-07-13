@@ -1,0 +1,3231 @@
+{
+  "version": "1.1.0",
+  "events": [
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:27:43.087Z",
+      "id": "67a9ec9f15bdaa56b4d1",
+      "metrics": {
+        "sourceLabel": "UserAction_StartedMonitoring"
+      }
+    },
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:27:47.127Z",
+      "id": "2a6b0bc8e975afacbff9",
+      "metrics": {
+        "sourceLabel": "UserAction_ChangePage"
+      }
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:47.466Z",
+      "end": "2026-07-13T13:27:47.544Z",
+      "id": "b4ae7fa3c4bd2934fca1-866e5d475b9d5650f479",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Zone de texte",
+        "visualId": "b4ae7fa3c4bd2934fca1",
+        "visualType": "textbox",
+        "initialLoad": true
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:47.467Z",
+      "end": "2026-07-13T13:27:47.482Z",
+      "id": "bb248435-776d-4b6b-a9c5-d97b53de7532",
+      "parentId": "b4ae7fa3c4bd2934fca1-866e5d475b9d5650f479"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:47.481Z",
+      "end": "2026-07-13T13:27:47.544Z",
+      "id": "cfa63b08-0b7f-4382-9fff-495e614100b7",
+      "parentId": "b4ae7fa3c4bd2934fca1-866e5d475b9d5650f479"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.508Z",
+      "end": "2026-07-13T13:27:47.544Z",
+      "id": "d1d0e3c2-d25f-4b94-8105-b78f0e39ac27",
+      "parentId": "cfa63b08-0b7f-4382-9fff-495e614100b7"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.509Z",
+      "end": "2026-07-13T13:27:47.509Z",
+      "id": "a13a8065-5866-48c4-9ce8-9f57fc6e3dd6",
+      "parentId": "cfa63b08-0b7f-4382-9fff-495e614100b7"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:47.509Z",
+      "end": "2026-07-13T13:27:47.509Z",
+      "id": "baa382b4-a0e5-4cdc-aa4b-3cf49c07d13b",
+      "parentId": "cfa63b08-0b7f-4382-9fff-495e614100b7"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:47.468Z",
+      "end": "2026-07-13T13:27:47.547Z",
+      "id": "214ca84d558b9b357e44-f6570fe01e0c03370c2e",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Navigateur de pages",
+        "visualId": "214ca84d558b9b357e44",
+        "visualType": "pageNavigator",
+        "initialLoad": true
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:47.468Z",
+      "end": "2026-07-13T13:27:47.492Z",
+      "id": "2b90798a-29db-45ec-8e21-5dc45948f1af",
+      "parentId": "214ca84d558b9b357e44-f6570fe01e0c03370c2e"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:47.492Z",
+      "end": "2026-07-13T13:27:47.547Z",
+      "id": "e65c85f8-1f5e-4ca6-b5f4-36d9550049e2",
+      "parentId": "214ca84d558b9b357e44-f6570fe01e0c03370c2e"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.511Z",
+      "end": "2026-07-13T13:27:47.547Z",
+      "id": "0519bae1-53aa-4a5d-8af4-03b16670a1ea",
+      "parentId": "e65c85f8-1f5e-4ca6-b5f4-36d9550049e2"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.511Z",
+      "end": "2026-07-13T13:27:47.511Z",
+      "id": "a191029e-eade-4d60-b6a7-c9733b1499a5",
+      "parentId": "e65c85f8-1f5e-4ca6-b5f4-36d9550049e2"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:47.511Z",
+      "end": "2026-07-13T13:27:47.512Z",
+      "id": "fee1e775-0fb2-4f38-96c3-680519e63b5a",
+      "parentId": "e65c85f8-1f5e-4ca6-b5f4-36d9550049e2"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.512Z",
+      "end": "2026-07-13T13:27:47.547Z",
+      "id": "0c2358b2-f582-4104-b319-7619456febdc",
+      "parentId": "e65c85f8-1f5e-4ca6-b5f4-36d9550049e2"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.512Z",
+      "end": "2026-07-13T13:27:47.512Z",
+      "id": "241bc003-fa54-4243-9836-5c00a99e65b0",
+      "parentId": "e65c85f8-1f5e-4ca6-b5f4-36d9550049e2"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:47.470Z",
+      "end": "2026-07-13T13:27:47.847Z",
+      "id": "7d3c166c42dc1d0e411e-3c760e4c2854fe455a47",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Distribution",
+        "visualId": "7d3c166c42dc1d0e411e",
+        "visualType": "donutChart",
+        "initialLoad": true
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:47.470Z",
+      "end": "2026-07-13T13:27:47.495Z",
+      "id": "a9bb71b1-e96f-40e6-9600-13c562bc9d3b",
+      "parentId": "7d3c166c42dc1d0e411e-3c760e4c2854fe455a47"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:47.495Z",
+      "end": "2026-07-13T13:27:47.787Z",
+      "id": "2597dc5c-4e35-4c85-86b7-fa6048e28f7e",
+      "parentId": "7d3c166c42dc1d0e411e-3c760e4c2854fe455a47"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:47.786Z",
+      "end": "2026-07-13T13:27:47.847Z",
+      "id": "67018f92-c70d-4055-beaa-3e082e41dcf0",
+      "parentId": "7d3c166c42dc1d0e411e-3c760e4c2854fe455a47"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:47.793Z",
+      "end": "2026-07-13T13:27:47.794Z",
+      "id": "a019d1c7-ff4c-4ff8-b66f-3d59f6194974",
+      "parentId": "67018f92-c70d-4055-beaa-3e082e41dcf0"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.794Z",
+      "end": "2026-07-13T13:27:47.847Z",
+      "id": "1b995cde-74e5-41af-a9d7-cd854ae5db3f",
+      "parentId": "67018f92-c70d-4055-beaa-3e082e41dcf0"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.794Z",
+      "end": "2026-07-13T13:27:47.794Z",
+      "id": "5a8982c8-e8bc-47a2-abea-0d9c34a2c3b5",
+      "parentId": "67018f92-c70d-4055-beaa-3e082e41dcf0"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.238Z",
+      "end": "2026-07-13T13:27:32.288Z",
+      "id": "edb8fb36-99ce-4702-941f-0aad962721d1",
+      "parentId": "2597dc5c-4e35-4c85-86b7-fa6048e28f7e"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:47.504Z",
+      "end": "2026-07-13T13:27:47.506Z",
+      "id": "91a02e7e-770f-4b0f-b455-06f5cfcd3958",
+      "parentId": "2597dc5c-4e35-4c85-86b7-fa6048e28f7e"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:47.642Z",
+      "end": "2026-07-13T13:27:47.643Z",
+      "id": "829a7ac0-b402-464d-acea-306ff26fb4b9",
+      "parentId": "2597dc5c-4e35-4c85-86b7-fa6048e28f7e"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:47.786Z",
+      "end": "2026-07-13T13:27:47.786Z",
+      "id": "8d1c8e2e-5aa3-42ec-a31a-57cbec9433c3",
+      "parentId": "2597dc5c-4e35-4c85-86b7-fa6048e28f7e"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.268Z",
+      "end": "2026-07-13T13:27:32.282Z",
+      "id": "aa8b059a-7376-4092-89fc-60c71964e986",
+      "parentId": "edb8fb36-99ce-4702-941f-0aad962721d1",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS('Risk_Customers'[risk_level], \"Total_Customers\", '_Measures'[Total Customers])\r\n\r\n\tVAR __DS0BodyLimited = \r\n\t\tTOPN(1002, __DS0Core, [Total_Customers], 0, 'Risk_Customers'[risk_level], 1)\r\n\r\nEVALUATE\r\n\t__DS0BodyLimited\r\n\r\nORDER BY\r\n\t[Total_Customers] DESC, 'Risk_Customers'[risk_level]",
+        "RowCount": 3
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.277Z",
+      "end": "2026-07-13T13:27:32.280Z",
+      "id": "456AB63A-6A89-4500-8D75-78DCA3C28F56",
+      "parentId": "aa8b059a-7376-4092-89fc-60c71964e986"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.280Z",
+      "end": "2026-07-13T13:27:32.280Z",
+      "id": "9DC864B1-C89D-4A71-A896-484A59FF8684",
+      "parentId": "456AB63A-6A89-4500-8D75-78DCA3C28F56"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:47.473Z",
+      "end": "2026-07-13T13:27:47.848Z",
+      "id": "49bd3d4fb86bb0deae7b-0be2b3541846b42aa1ce",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Actions by Priority",
+        "visualId": "49bd3d4fb86bb0deae7b",
+        "visualType": "clusteredColumnChart",
+        "initialLoad": true
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:47.474Z",
+      "end": "2026-07-13T13:27:47.496Z",
+      "id": "67054441-f4db-4765-b7dd-82a1bc7aff80",
+      "parentId": "49bd3d4fb86bb0deae7b-0be2b3541846b42aa1ce"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:47.496Z",
+      "end": "2026-07-13T13:27:47.776Z",
+      "id": "5df2173e-5ae9-45e3-9100-da5011a06042",
+      "parentId": "49bd3d4fb86bb0deae7b-0be2b3541846b42aa1ce"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:47.775Z",
+      "end": "2026-07-13T13:27:47.848Z",
+      "id": "bb5f29a6-562e-46d8-aa92-12de9011e8e7",
+      "parentId": "49bd3d4fb86bb0deae7b-0be2b3541846b42aa1ce"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:47.794Z",
+      "end": "2026-07-13T13:27:47.796Z",
+      "id": "78c1156d-2f34-4ccc-a6d2-91a7872d179e",
+      "parentId": "bb5f29a6-562e-46d8-aa92-12de9011e8e7"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.796Z",
+      "end": "2026-07-13T13:27:47.848Z",
+      "id": "cf6148e8-09ad-4600-964b-2f0e6443d76d",
+      "parentId": "bb5f29a6-562e-46d8-aa92-12de9011e8e7"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.796Z",
+      "end": "2026-07-13T13:27:47.796Z",
+      "id": "d30db253-510a-4c4e-883a-91aff3387460",
+      "parentId": "bb5f29a6-562e-46d8-aa92-12de9011e8e7"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.238Z",
+      "end": "2026-07-13T13:27:32.263Z",
+      "id": "0f0b2677-3767-40e3-88d1-93802a0a540d",
+      "parentId": "5df2173e-5ae9-45e3-9100-da5011a06042"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:47.506Z",
+      "end": "2026-07-13T13:27:47.508Z",
+      "id": "c0da0047-ef70-45ef-a9e3-e779985e8757",
+      "parentId": "5df2173e-5ae9-45e3-9100-da5011a06042"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:47.643Z",
+      "end": "2026-07-13T13:27:47.644Z",
+      "id": "a22dc7f6-27e7-42ed-9ac7-6b49542eddd6",
+      "parentId": "5df2173e-5ae9-45e3-9100-da5011a06042"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:47.773Z",
+      "end": "2026-07-13T13:27:47.774Z",
+      "id": "8f9d16e7-06e2-46c6-af60-4555b48df4e1",
+      "parentId": "5df2173e-5ae9-45e3-9100-da5011a06042"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.242Z",
+      "end": "2026-07-13T13:27:32.263Z",
+      "id": "dacfe5d8-2d01-4bfd-84fb-e1142138383e",
+      "parentId": "0f0b2677-3767-40e3-88d1-93802a0a540d",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS('Action_Board'[priority], \"Total_Actions\", '_Measures'[Total Actions])\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Total_Actions], 0, 'Action_Board'[priority], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Total_Actions] DESC, 'Action_Board'[priority]",
+        "RowCount": 3
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.253Z",
+      "end": "2026-07-13T13:27:32.260Z",
+      "id": "59E354F2-9DAA-4518-B302-59498AB14B7B",
+      "parentId": "dacfe5d8-2d01-4bfd-84fb-e1142138383e"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.260Z",
+      "end": "2026-07-13T13:27:32.260Z",
+      "id": "0A040A32-CF69-4D69-BDE6-AC6B3E328028",
+      "parentId": "59E354F2-9DAA-4518-B302-59498AB14B7B"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:47.493Z",
+      "end": "2026-07-13T13:27:47.878Z",
+      "id": "82657fa6b6711df3a2b6-20576bbcb50d118eea38",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Carte",
+        "visualId": "82657fa6b6711df3a2b6",
+        "visualType": "cardVisual",
+        "initialLoad": true
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:47.494Z",
+      "end": "2026-07-13T13:27:47.512Z",
+      "id": "20e6b721-13b6-4183-8a61-04886d771440",
+      "parentId": "82657fa6b6711df3a2b6-20576bbcb50d118eea38"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:47.512Z",
+      "end": "2026-07-13T13:27:47.785Z",
+      "id": "f659e5f9-729a-44ba-b307-3abefa02a533",
+      "parentId": "82657fa6b6711df3a2b6-20576bbcb50d118eea38"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:47.784Z",
+      "end": "2026-07-13T13:27:47.878Z",
+      "id": "9312e548-2d46-4ef8-ada8-f58a0f6cf9bd",
+      "parentId": "82657fa6b6711df3a2b6-20576bbcb50d118eea38"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:47.790Z",
+      "end": "2026-07-13T13:27:47.792Z",
+      "id": "688c2c58-7e12-4fb9-ab20-8eb0bb23debd",
+      "parentId": "9312e548-2d46-4ef8-ada8-f58a0f6cf9bd"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.792Z",
+      "end": "2026-07-13T13:27:47.878Z",
+      "id": "01c46023-99a0-4c46-b58c-00a8348f9d9d",
+      "parentId": "9312e548-2d46-4ef8-ada8-f58a0f6cf9bd"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.792Z",
+      "end": "2026-07-13T13:27:47.792Z",
+      "id": "b582b5aa-1216-4b0c-8308-f755fdf423a9",
+      "parentId": "9312e548-2d46-4ef8-ada8-f58a0f6cf9bd"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.238Z",
+      "end": "2026-07-13T13:27:32.284Z",
+      "id": "0af86f01-1006-4c80-aa30-f51db4e5045d",
+      "parentId": "f659e5f9-729a-44ba-b307-3abefa02a533"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:47.533Z",
+      "end": "2026-07-13T13:27:47.535Z",
+      "id": "bcd167da-7862-4a2a-8f13-6c22dabfd145",
+      "parentId": "f659e5f9-729a-44ba-b307-3abefa02a533"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:47.643Z",
+      "end": "2026-07-13T13:27:47.643Z",
+      "id": "5975aa38-6cda-4795-82b1-a03b4ab246e7",
+      "parentId": "f659e5f9-729a-44ba-b307-3abefa02a533"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:47.782Z",
+      "end": "2026-07-13T13:27:47.783Z",
+      "id": "08ee82c9-c250-4bd3-8a30-cbd3be170297",
+      "parentId": "f659e5f9-729a-44ba-b307-3abefa02a533"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.242Z",
+      "end": "2026-07-13T13:27:32.282Z",
+      "id": "4ec4a452-cc1d-48e5-a4cd-8a30e2edd992",
+      "parentId": "0af86f01-1006-4c80-aa30-f51db4e5045d",
+      "metrics": {
+        "QueryText": "EVALUATE\r\n\tROW(\r\n\t\t\"Total_Customers\", '_Measures'[Total Customers],\r\n\t\t\"High_Risk_Customers\", '_Measures'[High Risk Customers],\r\n\t\t\"Open_Actions\", '_Measures'[Open Actions],\r\n\t\t\"Overdue_Actions\", '_Measures'[Overdue Actions],\r\n\t\t\"RiskOps_Pressure_Score\", '_Measures'[RiskOps Pressure Score]\r\n\t)",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.257Z",
+      "end": "2026-07-13T13:27:32.280Z",
+      "id": "CABC10F8-B469-4DD3-BE1C-A61CC2BC4526",
+      "parentId": "4ec4a452-cc1d-48e5-a4cd-8a30e2edd992"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.280Z",
+      "end": "2026-07-13T13:27:32.280Z",
+      "id": "FFA37285-EE3F-4014-8976-C42489F567F4",
+      "parentId": "CABC10F8-B469-4DD3-BE1C-A61CC2BC4526"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:47.556Z",
+      "end": "2026-07-13T13:27:47.950Z",
+      "id": "81355fda702c93e61fb1-70390f226460ac834a56",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Top Risk Customers",
+        "visualId": "81355fda702c93e61fb1",
+        "visualType": "tableEx",
+        "initialLoad": true
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:47.557Z",
+      "end": "2026-07-13T13:27:47.560Z",
+      "id": "637dc401-edb7-4c52-9a21-4dd2855b37cd",
+      "parentId": "81355fda702c93e61fb1-70390f226460ac834a56"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:47.560Z",
+      "end": "2026-07-13T13:27:47.781Z",
+      "id": "cacb56fc-191d-4b71-9a13-65e0b03759b5",
+      "parentId": "81355fda702c93e61fb1-70390f226460ac834a56"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:47.780Z",
+      "end": "2026-07-13T13:27:47.950Z",
+      "id": "f618d4df-5a7e-4124-904d-946c2d46ee03",
+      "parentId": "81355fda702c93e61fb1-70390f226460ac834a56"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:47.797Z",
+      "end": "2026-07-13T13:27:47.798Z",
+      "id": "5f3c8448-38f1-4d37-b66b-caefb2cae99a",
+      "parentId": "f618d4df-5a7e-4124-904d-946c2d46ee03"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:47.799Z",
+      "end": "2026-07-13T13:27:47.950Z",
+      "id": "2846a3f5-f20e-4756-be99-b79f73a825ec",
+      "parentId": "f618d4df-5a7e-4124-904d-946c2d46ee03"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:47.799Z",
+      "end": "2026-07-13T13:27:47.799Z",
+      "id": "76e9be3b-3f3b-4d0e-82b4-53407393a69b",
+      "parentId": "f618d4df-5a7e-4124-904d-946c2d46ee03"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.238Z",
+      "end": "2026-07-13T13:27:32.282Z",
+      "id": "35ed7cfc-ec87-4d1c-a6c6-ba5e7d265e18",
+      "parentId": "cacb56fc-191d-4b71-9a13-65e0b03759b5"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:47.561Z",
+      "end": "2026-07-13T13:27:47.563Z",
+      "id": "db91c993-ddf9-44d0-8098-5e7262d29f23",
+      "parentId": "cacb56fc-191d-4b71-9a13-65e0b03759b5"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:47.643Z",
+      "end": "2026-07-13T13:27:47.644Z",
+      "id": "f7839028-06f2-4f25-8920-62bf16b36b45",
+      "parentId": "cacb56fc-191d-4b71-9a13-65e0b03759b5"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:47.778Z",
+      "end": "2026-07-13T13:27:47.780Z",
+      "id": "0ce2c96e-c5e4-477b-bf03-fa8197efe8e5",
+      "parentId": "cacb56fc-191d-4b71-9a13-65e0b03759b5"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:32.247Z",
+      "end": "2026-07-13T13:27:32.280Z",
+      "id": "a025c764-0237-468b-9a3c-a13680e7f7cf",
+      "parentId": "35ed7cfc-ec87-4d1c-a6c6-ba5e7d265e18",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tFILTER(\r\n\t\t\tKEEPFILTERS(\r\n\t\t\t\tSUMMARIZECOLUMNS(\r\n\t\t\t\t\tROLLUPADDISSUBTOTAL(\r\n\t\t\t\t\t\tROLLUPGROUP(\r\n\t\t\t\t\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t\t\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t\t\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t\t\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t\t\t\t\t'Risk_Customers'[top_reasons],\r\n\t\t\t\t\t\t\t'Risk_Customers'[next_best_action],\r\n\t\t\t\t\t\t\t'Risk_Customers'[owner],\r\n\t\t\t\t\t\t\t'Risk_Customers'[Due Date]\r\n\t\t\t\t\t\t), \"IsGrandTotalRowTotal\"\r\n\t\t\t\t\t),\r\n\t\t\t\t\t\"MinRisk_Level_Bg_Color\", IGNORE(CALCULATE(MIN('Risk_Customers'[Risk Level Bg Color])))\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tOR(\r\n\t\t\t\tOR(\r\n\t\t\t\t\tOR(\r\n\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[Customer Alias])),\r\n\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[risk_level]))\r\n\t\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[risk_score]))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[confidence]))\r\n\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[top_reasons]))\r\n\t\t\t\t\t\t),\r\n\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[next_best_action]))\r\n\t\t\t\t\t),\r\n\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[owner]))\r\n\t\t\t\t),\r\n\t\t\t\tNOT(ISBLANK('Risk_Customers'[Due Date]))\r\n\t\t\t)\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(\r\n\t\t\t502,\r\n\t\t\t__DS0Core,\r\n\t\t\t[IsGrandTotalRowTotal],\r\n\t\t\t0,\r\n\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t0,\r\n\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[top_reasons],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[next_best_action],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[owner],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[Due Date],\r\n\t\t\t1\r\n\t\t)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[IsGrandTotalRowTotal] DESC,\r\n\t'Risk_Customers'[risk_score] DESC,\r\n\t'Risk_Customers'[Customer Alias],\r\n\t'Risk_Customers'[risk_level],\r\n\t'Risk_Customers'[confidence],\r\n\t'Risk_Customers'[top_reasons],\r\n\t'Risk_Customers'[next_best_action],\r\n\t'Risk_Customers'[owner],\r\n\t'Risk_Customers'[Due Date]",
+        "RowCount": 20
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.253Z",
+      "end": "2026-07-13T13:27:32.277Z",
+      "id": "0C786527-6FAD-4A1A-9BB6-9A1A3AD0085C",
+      "parentId": "a025c764-0237-468b-9a3c-a13680e7f7cf"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:32.277Z",
+      "end": "2026-07-13T13:27:32.277Z",
+      "id": "2C48F8CC-1C20-4274-9A4D-08B1CACC6A91",
+      "parentId": "0C786527-6FAD-4A1A-9BB6-9A1A3AD0085C"
+    },
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:27:53.488Z",
+      "id": "a4fd77900f0730d10ce1",
+      "metrics": {
+        "sourceLabel": "UserAction_Refresh"
+      }
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:53.493Z",
+      "end": "2026-07-13T13:27:53.518Z",
+      "id": "b4ae7fa3c4bd2934fca1-9799bbeca0c674158e83",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Zone de texte",
+        "visualId": "b4ae7fa3c4bd2934fca1",
+        "visualType": "textbox",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:53.493Z",
+      "end": "2026-07-13T13:27:53.498Z",
+      "id": "d8335ead-57f3-4bcc-838f-3495d60ea2fd",
+      "parentId": "b4ae7fa3c4bd2934fca1-9799bbeca0c674158e83"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:53.498Z",
+      "end": "2026-07-13T13:27:53.518Z",
+      "id": "127e5255-923a-4712-a9c2-54e73a209a35",
+      "parentId": "b4ae7fa3c4bd2934fca1-9799bbeca0c674158e83"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:53.517Z",
+      "end": "2026-07-13T13:27:53.517Z",
+      "id": "092c8a22-e24c-449f-86e0-9a604d544653",
+      "parentId": "127e5255-923a-4712-a9c2-54e73a209a35"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:53.494Z",
+      "end": "2026-07-13T13:27:53.587Z",
+      "id": "214ca84d558b9b357e44-c5b66738a0beee9f3819",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Navigateur de pages",
+        "visualId": "214ca84d558b9b357e44",
+        "visualType": "pageNavigator",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:53.494Z",
+      "end": "2026-07-13T13:27:53.498Z",
+      "id": "56d6b2e3-b944-4b7f-86bd-d1427469dd5e",
+      "parentId": "214ca84d558b9b357e44-c5b66738a0beee9f3819"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:53.498Z",
+      "end": "2026-07-13T13:27:53.587Z",
+      "id": "7208228d-81ba-4d00-9334-a737888dd0be",
+      "parentId": "214ca84d558b9b357e44-c5b66738a0beee9f3819"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.518Z",
+      "end": "2026-07-13T13:27:53.586Z",
+      "id": "9dd54c40-cdb7-43b3-93e4-d87feb587e79",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.518Z",
+      "end": "2026-07-13T13:27:53.519Z",
+      "id": "ccaf4399-4fa1-4f2f-b370-b7b850441705",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.519Z",
+      "end": "2026-07-13T13:27:53.586Z",
+      "id": "de0e9b4e-e801-435e-a9cb-e55c14ac9d22",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.519Z",
+      "end": "2026-07-13T13:27:53.519Z",
+      "id": "720935cc-4d4e-4384-bc79-89a9019adbd9",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:53.519Z",
+      "end": "2026-07-13T13:27:53.519Z",
+      "id": "80c85c33-18bc-457d-97df-c7563982281f",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.519Z",
+      "end": "2026-07-13T13:27:53.586Z",
+      "id": "6c87ae4b-5142-475f-8bd2-854bdbf8a785",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.519Z",
+      "end": "2026-07-13T13:27:53.519Z",
+      "id": "935e099d-038c-4652-95d3-2b42de96fdf1",
+      "parentId": "7208228d-81ba-4d00-9334-a737888dd0be"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:53.495Z",
+      "end": "2026-07-13T13:27:53.747Z",
+      "id": "7d3c166c42dc1d0e411e-33a6c7979d89c92965c3",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Distribution",
+        "visualId": "7d3c166c42dc1d0e411e",
+        "visualType": "donutChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:53.495Z",
+      "end": "2026-07-13T13:27:53.499Z",
+      "id": "5a8d354b-5fb9-428e-959c-02bba53f2663",
+      "parentId": "7d3c166c42dc1d0e411e-33a6c7979d89c92965c3"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:53.499Z",
+      "end": "2026-07-13T13:27:53.716Z",
+      "id": "5f1ac7c5-4d70-4ae4-a993-f37dd2bc8fb1",
+      "parentId": "7d3c166c42dc1d0e411e-33a6c7979d89c92965c3"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:53.716Z",
+      "end": "2026-07-13T13:27:53.747Z",
+      "id": "5c34dabc-03b2-4cfe-88fd-c723fbf9050a",
+      "parentId": "7d3c166c42dc1d0e411e-33a6c7979d89c92965c3"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:53.728Z",
+      "end": "2026-07-13T13:27:53.729Z",
+      "id": "e560890c-b9da-4c2c-851a-72ccfaaf1c95",
+      "parentId": "5c34dabc-03b2-4cfe-88fd-c723fbf9050a"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.729Z",
+      "end": "2026-07-13T13:27:53.747Z",
+      "id": "74b0f425-2717-4556-9709-dd2a547461cb",
+      "parentId": "5c34dabc-03b2-4cfe-88fd-c723fbf9050a"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.729Z",
+      "end": "2026-07-13T13:27:53.729Z",
+      "id": "1b49cc3e-f351-41a4-b2d2-bbb868b2bd36",
+      "parentId": "5c34dabc-03b2-4cfe-88fd-c723fbf9050a"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.202Z",
+      "end": "2026-07-13T13:27:38.228Z",
+      "id": "81b8859a-43ed-4afd-9848-2fa238e56d56",
+      "parentId": "5f1ac7c5-4d70-4ae4-a993-f37dd2bc8fb1"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:53.502Z",
+      "end": "2026-07-13T13:27:53.503Z",
+      "id": "ca42fe84-9171-4574-8da8-3e9cb8586b9d",
+      "parentId": "5f1ac7c5-4d70-4ae4-a993-f37dd2bc8fb1"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:53.601Z",
+      "end": "2026-07-13T13:27:53.603Z",
+      "id": "18b72d7e-ed14-4561-a562-a4b32c8f8697",
+      "parentId": "5f1ac7c5-4d70-4ae4-a993-f37dd2bc8fb1"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:53.715Z",
+      "end": "2026-07-13T13:27:53.716Z",
+      "id": "103cc81b-93ae-4848-80a7-ebecfa532558",
+      "parentId": "5f1ac7c5-4d70-4ae4-a993-f37dd2bc8fb1"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.212Z",
+      "end": "2026-07-13T13:27:38.222Z",
+      "id": "869958df-462a-4a7a-9897-31bd271110aa",
+      "parentId": "81b8859a-43ed-4afd-9848-2fa238e56d56",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS('Risk_Customers'[risk_level], \"Total_Customers\", '_Measures'[Total Customers])\r\n\r\n\tVAR __DS0BodyLimited = \r\n\t\tTOPN(1002, __DS0Core, [Total_Customers], 0, 'Risk_Customers'[risk_level], 1)\r\n\r\nEVALUATE\r\n\t__DS0BodyLimited\r\n\r\nORDER BY\r\n\t[Total_Customers] DESC, 'Risk_Customers'[risk_level]",
+        "RowCount": 3
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.223Z",
+      "end": "2026-07-13T13:27:38.227Z",
+      "id": "257CD412-1C3C-4377-A548-933187DA8C1D",
+      "parentId": "869958df-462a-4a7a-9897-31bd271110aa"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.227Z",
+      "end": "2026-07-13T13:27:38.227Z",
+      "id": "5F474740-E48C-4832-87C5-F38E76453160",
+      "parentId": "257CD412-1C3C-4377-A548-933187DA8C1D"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:53.496Z",
+      "end": "2026-07-13T13:27:53.706Z",
+      "id": "49bd3d4fb86bb0deae7b-4d94c5642692e92e53ea",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Actions by Priority",
+        "visualId": "49bd3d4fb86bb0deae7b",
+        "visualType": "clusteredColumnChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:53.496Z",
+      "end": "2026-07-13T13:27:53.499Z",
+      "id": "7fd2c06a-69bf-4341-9a63-5f6979f889d6",
+      "parentId": "49bd3d4fb86bb0deae7b-4d94c5642692e92e53ea"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:53.499Z",
+      "end": "2026-07-13T13:27:53.689Z",
+      "id": "f7c05044-3b74-4bda-afea-1833240b4a2a",
+      "parentId": "49bd3d4fb86bb0deae7b-4d94c5642692e92e53ea"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:53.688Z",
+      "end": "2026-07-13T13:27:53.706Z",
+      "id": "c39c07fa-da77-49a5-ae01-11b6dbaee3a4",
+      "parentId": "49bd3d4fb86bb0deae7b-4d94c5642692e92e53ea"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:53.694Z",
+      "end": "2026-07-13T13:27:53.695Z",
+      "id": "40379302-24d4-4635-bce8-8bd1d697bd41",
+      "parentId": "c39c07fa-da77-49a5-ae01-11b6dbaee3a4"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.695Z",
+      "end": "2026-07-13T13:27:53.706Z",
+      "id": "038eb69b-c1ab-4740-8cf2-204301539be4",
+      "parentId": "c39c07fa-da77-49a5-ae01-11b6dbaee3a4"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.696Z",
+      "end": "2026-07-13T13:27:53.696Z",
+      "id": "acf743f9-9c8c-481e-ab7e-40ea10936fe7",
+      "parentId": "c39c07fa-da77-49a5-ae01-11b6dbaee3a4"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.200Z",
+      "end": "2026-07-13T13:27:38.227Z",
+      "id": "a9d6ab77-f9a8-48f2-a518-193b6921e8ec",
+      "parentId": "f7c05044-3b74-4bda-afea-1833240b4a2a"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:53.504Z",
+      "end": "2026-07-13T13:27:53.504Z",
+      "id": "aa1efe82-27c7-44bf-a9d0-80abad120fec",
+      "parentId": "f7c05044-3b74-4bda-afea-1833240b4a2a"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:53.601Z",
+      "end": "2026-07-13T13:27:53.604Z",
+      "id": "fc7eca15-d2b5-42ba-af92-f0aa93c94788",
+      "parentId": "f7c05044-3b74-4bda-afea-1833240b4a2a"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:53.687Z",
+      "end": "2026-07-13T13:27:53.688Z",
+      "id": "133ab366-f943-42de-8091-3730acc528d9",
+      "parentId": "f7c05044-3b74-4bda-afea-1833240b4a2a"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.212Z",
+      "end": "2026-07-13T13:27:38.222Z",
+      "id": "97e314f3-2a7f-4393-ae1b-8525f08facef",
+      "parentId": "a9d6ab77-f9a8-48f2-a518-193b6921e8ec",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS('Action_Board'[priority], \"Total_Actions\", '_Measures'[Total Actions])\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Total_Actions], 0, 'Action_Board'[priority], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Total_Actions] DESC, 'Action_Board'[priority]",
+        "RowCount": 3
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.220Z",
+      "end": "2026-07-13T13:27:38.223Z",
+      "id": "E2B174C8-F39D-4F44-ADF8-B0F9A78651D8",
+      "parentId": "97e314f3-2a7f-4393-ae1b-8525f08facef"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.223Z",
+      "end": "2026-07-13T13:27:38.223Z",
+      "id": "09B4C6A7-70D9-4667-83B7-93AD9F09B7A1",
+      "parentId": "E2B174C8-F39D-4F44-ADF8-B0F9A78651D8"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:53.498Z",
+      "end": "2026-07-13T13:27:53.791Z",
+      "id": "82657fa6b6711df3a2b6-21247ed6de9e1073a59b",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Carte",
+        "visualId": "82657fa6b6711df3a2b6",
+        "visualType": "cardVisual",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:53.499Z",
+      "end": "2026-07-13T13:27:53.504Z",
+      "id": "bfabb3b9-6185-4526-90be-3a4838dd6a10",
+      "parentId": "82657fa6b6711df3a2b6-21247ed6de9e1073a59b"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:53.504Z",
+      "end": "2026-07-13T13:27:53.714Z",
+      "id": "f1130ab0-723f-41b2-8d8d-5cceb95d498c",
+      "parentId": "82657fa6b6711df3a2b6-21247ed6de9e1073a59b"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:53.713Z",
+      "end": "2026-07-13T13:27:53.791Z",
+      "id": "f51e49c4-579a-45b7-a394-407347d27239",
+      "parentId": "82657fa6b6711df3a2b6-21247ed6de9e1073a59b"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:53.727Z",
+      "end": "2026-07-13T13:27:53.728Z",
+      "id": "96bdcef4-11ce-495d-b928-a2480b8d66aa",
+      "parentId": "f51e49c4-579a-45b7-a394-407347d27239"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.728Z",
+      "end": "2026-07-13T13:27:53.791Z",
+      "id": "4d0afb0c-936d-43fb-85a9-5d9dcb80187b",
+      "parentId": "f51e49c4-579a-45b7-a394-407347d27239"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.728Z",
+      "end": "2026-07-13T13:27:53.728Z",
+      "id": "796d7fef-6dce-4862-929a-36cb86aad95f",
+      "parentId": "f51e49c4-579a-45b7-a394-407347d27239"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.200Z",
+      "end": "2026-07-13T13:27:38.229Z",
+      "id": "07938e61-1159-465b-918b-060e932fb2b8",
+      "parentId": "f1130ab0-723f-41b2-8d8d-5cceb95d498c"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:53.506Z",
+      "end": "2026-07-13T13:27:53.507Z",
+      "id": "c842d248-2d95-4b06-b69d-10ca0e1cffcc",
+      "parentId": "f1130ab0-723f-41b2-8d8d-5cceb95d498c"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:53.602Z",
+      "end": "2026-07-13T13:27:53.604Z",
+      "id": "9d2830a9-6d4a-481b-b691-327859275b45",
+      "parentId": "f1130ab0-723f-41b2-8d8d-5cceb95d498c"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:53.713Z",
+      "end": "2026-07-13T13:27:53.713Z",
+      "id": "d3d28e75-8e7c-45af-9c40-281bc6840a7c",
+      "parentId": "f1130ab0-723f-41b2-8d8d-5cceb95d498c"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.202Z",
+      "end": "2026-07-13T13:27:38.227Z",
+      "id": "ea4ee408-2e1c-47ef-8284-1e010dca7e8e",
+      "parentId": "07938e61-1159-465b-918b-060e932fb2b8",
+      "metrics": {
+        "QueryText": "EVALUATE\r\n\tROW(\r\n\t\t\"Total_Customers\", '_Measures'[Total Customers],\r\n\t\t\"High_Risk_Customers\", '_Measures'[High Risk Customers],\r\n\t\t\"Open_Actions\", '_Measures'[Open Actions],\r\n\t\t\"Overdue_Actions\", '_Measures'[Overdue Actions],\r\n\t\t\"RiskOps_Pressure_Score\", '_Measures'[RiskOps Pressure Score]\r\n\t)",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.220Z",
+      "end": "2026-07-13T13:27:38.227Z",
+      "id": "65C37558-FCB5-4B97-A724-35AD3DF4BB48",
+      "parentId": "ea4ee408-2e1c-47ef-8284-1e010dca7e8e"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.227Z",
+      "end": "2026-07-13T13:27:38.227Z",
+      "id": "C9BB7AF2-0EFA-4B36-BBC3-D33DC08C18C2",
+      "parentId": "65C37558-FCB5-4B97-A724-35AD3DF4BB48"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:27:53.508Z",
+      "end": "2026-07-13T13:27:53.828Z",
+      "id": "81355fda702c93e61fb1-109ff5b2c83b3b69a230",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Top Risk Customers",
+        "visualId": "81355fda702c93e61fb1",
+        "visualType": "tableEx",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:27:53.508Z",
+      "end": "2026-07-13T13:27:53.509Z",
+      "id": "179eb2f2-ed28-4f01-9482-efcdd8f8347c",
+      "parentId": "81355fda702c93e61fb1-109ff5b2c83b3b69a230"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:27:53.509Z",
+      "end": "2026-07-13T13:27:53.719Z",
+      "id": "7b194b49-135f-4a89-b50f-fe2eeb69ef9c",
+      "parentId": "81355fda702c93e61fb1-109ff5b2c83b3b69a230"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:27:53.718Z",
+      "end": "2026-07-13T13:27:53.828Z",
+      "id": "f1df61f8-c07e-4050-a939-445496f40ab1",
+      "parentId": "81355fda702c93e61fb1-109ff5b2c83b3b69a230"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:27:53.729Z",
+      "end": "2026-07-13T13:27:53.730Z",
+      "id": "9c305e29-49b2-4e67-b65f-42612e099478",
+      "parentId": "f1df61f8-c07e-4050-a939-445496f40ab1"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:27:53.730Z",
+      "end": "2026-07-13T13:27:53.828Z",
+      "id": "b4a8cc5a-0124-4bf6-8ae4-25a09918a0de",
+      "parentId": "f1df61f8-c07e-4050-a939-445496f40ab1"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:27:53.730Z",
+      "end": "2026-07-13T13:27:53.730Z",
+      "id": "c3977044-6e23-4793-a402-1a8a3fc223f2",
+      "parentId": "f1df61f8-c07e-4050-a939-445496f40ab1"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.202Z",
+      "end": "2026-07-13T13:27:38.233Z",
+      "id": "dcffdae9-ade4-4aeb-af7f-61302c9cbe16",
+      "parentId": "7b194b49-135f-4a89-b50f-fe2eeb69ef9c"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:27:53.510Z",
+      "end": "2026-07-13T13:27:53.510Z",
+      "id": "0e8ce2de-25eb-4681-bfc6-8ed81cf37723",
+      "parentId": "7b194b49-135f-4a89-b50f-fe2eeb69ef9c"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:27:53.603Z",
+      "end": "2026-07-13T13:27:53.604Z",
+      "id": "a1be0b82-53b9-4680-af1a-4478559e1ab2",
+      "parentId": "7b194b49-135f-4a89-b50f-fe2eeb69ef9c"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:27:53.717Z",
+      "end": "2026-07-13T13:27:53.718Z",
+      "id": "1aa34c3f-07fb-40dd-aea1-0308edb51a36",
+      "parentId": "7b194b49-135f-4a89-b50f-fe2eeb69ef9c"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:38.214Z",
+      "end": "2026-07-13T13:27:38.233Z",
+      "id": "490e45c6-6769-458b-b6b5-ea14883ad008",
+      "parentId": "dcffdae9-ade4-4aeb-af7f-61302c9cbe16",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tFILTER(\r\n\t\t\tKEEPFILTERS(\r\n\t\t\t\tSUMMARIZECOLUMNS(\r\n\t\t\t\t\tROLLUPADDISSUBTOTAL(\r\n\t\t\t\t\t\tROLLUPGROUP(\r\n\t\t\t\t\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t\t\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t\t\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t\t\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t\t\t\t\t'Risk_Customers'[top_reasons],\r\n\t\t\t\t\t\t\t'Risk_Customers'[next_best_action],\r\n\t\t\t\t\t\t\t'Risk_Customers'[owner],\r\n\t\t\t\t\t\t\t'Risk_Customers'[Due Date]\r\n\t\t\t\t\t\t), \"IsGrandTotalRowTotal\"\r\n\t\t\t\t\t),\r\n\t\t\t\t\t\"MinRisk_Level_Bg_Color\", IGNORE(CALCULATE(MIN('Risk_Customers'[Risk Level Bg Color])))\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tOR(\r\n\t\t\t\tOR(\r\n\t\t\t\t\tOR(\r\n\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[Customer Alias])),\r\n\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[risk_level]))\r\n\t\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[risk_score]))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[confidence]))\r\n\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[top_reasons]))\r\n\t\t\t\t\t\t),\r\n\t\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[next_best_action]))\r\n\t\t\t\t\t),\r\n\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[owner]))\r\n\t\t\t\t),\r\n\t\t\t\tNOT(ISBLANK('Risk_Customers'[Due Date]))\r\n\t\t\t)\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(\r\n\t\t\t502,\r\n\t\t\t__DS0Core,\r\n\t\t\t[IsGrandTotalRowTotal],\r\n\t\t\t0,\r\n\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t0,\r\n\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[top_reasons],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[next_best_action],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[owner],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[Due Date],\r\n\t\t\t1\r\n\t\t)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[IsGrandTotalRowTotal] DESC,\r\n\t'Risk_Customers'[risk_score] DESC,\r\n\t'Risk_Customers'[Customer Alias],\r\n\t'Risk_Customers'[risk_level],\r\n\t'Risk_Customers'[confidence],\r\n\t'Risk_Customers'[top_reasons],\r\n\t'Risk_Customers'[next_best_action],\r\n\t'Risk_Customers'[owner],\r\n\t'Risk_Customers'[Due Date]",
+        "RowCount": 20
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.220Z",
+      "end": "2026-07-13T13:27:38.233Z",
+      "id": "AFEF98B2-6921-425A-8D2D-B1DC3C80EC6B",
+      "parentId": "490e45c6-6769-458b-b6b5-ea14883ad008"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:38.233Z",
+      "end": "2026-07-13T13:27:38.233Z",
+      "id": "2719049D-3B4A-4DDA-8CC5-CA9FE7D84E3D",
+      "parentId": "AFEF98B2-6921-425A-8D2D-B1DC3C80EC6B"
+    },
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:28:02.465Z",
+      "id": "332a6897cff7fc031432",
+      "metrics": {
+        "sourceLabel": "UserAction_ChangePage"
+      }
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:02.773Z",
+      "end": "2026-07-13T13:28:02.796Z",
+      "id": "440f5784648d8ea23c27-91c33b2cf519368d4773",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Zone de texte",
+        "visualId": "440f5784648d8ea23c27",
+        "visualType": "textbox",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:02.773Z",
+      "end": "2026-07-13T13:28:02.785Z",
+      "id": "46ced60f-5235-40cf-b664-8e98f6a5f937",
+      "parentId": "440f5784648d8ea23c27-91c33b2cf519368d4773"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:02.784Z",
+      "end": "2026-07-13T13:28:02.796Z",
+      "id": "2bc6c801-9724-4983-a74a-8926d1178347",
+      "parentId": "440f5784648d8ea23c27-91c33b2cf519368d4773"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:02.796Z",
+      "end": "2026-07-13T13:28:02.796Z",
+      "id": "1ffa5eaa-0ede-4de5-b645-7aacc232acce",
+      "parentId": "2bc6c801-9724-4983-a74a-8926d1178347"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:02.774Z",
+      "end": "2026-07-13T13:28:02.819Z",
+      "id": "f7563af6d0533f121c49-847af11f67997eb2a93b",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Navigateur de pages",
+        "visualId": "f7563af6d0533f121c49",
+        "visualType": "pageNavigator",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:02.775Z",
+      "end": "2026-07-13T13:28:02.789Z",
+      "id": "acd2dd7d-510f-49e0-a90f-abf0c9187114",
+      "parentId": "f7563af6d0533f121c49-847af11f67997eb2a93b"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:02.789Z",
+      "end": "2026-07-13T13:28:02.819Z",
+      "id": "19f59b65-1314-421f-85b3-510fe147ba86",
+      "parentId": "f7563af6d0533f121c49-847af11f67997eb2a93b"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:02.797Z",
+      "end": "2026-07-13T13:28:02.797Z",
+      "id": "ab5f90fa-6267-4edf-a686-8d0655ed1884",
+      "parentId": "19f59b65-1314-421f-85b3-510fe147ba86"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:02.797Z",
+      "end": "2026-07-13T13:28:02.818Z",
+      "id": "487caa78-f961-41a4-9302-36c5338143ed",
+      "parentId": "19f59b65-1314-421f-85b3-510fe147ba86"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:02.797Z",
+      "end": "2026-07-13T13:28:02.797Z",
+      "id": "4cd74318-9832-432d-a049-c49446cef0c9",
+      "parentId": "19f59b65-1314-421f-85b3-510fe147ba86"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:02.776Z",
+      "end": "2026-07-13T13:28:03.012Z",
+      "id": "080d5675d9a015da32d8-416812ee0433dab048a3",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Top Customers by Risk Score",
+        "visualId": "080d5675d9a015da32d8",
+        "visualType": "clusteredBarChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:02.776Z",
+      "end": "2026-07-13T13:28:02.789Z",
+      "id": "d2aadf9a-a3cb-451b-b1f9-46c92a6fd760",
+      "parentId": "080d5675d9a015da32d8-416812ee0433dab048a3"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:02.789Z",
+      "end": "2026-07-13T13:28:02.981Z",
+      "id": "7d4dcf08-efb9-4ec4-b3bb-c77c5bf72315",
+      "parentId": "080d5675d9a015da32d8-416812ee0433dab048a3"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:02.981Z",
+      "end": "2026-07-13T13:28:03.012Z",
+      "id": "29262921-db20-47f7-9b26-b84cd5104cb3",
+      "parentId": "080d5675d9a015da32d8-416812ee0433dab048a3"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:02.985Z",
+      "end": "2026-07-13T13:28:02.986Z",
+      "id": "ccc5baa4-a9e9-4db8-8630-21421dd55ba7",
+      "parentId": "29262921-db20-47f7-9b26-b84cd5104cb3"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:02.986Z",
+      "end": "2026-07-13T13:28:03.011Z",
+      "id": "c2edb64c-c4bc-4dc0-8f71-9422116dfd3c",
+      "parentId": "29262921-db20-47f7-9b26-b84cd5104cb3"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:02.986Z",
+      "end": "2026-07-13T13:28:02.986Z",
+      "id": "0ab44768-56b9-4329-b0f5-a6a50200fdf7",
+      "parentId": "29262921-db20-47f7-9b26-b84cd5104cb3"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:47.497Z",
+      "end": "2026-07-13T13:27:47.508Z",
+      "id": "f4220f74-84cd-4a53-a10d-ff7cd4fa1378",
+      "parentId": "7d4dcf08-efb9-4ec4-b3bb-c77c5bf72315"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:02.794Z",
+      "end": "2026-07-13T13:28:02.795Z",
+      "id": "3b8ff15b-d24e-4996-b6eb-2ef8859de4d0",
+      "parentId": "7d4dcf08-efb9-4ec4-b3bb-c77c5bf72315"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:02.899Z",
+      "end": "2026-07-13T13:28:02.900Z",
+      "id": "2a18d42e-9740-40aa-9b89-c8fc6df91519",
+      "parentId": "7d4dcf08-efb9-4ec4-b3bb-c77c5bf72315"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:02.980Z",
+      "end": "2026-07-13T13:28:02.980Z",
+      "id": "b6961068-f328-4818-8bbb-f73348527917",
+      "parentId": "7d4dcf08-efb9-4ec4-b3bb-c77c5bf72315"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:47.498Z",
+      "end": "2026-07-13T13:27:47.508Z",
+      "id": "abfdf019-c594-4e65-b1e1-81d5b119c080",
+      "parentId": "f4220f74-84cd-4a53-a10d-ff7cd4fa1378",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS(\r\n\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t\"Averagerisk_score\", CALCULATE(AVERAGE('Risk_Customers'[risk_score])),\r\n\t\t\t\"Minrisk_level\", IGNORE(CALCULATE(MIN('Risk_Customers'[risk_level]))),\r\n\t\t\t\"Mintop_reasons\", IGNORE(CALCULATE(MIN('Risk_Customers'[top_reasons]))),\r\n\t\t\t\"Minnext_best_action\", IGNORE(CALCULATE(MIN('Risk_Customers'[next_best_action])))\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Averagerisk_score], 0, 'Risk_Customers'[Customer Alias], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Averagerisk_score] DESC, 'Risk_Customers'[Customer Alias]",
+        "RowCount": 20
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:47.500Z",
+      "end": "2026-07-13T13:27:47.507Z",
+      "id": "DA5C4862-7649-433D-B09A-3A05D032FD54",
+      "parentId": "abfdf019-c594-4e65-b1e1-81d5b119c080"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:47.507Z",
+      "end": "2026-07-13T13:27:47.507Z",
+      "id": "247A8F01-D54B-4C50-A0CD-E7F55DBE92EB",
+      "parentId": "DA5C4862-7649-433D-B09A-3A05D032FD54"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:02.777Z",
+      "end": "2026-07-13T13:28:02.826Z",
+      "id": "163fb219021a9fb2c175-e6e3346ede268b66dae4",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Reset filters",
+        "visualId": "163fb219021a9fb2c175",
+        "visualType": "actionButton",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:02.777Z",
+      "end": "2026-07-13T13:28:02.790Z",
+      "id": "bdc2f467-90c4-48de-abe8-d23a648266cd",
+      "parentId": "163fb219021a9fb2c175-e6e3346ede268b66dae4"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:02.789Z",
+      "end": "2026-07-13T13:28:02.826Z",
+      "id": "5d4f15f7-4884-4862-9e4f-46685657438b",
+      "parentId": "163fb219021a9fb2c175-e6e3346ede268b66dae4"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:02.799Z",
+      "end": "2026-07-13T13:28:02.818Z",
+      "id": "53dece7f-bb5f-4e6e-94af-fff7dd2b2355",
+      "parentId": "5d4f15f7-4884-4862-9e4f-46685657438b"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:02.799Z",
+      "end": "2026-07-13T13:28:02.799Z",
+      "id": "b539a49c-63ec-49c1-88c5-5bc0c30272f8",
+      "parentId": "5d4f15f7-4884-4862-9e4f-46685657438b"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:02.800Z",
+      "end": "2026-07-13T13:28:02.800Z",
+      "id": "ee5172e2-baa4-43b3-bf6f-7b252b438193",
+      "parentId": "5d4f15f7-4884-4862-9e4f-46685657438b"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:02.800Z",
+      "end": "2026-07-13T13:28:02.826Z",
+      "id": "d79e60fa-ab24-4d0e-98e1-ee5ddda2cc1d",
+      "parentId": "5d4f15f7-4884-4862-9e4f-46685657438b"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:02.800Z",
+      "end": "2026-07-13T13:28:02.800Z",
+      "id": "5a5aa925-3450-4f1f-9237-0d1f422516ad",
+      "parentId": "5d4f15f7-4884-4862-9e4f-46685657438b"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:02.778Z",
+      "end": "2026-07-13T13:28:03.011Z",
+      "id": "0602aa24b7cd2ae09d83-16e04c69434e58a184e1",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Level Filter",
+        "visualId": "0602aa24b7cd2ae09d83",
+        "visualType": "slicer",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:02.778Z",
+      "end": "2026-07-13T13:28:02.790Z",
+      "id": "86c19be4-f13f-429c-b335-94f0b66b35e8",
+      "parentId": "0602aa24b7cd2ae09d83-16e04c69434e58a184e1"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:02.790Z",
+      "end": "2026-07-13T13:28:02.979Z",
+      "id": "00498db9-c8f5-4005-a745-a781e56e118a",
+      "parentId": "0602aa24b7cd2ae09d83-16e04c69434e58a184e1"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:02.979Z",
+      "end": "2026-07-13T13:28:03.011Z",
+      "id": "d61aa83d-bde0-4465-9a53-a3b419b1bb01",
+      "parentId": "0602aa24b7cd2ae09d83-16e04c69434e58a184e1"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:02.988Z",
+      "end": "2026-07-13T13:28:02.989Z",
+      "id": "ce0ddda6-ee33-4d43-b524-b70c65db60e7",
+      "parentId": "d61aa83d-bde0-4465-9a53-a3b419b1bb01"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:02.989Z",
+      "end": "2026-07-13T13:28:03.011Z",
+      "id": "efa28625-b73b-4d2b-a7b6-0a70ce6f5c08",
+      "parentId": "d61aa83d-bde0-4465-9a53-a3b419b1bb01"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:02.989Z",
+      "end": "2026-07-13T13:28:02.989Z",
+      "id": "7662046a-8b9d-431b-ba9a-d6401f2257e2",
+      "parentId": "d61aa83d-bde0-4465-9a53-a3b419b1bb01"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:47.497Z",
+      "end": "2026-07-13T13:27:47.502Z",
+      "id": "2157c371-e833-42b0-9e32-59b3a761d9c0",
+      "parentId": "00498db9-c8f5-4005-a745-a781e56e118a"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:02.795Z",
+      "end": "2026-07-13T13:28:02.796Z",
+      "id": "959ce127-6592-41a1-b50c-9554aa5d95c4",
+      "parentId": "00498db9-c8f5-4005-a745-a781e56e118a"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:02.899Z",
+      "end": "2026-07-13T13:28:02.900Z",
+      "id": "9512374c-954a-4ace-b839-8850cd861fc0",
+      "parentId": "00498db9-c8f5-4005-a745-a781e56e118a"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:02.978Z",
+      "end": "2026-07-13T13:28:02.978Z",
+      "id": "5f30936f-0cb1-49bd-92a2-8a17dc26f2c8",
+      "parentId": "00498db9-c8f5-4005-a745-a781e56e118a"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:47.498Z",
+      "end": "2026-07-13T13:27:47.498Z",
+      "id": "01485d67-ac5b-4c74-8c85-3aded72091b4",
+      "parentId": "2157c371-e833-42b0-9e32-59b3a761d9c0",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tVALUES('Risk_Customers'[risk_level])\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(101, __DS0Core, 'Risk_Customers'[risk_level], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t'Risk_Customers'[risk_level]",
+        "RowCount": 3
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:47.500Z",
+      "end": "2026-07-13T13:27:47.500Z",
+      "id": "91F87935-F41E-4BD6-B954-FC0445BF371B",
+      "parentId": "01485d67-ac5b-4c74-8c85-3aded72091b4"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:47.500Z",
+      "end": "2026-07-13T13:27:47.500Z",
+      "id": "4E09203A-9065-4062-9AF7-AEC3121CAEEF",
+      "parentId": "91F87935-F41E-4BD6-B954-FC0445BF371B"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:02.816Z",
+      "end": "2026-07-13T13:28:03.012Z",
+      "id": "317275aff5fd530a8c6a-2da8f80be80294ed2e42",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Score vs Confidence",
+        "visualId": "317275aff5fd530a8c6a",
+        "visualType": "scatterChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:02.817Z",
+      "end": "2026-07-13T13:28:02.820Z",
+      "id": "dae977dd-3b8e-491b-b046-889e229d441c",
+      "parentId": "317275aff5fd530a8c6a-2da8f80be80294ed2e42"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:02.820Z",
+      "end": "2026-07-13T13:28:02.983Z",
+      "id": "aa982ac4-55cd-499c-b295-d0fb42a1f932",
+      "parentId": "317275aff5fd530a8c6a-2da8f80be80294ed2e42"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:02.983Z",
+      "end": "2026-07-13T13:28:03.012Z",
+      "id": "a3a3c5c7-1bd0-411d-9a39-59ad6c4bd4c6",
+      "parentId": "317275aff5fd530a8c6a-2da8f80be80294ed2e42"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:02.986Z",
+      "end": "2026-07-13T13:28:02.987Z",
+      "id": "b0e3d3e7-9854-49c9-b783-05821f6efe24",
+      "parentId": "a3a3c5c7-1bd0-411d-9a39-59ad6c4bd4c6"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:02.987Z",
+      "end": "2026-07-13T13:28:03.011Z",
+      "id": "d8c1a235-c8d3-4c38-865c-852dc4640549",
+      "parentId": "a3a3c5c7-1bd0-411d-9a39-59ad6c4bd4c6"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:02.988Z",
+      "end": "2026-07-13T13:28:02.988Z",
+      "id": "b00e92bd-f5a8-4e26-a81d-76f270c5f4d2",
+      "parentId": "a3a3c5c7-1bd0-411d-9a39-59ad6c4bd4c6"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:47.497Z",
+      "end": "2026-07-13T13:27:47.512Z",
+      "id": "b8d07aa9-695c-4655-87c7-069b79a6452c",
+      "parentId": "aa982ac4-55cd-499c-b295-d0fb42a1f932"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:02.821Z",
+      "end": "2026-07-13T13:28:02.823Z",
+      "id": "c02931af-0c58-4cf9-a908-9c89d71c93cf",
+      "parentId": "aa982ac4-55cd-499c-b295-d0fb42a1f932"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:02.899Z",
+      "end": "2026-07-13T13:28:02.900Z",
+      "id": "51823580-bded-4ce7-96b0-799212bbefb0",
+      "parentId": "aa982ac4-55cd-499c-b295-d0fb42a1f932"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:02.982Z",
+      "end": "2026-07-13T13:28:02.982Z",
+      "id": "08e4432b-c5ae-4d81-9470-5e7e203d055f",
+      "parentId": "aa982ac4-55cd-499c-b295-d0fb42a1f932"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:47.504Z",
+      "end": "2026-07-13T13:27:47.512Z",
+      "id": "01863a35-f6ba-4432-9259-66f7ba0d2ef9",
+      "parentId": "b8d07aa9-695c-4655-87c7-069b79a6452c",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tFILTER(\r\n\t\t\tKEEPFILTERS(\r\n\t\t\t\tSUMMARIZECOLUMNS(\r\n\t\t\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t\t\t\"Mintop_reasons\", IGNORE(CALCULATE(MIN('Risk_Customers'[top_reasons]))),\r\n\t\t\t\t\t\"Minnext_best_action\", IGNORE(CALCULATE(MIN('Risk_Customers'[next_best_action])))\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tOR(\r\n\t\t\t\tOR(\r\n\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[risk_level])),\r\n\t\t\t\t\tNOT(ISBLANK('Risk_Customers'[risk_score]))\r\n\t\t\t\t),\r\n\t\t\t\tNOT(ISBLANK('Risk_Customers'[confidence]))\r\n\t\t\t)\r\n\t\t)\r\n\r\n\tVAR __DS0IntersectionCount = CALCULATE(COUNTROWS(__DS0Core))\r\n\r\n\tVAR __DS0BodyOverlappingPointsSample = \r\n\t\tSAMPLECARTESIANPOINTSBYCOVER(3500, __DS0Core, 'Risk_Customers'[risk_score], 'Risk_Customers'[confidence])\r\n\r\nEVALUATE\r\n\tROW(\r\n\t\"DS0IntersectionCount\", __DS0IntersectionCount\r\n)\r\n\r\nEVALUATE\r\n\t__DS0BodyOverlappingPointsSample\r\n\r\nORDER BY\r\n\t'Risk_Customers'[risk_level],\r\n\t'Risk_Customers'[risk_score],\r\n\t'Risk_Customers'[confidence]",
+        "RowCount": 15
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:47.507Z",
+      "end": "2026-07-13T13:27:47.513Z",
+      "id": "21FB262A-8400-4431-AC81-CFEB8B4C6ACC",
+      "parentId": "01863a35-f6ba-4432-9259-66f7ba0d2ef9"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:47.513Z",
+      "end": "2026-07-13T13:27:47.513Z",
+      "id": "1EA14DC2-DCEF-4AD9-B0CC-4E682E5510B6",
+      "parentId": "21FB262A-8400-4431-AC81-CFEB8B4C6ACC"
+    },
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:28:04.133Z",
+      "id": "32b527810bbf0200992b",
+      "metrics": {
+        "sourceLabel": "UserAction_ChangePage"
+      }
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:04.345Z",
+      "end": "2026-07-13T13:28:04.424Z",
+      "id": "db0bce62189b9c291038-35b000244e55e0a25868",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Zone de texte",
+        "visualId": "db0bce62189b9c291038",
+        "visualType": "textbox",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:04.346Z",
+      "end": "2026-07-13T13:28:04.366Z",
+      "id": "49800999-6f5c-4044-ae4b-e3956e4a0d65",
+      "parentId": "db0bce62189b9c291038-35b000244e55e0a25868"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:04.365Z",
+      "end": "2026-07-13T13:28:04.424Z",
+      "id": "b24315a1-c870-49c7-b441-1b94f9fe3a1c",
+      "parentId": "db0bce62189b9c291038-35b000244e55e0a25868"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:04.423Z",
+      "end": "2026-07-13T13:28:04.424Z",
+      "id": "cce033dc-2707-4fc2-8b4b-c1750f185869",
+      "parentId": "b24315a1-c870-49c7-b441-1b94f9fe3a1c"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:04.348Z",
+      "end": "2026-07-13T13:28:04.460Z",
+      "id": "53af2d36fb5835b149c2-a6d21cbfbc49e5b831b7",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Navigateur de pages",
+        "visualId": "53af2d36fb5835b149c2",
+        "visualType": "pageNavigator",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:04.348Z",
+      "end": "2026-07-13T13:28:04.404Z",
+      "id": "3a3b039b-9c12-4482-bb4e-ae98a394ab92",
+      "parentId": "53af2d36fb5835b149c2-a6d21cbfbc49e5b831b7"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:04.403Z",
+      "end": "2026-07-13T13:28:04.460Z",
+      "id": "edee2966-068b-4eae-bb94-9cb741a798a1",
+      "parentId": "53af2d36fb5835b149c2-a6d21cbfbc49e5b831b7"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:04.425Z",
+      "end": "2026-07-13T13:28:04.426Z",
+      "id": "33890124-6080-4c9b-82dd-f368c5c4de93",
+      "parentId": "edee2966-068b-4eae-bb94-9cb741a798a1"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:04.426Z",
+      "end": "2026-07-13T13:28:04.458Z",
+      "id": "f3e855ee-a10b-4f14-a732-c83a66e0e20e",
+      "parentId": "edee2966-068b-4eae-bb94-9cb741a798a1"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:04.426Z",
+      "end": "2026-07-13T13:28:04.427Z",
+      "id": "9c65fc81-286f-4f23-9abc-b026dd1bfed2",
+      "parentId": "edee2966-068b-4eae-bb94-9cb741a798a1"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:04.349Z",
+      "end": "2026-07-13T13:28:04.831Z",
+      "id": "07be293ebb6c8d3e7d48-5a389fe986f5d051b5d2",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Drivers Frequency",
+        "visualId": "07be293ebb6c8d3e7d48",
+        "visualType": "clusteredBarChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:04.350Z",
+      "end": "2026-07-13T13:28:04.404Z",
+      "id": "34f1186d-89ac-4440-a505-b4a10c825c50",
+      "parentId": "07be293ebb6c8d3e7d48-5a389fe986f5d051b5d2"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:04.404Z",
+      "end": "2026-07-13T13:28:04.790Z",
+      "id": "aabf8a44-d493-45c1-92dd-872081a8e531",
+      "parentId": "07be293ebb6c8d3e7d48-5a389fe986f5d051b5d2"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:04.789Z",
+      "end": "2026-07-13T13:28:04.831Z",
+      "id": "d9ca72c6-4623-4a3a-891b-7ff74afbf03e",
+      "parentId": "07be293ebb6c8d3e7d48-5a389fe986f5d051b5d2"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:04.802Z",
+      "end": "2026-07-13T13:28:04.803Z",
+      "id": "c8f2c4c9-5ed8-4917-947d-cc75a4fd37d3",
+      "parentId": "d9ca72c6-4623-4a3a-891b-7ff74afbf03e"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:04.804Z",
+      "end": "2026-07-13T13:28:04.830Z",
+      "id": "fc9d303d-7cc1-4140-a85f-409fe1d146d9",
+      "parentId": "d9ca72c6-4623-4a3a-891b-7ff74afbf03e"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:04.804Z",
+      "end": "2026-07-13T13:28:04.804Z",
+      "id": "a63c8d79-ef8f-4b07-8945-445d2eb13cf2",
+      "parentId": "d9ca72c6-4623-4a3a-891b-7ff74afbf03e"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:49.238Z",
+      "end": "2026-07-13T13:27:49.249Z",
+      "id": "e6cea1b4-8bbe-4e5e-8464-7eb8b50183fe",
+      "parentId": "aabf8a44-d493-45c1-92dd-872081a8e531"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:04.418Z",
+      "end": "2026-07-13T13:28:04.420Z",
+      "id": "e3cbc9a8-ebd8-4f38-8ebb-b3929319c694",
+      "parentId": "aabf8a44-d493-45c1-92dd-872081a8e531"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:04.639Z",
+      "end": "2026-07-13T13:28:04.642Z",
+      "id": "01ff0d74-03c4-499f-abfd-2b8469315829",
+      "parentId": "aabf8a44-d493-45c1-92dd-872081a8e531"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:04.787Z",
+      "end": "2026-07-13T13:28:04.788Z",
+      "id": "f38b7fc2-aca9-4cd2-85b2-ae3e18092567",
+      "parentId": "aabf8a44-d493-45c1-92dd-872081a8e531"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:49.242Z",
+      "end": "2026-07-13T13:27:49.249Z",
+      "id": "0432c2a6-362c-42fd-b6f9-a6a59ae70789",
+      "parentId": "e6cea1b4-8bbe-4e5e-8464-7eb8b50183fe",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS(\r\n\t\t\t'Risk_Drivers'[risk_driver],\r\n\t\t\t\"CountCustomer_Alias\", CALCULATE(COUNTA('Risk_Drivers'[Customer Alias]))\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [CountCustomer_Alias], 0, 'Risk_Drivers'[risk_driver], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[CountCustomer_Alias] DESC, 'Risk_Drivers'[risk_driver]",
+        "RowCount": 4
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:49.247Z",
+      "end": "2026-07-13T13:27:49.247Z",
+      "id": "F8C88054-939D-4AD5-8421-6265A72199DF",
+      "parentId": "0432c2a6-362c-42fd-b6f9-a6a59ae70789"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:49.247Z",
+      "end": "2026-07-13T13:27:49.247Z",
+      "id": "0CCDF315-8A18-4849-976C-DF87B738BDFD",
+      "parentId": "F8C88054-939D-4AD5-8421-6265A72199DF"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:04.351Z",
+      "end": "2026-07-13T13:28:04.466Z",
+      "id": "406d82fc084be118b1e6-612a91f4eb6d36ac9eba",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Reset filters",
+        "visualId": "406d82fc084be118b1e6",
+        "visualType": "actionButton",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:04.352Z",
+      "end": "2026-07-13T13:28:04.406Z",
+      "id": "7812a097-7750-43c4-9da1-1e3326413239",
+      "parentId": "406d82fc084be118b1e6-612a91f4eb6d36ac9eba"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:04.405Z",
+      "end": "2026-07-13T13:28:04.466Z",
+      "id": "799bc34e-1fbd-4176-a23f-223aaa5224e8",
+      "parentId": "406d82fc084be118b1e6-612a91f4eb6d36ac9eba"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:04.429Z",
+      "end": "2026-07-13T13:28:04.458Z",
+      "id": "4d404361-5fc2-40e1-94b1-4657842bf290",
+      "parentId": "799bc34e-1fbd-4176-a23f-223aaa5224e8"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:04.429Z",
+      "end": "2026-07-13T13:28:04.429Z",
+      "id": "64a244b7-944e-4768-842f-c3038b897241",
+      "parentId": "799bc34e-1fbd-4176-a23f-223aaa5224e8"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:04.429Z",
+      "end": "2026-07-13T13:28:04.430Z",
+      "id": "db6259d8-ffee-4673-81c3-79fd55a4323f",
+      "parentId": "799bc34e-1fbd-4176-a23f-223aaa5224e8"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:04.430Z",
+      "end": "2026-07-13T13:28:04.466Z",
+      "id": "d6665803-4862-4df0-9c1f-7e975c43a26b",
+      "parentId": "799bc34e-1fbd-4176-a23f-223aaa5224e8"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:04.430Z",
+      "end": "2026-07-13T13:28:04.430Z",
+      "id": "1d14e068-c52b-4f21-a513-0ce4e8cdd77f",
+      "parentId": "799bc34e-1fbd-4176-a23f-223aaa5224e8"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:04.354Z",
+      "end": "2026-07-13T13:28:04.722Z",
+      "id": "4bb095ed42a41e42d49c-99fbc3902a0c2fc6df1b",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Level Filter",
+        "visualId": "4bb095ed42a41e42d49c",
+        "visualType": "slicer",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:04.355Z",
+      "end": "2026-07-13T13:28:04.406Z",
+      "id": "5c0eb6d5-9059-4dbf-ad39-5469531d127a",
+      "parentId": "4bb095ed42a41e42d49c-99fbc3902a0c2fc6df1b"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:04.406Z",
+      "end": "2026-07-13T13:28:04.644Z",
+      "id": "4e4a7521-73c7-4a31-8dff-a5ccda19c1ab",
+      "parentId": "4bb095ed42a41e42d49c-99fbc3902a0c2fc6df1b"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:04.643Z",
+      "end": "2026-07-13T13:28:04.722Z",
+      "id": "d88e56f3-c37d-4704-94e4-96264281a2ed",
+      "parentId": "4bb095ed42a41e42d49c-99fbc3902a0c2fc6df1b"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:04.708Z",
+      "end": "2026-07-13T13:28:04.709Z",
+      "id": "89ab540a-211e-4f10-b7c9-9859099e59d9",
+      "parentId": "d88e56f3-c37d-4704-94e4-96264281a2ed"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:04.709Z",
+      "end": "2026-07-13T13:28:04.722Z",
+      "id": "612e2755-1481-458d-a010-b6057b4e1aa7",
+      "parentId": "d88e56f3-c37d-4704-94e4-96264281a2ed"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:04.710Z",
+      "end": "2026-07-13T13:28:04.710Z",
+      "id": "d7cf76cb-0424-4f54-ae89-b20f7764efe9",
+      "parentId": "d88e56f3-c37d-4704-94e4-96264281a2ed"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:04.421Z",
+      "end": "2026-07-13T13:28:04.422Z",
+      "id": "cbad5c86-672f-4d32-90d5-4bb6daf0aaee",
+      "parentId": "4e4a7521-73c7-4a31-8dff-a5ccda19c1ab"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:04.641Z",
+      "end": "2026-07-13T13:28:04.642Z",
+      "id": "5442fa75-ce72-4ca5-954d-a57691ab8b06",
+      "parentId": "4e4a7521-73c7-4a31-8dff-a5ccda19c1ab"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:04.464Z",
+      "end": "2026-07-13T13:28:04.916Z",
+      "id": "58b4a818248d4e09e2a5-d1ea6a6dec318bb17067",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Driver Details",
+        "visualId": "58b4a818248d4e09e2a5",
+        "visualType": "tableEx",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:04.465Z",
+      "end": "2026-07-13T13:28:04.467Z",
+      "id": "99984ffb-8336-4eb0-8156-61277bc9144b",
+      "parentId": "58b4a818248d4e09e2a5-d1ea6a6dec318bb17067"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:04.467Z",
+      "end": "2026-07-13T13:28:04.794Z",
+      "id": "ccb5418b-b7a6-4eee-a03c-1a69024accaa",
+      "parentId": "58b4a818248d4e09e2a5-d1ea6a6dec318bb17067"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:04.793Z",
+      "end": "2026-07-13T13:28:04.916Z",
+      "id": "3fc1ed5c-d785-4dd3-9728-2053dee5fe17",
+      "parentId": "58b4a818248d4e09e2a5-d1ea6a6dec318bb17067"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:04.804Z",
+      "end": "2026-07-13T13:28:04.805Z",
+      "id": "d425bb94-1eee-4958-9439-6b86da6c5dbf",
+      "parentId": "3fc1ed5c-d785-4dd3-9728-2053dee5fe17"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:04.806Z",
+      "end": "2026-07-13T13:28:04.916Z",
+      "id": "5d6b376d-5c6a-4b9f-b56e-1fd11d238104",
+      "parentId": "3fc1ed5c-d785-4dd3-9728-2053dee5fe17"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:04.806Z",
+      "end": "2026-07-13T13:28:04.806Z",
+      "id": "5b1946e6-347d-45be-81ce-3e92239bd33f",
+      "parentId": "3fc1ed5c-d785-4dd3-9728-2053dee5fe17"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:49.238Z",
+      "end": "2026-07-13T13:27:49.254Z",
+      "id": "0e4da77c-5d50-4c25-a650-6ce11db6e470",
+      "parentId": "ccb5418b-b7a6-4eee-a03c-1a69024accaa"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:04.468Z",
+      "end": "2026-07-13T13:28:04.469Z",
+      "id": "d6d5c9cf-d87a-4cdf-b972-3502e4b80295",
+      "parentId": "ccb5418b-b7a6-4eee-a03c-1a69024accaa"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:04.640Z",
+      "end": "2026-07-13T13:28:04.642Z",
+      "id": "27b0627f-e2de-4ed5-a589-12179f20a5b8",
+      "parentId": "ccb5418b-b7a6-4eee-a03c-1a69024accaa"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:04.792Z",
+      "end": "2026-07-13T13:28:04.793Z",
+      "id": "2308dd21-c19b-4fa0-8c04-e2d68602096c",
+      "parentId": "ccb5418b-b7a6-4eee-a03c-1a69024accaa"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:49.242Z",
+      "end": "2026-07-13T13:27:49.254Z",
+      "id": "e246a83a-6fa5-4bea-a9f0-6f78a0029bf7",
+      "parentId": "0e4da77c-5d50-4c25-a650-6ce11db6e470",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tFILTER(\r\n\t\t\tKEEPFILTERS(\r\n\t\t\t\tSUMMARIZECOLUMNS(\r\n\t\t\t\t\tROLLUPADDISSUBTOTAL(\r\n\t\t\t\t\t\tROLLUPGROUP(\r\n\t\t\t\t\t\t\t'Risk_Drivers'[Customer Alias],\r\n\t\t\t\t\t\t\t'Risk_Drivers'[risk_level],\r\n\t\t\t\t\t\t\t'Risk_Drivers'[risk_score],\r\n\t\t\t\t\t\t\t'Risk_Drivers'[risk_driver]\r\n\t\t\t\t\t\t), \"IsGrandTotalRowTotal\"\r\n\t\t\t\t\t),\r\n\t\t\t\t\t\"MinDriver_Risk_Level_Bg_Color\", IGNORE(CALCULATE(MIN('Risk_Drivers'[Driver Risk Level Bg Color])))\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tOR(\r\n\t\t\t\tOR(\r\n\t\t\t\t\tOR(\r\n\t\t\t\t\t\tNOT(ISBLANK('Risk_Drivers'[Customer Alias])),\r\n\t\t\t\t\t\tNOT(ISBLANK('Risk_Drivers'[risk_level]))\r\n\t\t\t\t\t),\r\n\t\t\t\t\tNOT(ISBLANK('Risk_Drivers'[risk_score]))\r\n\t\t\t\t),\r\n\t\t\t\tNOT(ISBLANK('Risk_Drivers'[risk_driver]))\r\n\t\t\t)\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(\r\n\t\t\t502,\r\n\t\t\t__DS0Core,\r\n\t\t\t[IsGrandTotalRowTotal],\r\n\t\t\t0,\r\n\t\t\t'Risk_Drivers'[risk_driver],\r\n\t\t\t1,\r\n\t\t\t'Risk_Drivers'[Customer Alias],\r\n\t\t\t1,\r\n\t\t\t'Risk_Drivers'[risk_level],\r\n\t\t\t1,\r\n\t\t\t'Risk_Drivers'[risk_score],\r\n\t\t\t1\r\n\t\t)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[IsGrandTotalRowTotal] DESC,\r\n\t'Risk_Drivers'[risk_driver],\r\n\t'Risk_Drivers'[Customer Alias],\r\n\t'Risk_Drivers'[risk_level],\r\n\t'Risk_Drivers'[risk_score]",
+        "RowCount": 38
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:49.247Z",
+      "end": "2026-07-13T13:27:49.253Z",
+      "id": "2BE05896-8139-4131-B04F-2AFB404C4ED3",
+      "parentId": "e246a83a-6fa5-4bea-a9f0-6f78a0029bf7"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:49.253Z",
+      "end": "2026-07-13T13:27:49.253Z",
+      "id": "309A9342-97C6-4842-AD27-749C7DCC7EFE",
+      "parentId": "2BE05896-8139-4131-B04F-2AFB404C4ED3"
+    },
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:28:10.103Z",
+      "id": "131943bedf388792a3f9",
+      "metrics": {
+        "sourceLabel": "UserAction_ChangePage"
+      }
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.408Z",
+      "end": "2026-07-13T13:28:10.466Z",
+      "id": "f12663867255e9006327-fdaa342101001d3b7008",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Zone de texte",
+        "visualId": "f12663867255e9006327",
+        "visualType": "textbox",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.409Z",
+      "end": "2026-07-13T13:28:10.431Z",
+      "id": "0978908f-bd82-4a39-83fb-ac02aa10450d",
+      "parentId": "f12663867255e9006327-fdaa342101001d3b7008"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.430Z",
+      "end": "2026-07-13T13:28:10.466Z",
+      "id": "ea89e9b5-adf5-4093-a244-9209165cf4b5",
+      "parentId": "f12663867255e9006327-fdaa342101001d3b7008"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.465Z",
+      "end": "2026-07-13T13:28:10.466Z",
+      "id": "b460f756-8703-477c-9a4f-71bc42f29fd6",
+      "parentId": "ea89e9b5-adf5-4093-a244-9209165cf4b5"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.411Z",
+      "end": "2026-07-13T13:28:10.498Z",
+      "id": "16bc445a8125838f382d-5914a9b53d07ab885cd2",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Navigateur de pages",
+        "visualId": "16bc445a8125838f382d",
+        "visualType": "pageNavigator",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.412Z",
+      "end": "2026-07-13T13:28:10.438Z",
+      "id": "8d088ed4-f837-47b1-bafe-8bd4ee415ea4",
+      "parentId": "16bc445a8125838f382d-5914a9b53d07ab885cd2"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.438Z",
+      "end": "2026-07-13T13:28:10.498Z",
+      "id": "f53b928e-d2ae-4873-a374-770960d208ee",
+      "parentId": "16bc445a8125838f382d-5914a9b53d07ab885cd2"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.467Z",
+      "end": "2026-07-13T13:28:10.467Z",
+      "id": "a2b49d15-3a84-4462-ac60-f7b8b40a4090",
+      "parentId": "f53b928e-d2ae-4873-a374-770960d208ee"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:10.468Z",
+      "end": "2026-07-13T13:28:10.497Z",
+      "id": "3da4f568-0c15-42a4-a727-2adfe5b0fb87",
+      "parentId": "f53b928e-d2ae-4873-a374-770960d208ee"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:10.468Z",
+      "end": "2026-07-13T13:28:10.468Z",
+      "id": "49b1b407-660a-49f0-81d1-e390f6473fb0",
+      "parentId": "f53b928e-d2ae-4873-a374-770960d208ee"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.413Z",
+      "end": "2026-07-13T13:28:10.816Z",
+      "id": "6f0f7b41aeb85f5f8a5c-e2a1f1d8181ce9bda84f",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Customers by Confidence Band",
+        "visualId": "6f0f7b41aeb85f5f8a5c",
+        "visualType": "clusteredColumnChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:10.414Z",
+      "end": "2026-07-13T13:28:10.440Z",
+      "id": "0f1f968f-ae0e-469f-87e1-adbfd87fdd4f",
+      "parentId": "6f0f7b41aeb85f5f8a5c-e2a1f1d8181ce9bda84f"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.440Z",
+      "end": "2026-07-13T13:28:10.757Z",
+      "id": "bc2bb65f-f4c5-455c-b48d-3ccc389f2a9d",
+      "parentId": "6f0f7b41aeb85f5f8a5c-e2a1f1d8181ce9bda84f"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.756Z",
+      "end": "2026-07-13T13:28:10.816Z",
+      "id": "56637b3b-a48a-4253-8e37-be232cdf7c49",
+      "parentId": "6f0f7b41aeb85f5f8a5c-e2a1f1d8181ce9bda84f"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.770Z",
+      "end": "2026-07-13T13:28:10.772Z",
+      "id": "252c7ce0-fd7b-4de9-86b8-f12d2dc390ca",
+      "parentId": "56637b3b-a48a-4253-8e37-be232cdf7c49"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:10.772Z",
+      "end": "2026-07-13T13:28:10.816Z",
+      "id": "9d4cc1e8-8cbf-4881-9a56-9faa1c2d1252",
+      "parentId": "56637b3b-a48a-4253-8e37-be232cdf7c49"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:10.773Z",
+      "end": "2026-07-13T13:28:10.773Z",
+      "id": "0fde0192-4445-496a-b0b6-445e7b50a5ea",
+      "parentId": "56637b3b-a48a-4253-8e37-be232cdf7c49"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.189Z",
+      "end": "2026-07-13T13:27:55.207Z",
+      "id": "8c3a5c13-eb54-43b3-8065-a1d2b3759da3",
+      "parentId": "bc2bb65f-f4c5-455c-b48d-3ccc389f2a9d"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:10.459Z",
+      "end": "2026-07-13T13:28:10.461Z",
+      "id": "21cce542-8f65-4879-b8d4-334685305d0a",
+      "parentId": "bc2bb65f-f4c5-455c-b48d-3ccc389f2a9d"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:10.593Z",
+      "end": "2026-07-13T13:28:10.594Z",
+      "id": "f7664efe-fe31-4cd2-a79f-b1e835f5276a",
+      "parentId": "bc2bb65f-f4c5-455c-b48d-3ccc389f2a9d"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:10.755Z",
+      "end": "2026-07-13T13:28:10.756Z",
+      "id": "20e23367-523b-404e-8b2c-24a98e48360f",
+      "parentId": "bc2bb65f-f4c5-455c-b48d-3ccc389f2a9d"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.205Z",
+      "id": "c6fa9e0c-8494-4296-88ae-b5ad160ce635",
+      "parentId": "8c3a5c13-eb54-43b3-8065-a1d2b3759da3",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS(\r\n\t\t\t'Risk_Customers'[Confidence Band],\r\n\t\t\t\"Total_Customers\", '_Measures'[Total Customers]\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Total_Customers], 0, 'Risk_Customers'[Confidence Band], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Total_Customers] DESC, 'Risk_Customers'[Confidence Band]",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.200Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "CCDF99B7-D47C-4AA2-9376-12EDE8EA5E7F",
+      "parentId": "c6fa9e0c-8494-4296-88ae-b5ad160ce635"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.203Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "806B8380-0C3C-4933-A22C-806D31B0A1AB",
+      "parentId": "CCDF99B7-D47C-4AA2-9376-12EDE8EA5E7F"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.415Z",
+      "end": "2026-07-13T13:28:10.817Z",
+      "id": "767c62cfb0f809e9ba81-fbe7d6c160595f30d97b",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Average Risk Score by Risk Level",
+        "visualId": "767c62cfb0f809e9ba81",
+        "visualType": "clusteredBarChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:10.416Z",
+      "end": "2026-07-13T13:28:10.440Z",
+      "id": "b0b5652f-a5b8-4dec-9595-39a668898673",
+      "parentId": "767c62cfb0f809e9ba81-fbe7d6c160595f30d97b"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.440Z",
+      "end": "2026-07-13T13:28:10.753Z",
+      "id": "634853ee-ece6-45b1-9e84-8b23d974a410",
+      "parentId": "767c62cfb0f809e9ba81-fbe7d6c160595f30d97b"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.752Z",
+      "end": "2026-07-13T13:28:10.817Z",
+      "id": "9de0d858-9cfb-4f98-a868-49da0be7a629",
+      "parentId": "767c62cfb0f809e9ba81-fbe7d6c160595f30d97b"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.773Z",
+      "end": "2026-07-13T13:28:10.775Z",
+      "id": "b2b2ce27-6814-4382-9dbc-b062465a76a3",
+      "parentId": "9de0d858-9cfb-4f98-a868-49da0be7a629"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:10.775Z",
+      "end": "2026-07-13T13:28:10.816Z",
+      "id": "f6303c7f-5c04-496d-98bb-c90e754db930",
+      "parentId": "9de0d858-9cfb-4f98-a868-49da0be7a629"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:10.776Z",
+      "end": "2026-07-13T13:28:10.776Z",
+      "id": "368ede6d-515e-4880-af85-752812a01497",
+      "parentId": "9de0d858-9cfb-4f98-a868-49da0be7a629"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.205Z",
+      "id": "d645ed57-a7fb-4ad0-8718-dfa1d085e2ba",
+      "parentId": "634853ee-ece6-45b1-9e84-8b23d974a410"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:10.461Z",
+      "end": "2026-07-13T13:28:10.463Z",
+      "id": "8bfd448f-cf0a-4e1c-948f-e37f30235ac3",
+      "parentId": "634853ee-ece6-45b1-9e84-8b23d974a410"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:10.593Z",
+      "end": "2026-07-13T13:28:10.594Z",
+      "id": "8307f631-c67e-4a7f-b44e-cdcad97ad483",
+      "parentId": "634853ee-ece6-45b1-9e84-8b23d974a410"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:10.751Z",
+      "end": "2026-07-13T13:28:10.752Z",
+      "id": "0bc7ad03-bd86-4e43-9b38-e5854821d157",
+      "parentId": "634853ee-ece6-45b1-9e84-8b23d974a410"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.205Z",
+      "id": "ee6ba9a8-40ee-4378-9353-2ec4f37ac9e6",
+      "parentId": "d645ed57-a7fb-4ad0-8718-dfa1d085e2ba",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS(\r\n\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t\"Averagerisk_score\", CALCULATE(AVERAGE('Risk_Customers'[risk_score]))\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Averagerisk_score], 0, 'Risk_Customers'[risk_level], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Averagerisk_score] DESC, 'Risk_Customers'[risk_level]",
+        "RowCount": 3
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.200Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "72F455B3-7ABD-4713-B563-F1502B3B106F",
+      "parentId": "ee6ba9a8-40ee-4378-9353-2ec4f37ac9e6"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.203Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "52C34F5E-614F-404D-BFB6-ACC28D93E72C",
+      "parentId": "72F455B3-7ABD-4713-B563-F1502B3B106F"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.418Z",
+      "end": "2026-07-13T13:28:10.635Z",
+      "id": "c72c420e20e5c46c4ca6-a51db3a42dac38ea118e",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Risk Level Filter",
+        "visualId": "c72c420e20e5c46c4ca6",
+        "visualType": "slicer",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:10.419Z",
+      "end": "2026-07-13T13:28:10.441Z",
+      "id": "d9ee985e-b169-40a5-8932-57eef7574e73",
+      "parentId": "c72c420e20e5c46c4ca6-a51db3a42dac38ea118e"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.441Z",
+      "end": "2026-07-13T13:28:10.595Z",
+      "id": "5a5f2791-cb54-42ef-9286-9d737bbbb3d0",
+      "parentId": "c72c420e20e5c46c4ca6-a51db3a42dac38ea118e"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.594Z",
+      "end": "2026-07-13T13:28:10.635Z",
+      "id": "f9c87f98-8248-4349-a5b9-a4dc32d63b64",
+      "parentId": "c72c420e20e5c46c4ca6-a51db3a42dac38ea118e"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.625Z",
+      "end": "2026-07-13T13:28:10.626Z",
+      "id": "ad918ab6-7e16-4592-b7fe-2bae34cb47c2",
+      "parentId": "f9c87f98-8248-4349-a5b9-a4dc32d63b64"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:10.626Z",
+      "end": "2026-07-13T13:28:10.635Z",
+      "id": "aa00511c-8089-4a55-8e6c-1ce78459d590",
+      "parentId": "f9c87f98-8248-4349-a5b9-a4dc32d63b64"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:10.626Z",
+      "end": "2026-07-13T13:28:10.626Z",
+      "id": "ece5c4e5-466f-4fd3-90d3-1c7225377114",
+      "parentId": "f9c87f98-8248-4349-a5b9-a4dc32d63b64"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:10.464Z",
+      "end": "2026-07-13T13:28:10.465Z",
+      "id": "839677e9-287a-4f33-bc08-c21a69be019f",
+      "parentId": "5a5f2791-cb54-42ef-9286-9d737bbbb3d0"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:10.593Z",
+      "end": "2026-07-13T13:28:10.594Z",
+      "id": "4eda3852-49f4-4423-a1c7-84d4f1827878",
+      "parentId": "5a5f2791-cb54-42ef-9286-9d737bbbb3d0"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.438Z",
+      "end": "2026-07-13T13:28:10.841Z",
+      "id": "39c67f3634847eebc38f-175100e41f103bbb3405",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Carte",
+        "visualId": "39c67f3634847eebc38f",
+        "visualType": "cardVisual",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:10.439Z",
+      "end": "2026-07-13T13:28:10.468Z",
+      "id": "ebc22332-a756-4b13-8906-3f946a5730d7",
+      "parentId": "39c67f3634847eebc38f-175100e41f103bbb3405"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.468Z",
+      "end": "2026-07-13T13:28:10.760Z",
+      "id": "f2a0a2a3-b199-4891-b134-3f3f9fcbae4d",
+      "parentId": "39c67f3634847eebc38f-175100e41f103bbb3405"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.760Z",
+      "end": "2026-07-13T13:28:10.841Z",
+      "id": "744ca02b-2535-4eb7-932f-08f0faee8211",
+      "parentId": "39c67f3634847eebc38f-175100e41f103bbb3405"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.768Z",
+      "end": "2026-07-13T13:28:10.770Z",
+      "id": "a566253e-f97e-47f2-b45b-4bac6d01df10",
+      "parentId": "744ca02b-2535-4eb7-932f-08f0faee8211"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:10.770Z",
+      "end": "2026-07-13T13:28:10.841Z",
+      "id": "b804b4ee-34b9-4b35-b913-e4fb2fa354f4",
+      "parentId": "744ca02b-2535-4eb7-932f-08f0faee8211"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:10.770Z",
+      "end": "2026-07-13T13:28:10.770Z",
+      "id": "96ee3abb-1570-4f16-af34-6ab7d544481e",
+      "parentId": "744ca02b-2535-4eb7-932f-08f0faee8211"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.209Z",
+      "id": "e80bb239-2911-4c74-b3ae-1d80e6b0c870",
+      "parentId": "f2a0a2a3-b199-4891-b134-3f3f9fcbae4d"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:10.490Z",
+      "end": "2026-07-13T13:28:10.491Z",
+      "id": "8d5531ce-ed2d-4af7-abc0-86361d87e9c6",
+      "parentId": "f2a0a2a3-b199-4891-b134-3f3f9fcbae4d"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:10.593Z",
+      "end": "2026-07-13T13:28:10.594Z",
+      "id": "23405f56-34c5-44e9-b7bb-d72be1ecce04",
+      "parentId": "f2a0a2a3-b199-4891-b134-3f3f9fcbae4d"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:10.759Z",
+      "end": "2026-07-13T13:28:10.759Z",
+      "id": "86146708-c622-460a-8410-ab5aa347d962",
+      "parentId": "f2a0a2a3-b199-4891-b134-3f3f9fcbae4d"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.209Z",
+      "id": "f796e612-c044-4693-80d8-ea4ddf0e47e3",
+      "parentId": "e80bb239-2911-4c74-b3ae-1d80e6b0c870",
+      "metrics": {
+        "QueryText": "EVALUATE\r\n\tROW(\r\n\t\t\"Average_Confidence\", '_Measures'[Average Confidence],\r\n\t\t\"Confidence_Coverage\", '_Measures'[Confidence Coverage],\r\n\t\t\"Low_Confidence_Customers\", '_Measures'[Low Confidence Customers],\r\n\t\t\"Average_Risk_Score\", '_Measures'[Average Risk Score]\r\n\t)",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.200Z",
+      "end": "2026-07-13T13:27:55.207Z",
+      "id": "C8328C5C-FD12-4881-A2B1-1D1B7F4675FB",
+      "parentId": "f796e612-c044-4693-80d8-ea4ddf0e47e3"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.207Z",
+      "end": "2026-07-13T13:27:55.207Z",
+      "id": "BF8AE34B-5961-48E5-88CC-654CF683D2CE",
+      "parentId": "C8328C5C-FD12-4881-A2B1-1D1B7F4675FB"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:10.500Z",
+      "end": "2026-07-13T13:28:10.950Z",
+      "id": "60ae71cef2b26a857104-d9bd2541639a71a77b60",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Monitoring Details",
+        "visualId": "60ae71cef2b26a857104",
+        "visualType": "tableEx",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:10.501Z",
+      "end": "2026-07-13T13:28:10.502Z",
+      "id": "ee253e66-8504-4ee5-bb5e-e051b8d9edb9",
+      "parentId": "60ae71cef2b26a857104-d9bd2541639a71a77b60"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:10.502Z",
+      "end": "2026-07-13T13:28:10.750Z",
+      "id": "45c703b7-4742-40ec-973e-9ff994b60a71",
+      "parentId": "60ae71cef2b26a857104-d9bd2541639a71a77b60"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:10.749Z",
+      "end": "2026-07-13T13:28:10.950Z",
+      "id": "c8f9d951-a30d-44cc-91bd-c27beb700749",
+      "parentId": "60ae71cef2b26a857104-d9bd2541639a71a77b60"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:10.776Z",
+      "end": "2026-07-13T13:28:10.778Z",
+      "id": "66e88275-b27e-4326-8551-608cb52f7b21",
+      "parentId": "c8f9d951-a30d-44cc-91bd-c27beb700749"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:10.778Z",
+      "end": "2026-07-13T13:28:10.950Z",
+      "id": "a6b2878b-8d75-4589-9625-86110ac763bc",
+      "parentId": "c8f9d951-a30d-44cc-91bd-c27beb700749"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:10.778Z",
+      "end": "2026-07-13T13:28:10.778Z",
+      "id": "4fe941a3-ed79-426a-bde2-07d17c7f1d8d",
+      "parentId": "c8f9d951-a30d-44cc-91bd-c27beb700749"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.205Z",
+      "id": "673e81db-851b-4cc1-b299-266be508310a",
+      "parentId": "45c703b7-4742-40ec-973e-9ff994b60a71"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:10.503Z",
+      "end": "2026-07-13T13:28:10.503Z",
+      "id": "f0eb8ad1-d688-479c-ba3c-2f19113af251",
+      "parentId": "45c703b7-4742-40ec-973e-9ff994b60a71"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:10.593Z",
+      "end": "2026-07-13T13:28:10.594Z",
+      "id": "cff23d29-bc7d-4057-a2b5-be04be8b9e81",
+      "parentId": "45c703b7-4742-40ec-973e-9ff994b60a71"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:10.747Z",
+      "end": "2026-07-13T13:28:10.749Z",
+      "id": "3296d756-d660-44ce-9718-5fcbe3da087f",
+      "parentId": "45c703b7-4742-40ec-973e-9ff994b60a71"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:55.194Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "cb59b759-1f85-4cc9-8cf7-69e02251ad93",
+      "parentId": "673e81db-851b-4cc1-b299-266be508310a",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZE(\r\n\t\t\t'Risk_Customers',\r\n\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t'Risk_Customers'[Confidence Band],\r\n\t\t\t'Risk_Customers'[top_reasons]\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(\r\n\t\t\t501,\r\n\t\t\t__DS0Core,\r\n\t\t\t'Risk_Customers'[Customer Alias],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[risk_level],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[risk_score],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[confidence],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[Confidence Band],\r\n\t\t\t1,\r\n\t\t\t'Risk_Customers'[top_reasons],\r\n\t\t\t1\r\n\t\t)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t'Risk_Customers'[Customer Alias],\r\n\t'Risk_Customers'[risk_level],\r\n\t'Risk_Customers'[risk_score],\r\n\t'Risk_Customers'[confidence],\r\n\t'Risk_Customers'[Confidence Band],\r\n\t'Risk_Customers'[top_reasons]",
+        "RowCount": 20
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.200Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "5F627D29-CA7B-4405-94A4-32B78898D620",
+      "parentId": "cb59b759-1f85-4cc9-8cf7-69e02251ad93"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:55.203Z",
+      "end": "2026-07-13T13:27:55.203Z",
+      "id": "8D7641EE-41F3-49B9-B72C-1A9C6B6B3407",
+      "parentId": "5F627D29-CA7B-4405-94A4-32B78898D620"
+    },
+    {
+      "name": "User Action",
+      "component": "Report Canvas",
+      "start": "2026-07-13T13:28:11.576Z",
+      "id": "755cab25dbbcad5bd30d",
+      "metrics": {
+        "sourceLabel": "UserAction_ChangePage"
+      }
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:11.740Z",
+      "end": "2026-07-13T13:28:11.783Z",
+      "id": "0f135e939fbbf34eef54-01180e92846029f036e5",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Zone de texte",
+        "visualId": "0f135e939fbbf34eef54",
+        "visualType": "textbox",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:11.740Z",
+      "end": "2026-07-13T13:28:11.753Z",
+      "id": "f752d4e6-8c65-47e4-a3f6-6ca3865660cc",
+      "parentId": "0f135e939fbbf34eef54-01180e92846029f036e5"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:11.753Z",
+      "end": "2026-07-13T13:28:11.783Z",
+      "id": "8bbc6154-865f-4be8-bd25-caca78027d57",
+      "parentId": "0f135e939fbbf34eef54-01180e92846029f036e5"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:11.782Z",
+      "end": "2026-07-13T13:28:11.782Z",
+      "id": "9def0bfa-0d73-407b-a502-d7c1ce542bb3",
+      "parentId": "8bbc6154-865f-4be8-bd25-caca78027d57"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:11.742Z",
+      "end": "2026-07-13T13:28:11.817Z",
+      "id": "bb05a198f30155439c59-ce96f777a4f3f399a118",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Navigateur de pages",
+        "visualId": "bb05a198f30155439c59",
+        "visualType": "pageNavigator",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:11.742Z",
+      "end": "2026-07-13T13:28:11.761Z",
+      "id": "2b39954d-5714-4d4d-948a-de308c264680",
+      "parentId": "bb05a198f30155439c59-ce96f777a4f3f399a118"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:11.760Z",
+      "end": "2026-07-13T13:28:11.816Z",
+      "id": "5fbcbdbf-a305-4d00-aa1e-420907459034",
+      "parentId": "bb05a198f30155439c59-ce96f777a4f3f399a118"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:11.784Z",
+      "end": "2026-07-13T13:28:11.785Z",
+      "id": "2aa60074-bf3e-489e-ae69-ffb3f4f5824b",
+      "parentId": "5fbcbdbf-a305-4d00-aa1e-420907459034"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:11.785Z",
+      "end": "2026-07-13T13:28:11.816Z",
+      "id": "f2afc5f5-5f4e-49c3-a4e5-2e9f2a0eb0a4",
+      "parentId": "5fbcbdbf-a305-4d00-aa1e-420907459034"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:11.785Z",
+      "end": "2026-07-13T13:28:11.785Z",
+      "id": "0bfda1aa-7dc0-42ea-80ef-cd8e9da6f846",
+      "parentId": "5fbcbdbf-a305-4d00-aa1e-420907459034"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:11.744Z",
+      "end": "2026-07-13T13:28:12.047Z",
+      "id": "838c35462e10a305039d-6631b175f7d5a00da3de",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Actions by Status",
+        "visualId": "838c35462e10a305039d",
+        "visualType": "clusteredColumnChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:11.745Z",
+      "end": "2026-07-13T13:28:11.763Z",
+      "id": "e46eec8e-e943-4e28-bfaf-4cf3f75116ff",
+      "parentId": "838c35462e10a305039d-6631b175f7d5a00da3de"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:11.763Z",
+      "end": "2026-07-13T13:28:12.008Z",
+      "id": "f26b6e18-7431-453d-985e-3b74e0c0d4e9",
+      "parentId": "838c35462e10a305039d-6631b175f7d5a00da3de"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:12.008Z",
+      "end": "2026-07-13T13:28:12.047Z",
+      "id": "1491e760-b48c-421d-bbda-3167977752cc",
+      "parentId": "838c35462e10a305039d-6631b175f7d5a00da3de"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:12.025Z",
+      "end": "2026-07-13T13:28:12.027Z",
+      "id": "5d68aa94-2928-417a-beab-3d74738926cf",
+      "parentId": "1491e760-b48c-421d-bbda-3167977752cc"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:12.027Z",
+      "end": "2026-07-13T13:28:12.047Z",
+      "id": "46a87d88-96a8-4880-bb2d-970fad0160cc",
+      "parentId": "1491e760-b48c-421d-bbda-3167977752cc"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:12.027Z",
+      "end": "2026-07-13T13:28:12.027Z",
+      "id": "06321d12-b98f-43f8-b1e6-495c9317e54a",
+      "parentId": "1491e760-b48c-421d-bbda-3167977752cc"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.499Z",
+      "id": "c8d197b2-cf39-4caf-bf40-a724cb8729e0",
+      "parentId": "f26b6e18-7431-453d-985e-3b74e0c0d4e9"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:11.776Z",
+      "end": "2026-07-13T13:28:11.779Z",
+      "id": "cabae060-6c37-41c8-961d-f148262dfa89",
+      "parentId": "f26b6e18-7431-453d-985e-3b74e0c0d4e9"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:11.896Z",
+      "end": "2026-07-13T13:28:11.896Z",
+      "id": "24a616d0-226b-4836-a654-97ed7f9f1094",
+      "parentId": "f26b6e18-7431-453d-985e-3b74e0c0d4e9"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:12.007Z",
+      "end": "2026-07-13T13:28:12.007Z",
+      "id": "4a7caad7-f75b-49e4-bdc1-48fd0a419b52",
+      "parentId": "f26b6e18-7431-453d-985e-3b74e0c0d4e9"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.499Z",
+      "id": "6218e3d0-30de-410e-94d7-a86a60a7e491",
+      "parentId": "c8d197b2-cf39-4caf-bf40-a724cb8729e0",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS('Action_Board'[status], \"Total_Actions\", '_Measures'[Total Actions])\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Total_Actions], 0, 'Action_Board'[status], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Total_Actions] DESC, 'Action_Board'[status]",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.497Z",
+      "end": "2026-07-13T13:27:56.500Z",
+      "id": "88B34576-EE9D-41A9-ADB4-4ABBE565D9B1",
+      "parentId": "6218e3d0-30de-410e-94d7-a86a60a7e491"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.500Z",
+      "end": "2026-07-13T13:27:56.500Z",
+      "id": "D16E9C06-2763-4328-8865-5A900F8C97B6",
+      "parentId": "88B34576-EE9D-41A9-ADB4-4ABBE565D9B1"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:11.746Z",
+      "end": "2026-07-13T13:28:12.048Z",
+      "id": "a0071c304404b3b336a6-7626597bd34a81970a8b",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Actions by Owner",
+        "visualId": "a0071c304404b3b336a6",
+        "visualType": "clusteredBarChart",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:11.747Z",
+      "end": "2026-07-13T13:28:11.763Z",
+      "id": "51e3bf8a-fa20-45b2-bc9f-5017a522175c",
+      "parentId": "a0071c304404b3b336a6-7626597bd34a81970a8b"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:11.763Z",
+      "end": "2026-07-13T13:28:12.006Z",
+      "id": "ce26cd6f-db24-42bd-8ca7-9ef23562b607",
+      "parentId": "a0071c304404b3b336a6-7626597bd34a81970a8b"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:12.005Z",
+      "end": "2026-07-13T13:28:12.048Z",
+      "id": "8258311b-22de-41a8-9f95-9195aced24c3",
+      "parentId": "a0071c304404b3b336a6-7626597bd34a81970a8b"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:12.027Z",
+      "end": "2026-07-13T13:28:12.029Z",
+      "id": "ac9559d0-56ce-42fd-9d68-26a527052108",
+      "parentId": "8258311b-22de-41a8-9f95-9195aced24c3"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:12.029Z",
+      "end": "2026-07-13T13:28:12.047Z",
+      "id": "78da8fc1-0964-4ffe-a8c5-fb9cd15abe91",
+      "parentId": "8258311b-22de-41a8-9f95-9195aced24c3"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:12.029Z",
+      "end": "2026-07-13T13:28:12.029Z",
+      "id": "b92870fe-872b-45d0-8e56-a654bb0be122",
+      "parentId": "8258311b-22de-41a8-9f95-9195aced24c3"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.498Z",
+      "id": "a0b7646c-3a32-429e-a7a8-8037b886d635",
+      "parentId": "ce26cd6f-db24-42bd-8ca7-9ef23562b607"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:11.779Z",
+      "end": "2026-07-13T13:28:11.781Z",
+      "id": "3e3f40ec-73ac-4be2-8857-0b8023b158d3",
+      "parentId": "ce26cd6f-db24-42bd-8ca7-9ef23562b607"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:11.896Z",
+      "end": "2026-07-13T13:28:11.896Z",
+      "id": "65cccc73-1e81-4e95-8417-3ea8cd51793f",
+      "parentId": "ce26cd6f-db24-42bd-8ca7-9ef23562b607"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:12.004Z",
+      "end": "2026-07-13T13:28:12.004Z",
+      "id": "4cdbcd58-0edd-4e50-a4a0-9185620f7a13",
+      "parentId": "ce26cd6f-db24-42bd-8ca7-9ef23562b607"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.498Z",
+      "id": "949dd462-b096-4863-8eee-b72ed6b43f76",
+      "parentId": "a0b7646c-3a32-429e-a7a8-8037b886d635",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tSUMMARIZECOLUMNS('Action_Board'[owner], \"Total_Actions\", '_Measures'[Total Actions])\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(1001, __DS0Core, [Total_Actions], 0, 'Action_Board'[owner], 1)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[Total_Actions] DESC, 'Action_Board'[owner]",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.497Z",
+      "end": "2026-07-13T13:27:56.497Z",
+      "id": "5D5E94CF-186E-4CCC-A5B6-5BBE72B55F73",
+      "parentId": "949dd462-b096-4863-8eee-b72ed6b43f76"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.497Z",
+      "end": "2026-07-13T13:27:56.497Z",
+      "id": "1A604FB1-824D-4166-988F-38B8E66B3F28",
+      "parentId": "5D5E94CF-186E-4CCC-A5B6-5BBE72B55F73"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:11.761Z",
+      "end": "2026-07-13T13:28:12.155Z",
+      "id": "a052583ebc381eefdf9d-32823dca0fcde215e18d",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Carte",
+        "visualId": "a052583ebc381eefdf9d",
+        "visualType": "cardVisual",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:11.762Z",
+      "end": "2026-07-13T13:28:11.785Z",
+      "id": "1219b74d-76e3-47d9-9152-e287faff9812",
+      "parentId": "a052583ebc381eefdf9d-32823dca0fcde215e18d"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:11.785Z",
+      "end": "2026-07-13T13:28:12.057Z",
+      "id": "88614207-d78d-43ac-bcc9-00326e2d265f",
+      "parentId": "a052583ebc381eefdf9d-32823dca0fcde215e18d"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:12.056Z",
+      "end": "2026-07-13T13:28:12.155Z",
+      "id": "35f0a77e-1098-4ea6-8501-318dbe482e7a",
+      "parentId": "a052583ebc381eefdf9d-32823dca0fcde215e18d"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:12.075Z",
+      "end": "2026-07-13T13:28:12.077Z",
+      "id": "c03c7f36-3ab1-4f69-bfbf-71f0a0958957",
+      "parentId": "35f0a77e-1098-4ea6-8501-318dbe482e7a"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:12.077Z",
+      "end": "2026-07-13T13:28:12.155Z",
+      "id": "4f122051-c6d4-42d8-9b7b-2cee038ec410",
+      "parentId": "35f0a77e-1098-4ea6-8501-318dbe482e7a"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:12.078Z",
+      "end": "2026-07-13T13:28:12.078Z",
+      "id": "b2a7c977-07d2-417f-bac9-ed3a6ec16449",
+      "parentId": "35f0a77e-1098-4ea6-8501-318dbe482e7a"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.523Z",
+      "id": "ff0bdc5c-805d-4f28-b6dc-eadc408b4707",
+      "parentId": "88614207-d78d-43ac-bcc9-00326e2d265f"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:11.806Z",
+      "end": "2026-07-13T13:28:11.807Z",
+      "id": "509fa189-172a-44c2-a954-86c942116374",
+      "parentId": "88614207-d78d-43ac-bcc9-00326e2d265f"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:11.896Z",
+      "end": "2026-07-13T13:28:11.896Z",
+      "id": "2668fb42-fff6-41c4-8eb4-36ed65f43c38",
+      "parentId": "88614207-d78d-43ac-bcc9-00326e2d265f"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:12.055Z",
+      "end": "2026-07-13T13:28:12.055Z",
+      "id": "64ad99ce-b538-4450-87bc-0c0e9ab56568",
+      "parentId": "88614207-d78d-43ac-bcc9-00326e2d265f"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.523Z",
+      "id": "f90c05e6-df2b-485c-bd25-57be9a8953ad",
+      "parentId": "ff0bdc5c-805d-4f28-b6dc-eadc408b4707",
+      "metrics": {
+        "QueryText": "EVALUATE\r\n\tROW(\r\n\t\t\"Total_Actions\", '_Measures'[Total Actions],\r\n\t\t\"Open_Actions\", '_Measures'[Open Actions],\r\n\t\t\"High_Priority_Actions\", '_Measures'[High Priority Actions],\r\n\t\t\"Overdue_Actions\", '_Measures'[Overdue Actions]\r\n\t)",
+        "RowCount": 1
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.523Z",
+      "end": "2026-07-13T13:27:56.527Z",
+      "id": "E3608CD4-7DB4-4EA6-BA4B-7C46474B567C",
+      "parentId": "f90c05e6-df2b-485c-bd25-57be9a8953ad"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.527Z",
+      "end": "2026-07-13T13:27:56.527Z",
+      "id": "97398CF5-9B93-4220-B70E-C588915447AC",
+      "parentId": "E3608CD4-7DB4-4EA6-BA4B-7C46474B567C"
+    },
+    {
+      "name": "Visual Container Lifecycle",
+      "start": "2026-07-13T13:28:11.821Z",
+      "end": "2026-07-13T13:28:12.249Z",
+      "id": "e741148aa3a5da0bfa90-b01e4c22cbd5ed3a86db",
+      "metrics": {
+        "status": 1,
+        "visualTitle": "Operational Action Board",
+        "visualId": "e741148aa3a5da0bfa90",
+        "visualType": "tableEx",
+        "initialLoad": false
+      }
+    },
+    {
+      "name": "Resolve Parameters",
+      "start": "2026-07-13T13:28:11.821Z",
+      "end": "2026-07-13T13:28:11.823Z",
+      "id": "380f8408-a91a-4a60-8b15-dac5f5ab5dea",
+      "parentId": "e741148aa3a5da0bfa90-b01e4c22cbd5ed3a86db"
+    },
+    {
+      "name": "Query",
+      "start": "2026-07-13T13:28:11.823Z",
+      "end": "2026-07-13T13:28:12.059Z",
+      "id": "ef7228dd-27c6-468f-9e22-3223fa358ee3",
+      "parentId": "e741148aa3a5da0bfa90-b01e4c22cbd5ed3a86db"
+    },
+    {
+      "name": "Render",
+      "start": "2026-07-13T13:28:12.059Z",
+      "end": "2026-07-13T13:28:12.249Z",
+      "id": "fbed6311-bf4d-45fa-be6e-85ee9a16467a",
+      "parentId": "e741148aa3a5da0bfa90-b01e4c22cbd5ed3a86db"
+    },
+    {
+      "name": "Data View Transform",
+      "start": "2026-07-13T13:28:12.078Z",
+      "end": "2026-07-13T13:28:12.080Z",
+      "id": "f14280ed-2df0-4a3b-ad98-f6e854b1d400",
+      "parentId": "fbed6311-bf4d-45fa-be6e-85ee9a16467a"
+    },
+    {
+      "name": "Visual Update Async",
+      "start": "2026-07-13T13:28:12.080Z",
+      "end": "2026-07-13T13:28:12.249Z",
+      "id": "94b7d034-aae3-48cb-8ecf-d436676ea4fe",
+      "parentId": "fbed6311-bf4d-45fa-be6e-85ee9a16467a"
+    },
+    {
+      "name": "Visual Update",
+      "start": "2026-07-13T13:28:12.080Z",
+      "end": "2026-07-13T13:28:12.080Z",
+      "id": "1257ae85-7d14-4795-96f4-8919d58d2f5e",
+      "parentId": "fbed6311-bf4d-45fa-be6e-85ee9a16467a"
+    },
+    {
+      "name": "Execute Semantic Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.491Z",
+      "end": "2026-07-13T13:27:56.532Z",
+      "id": "c666ec40-35aa-4841-8ed4-a11d88eaa179",
+      "parentId": "ef7228dd-27c6-468f-9e22-3223fa358ee3"
+    },
+    {
+      "name": "Query Generation",
+      "start": "2026-07-13T13:28:11.825Z",
+      "end": "2026-07-13T13:28:11.826Z",
+      "id": "bfd63a68-a33d-4bbc-b957-c9c0cea0a5ea",
+      "parentId": "ef7228dd-27c6-468f-9e22-3223fa358ee3"
+    },
+    {
+      "name": "Query Pending",
+      "start": "2026-07-13T13:28:11.896Z",
+      "end": "2026-07-13T13:28:11.896Z",
+      "id": "e80d06ea-c6d4-4cac-960a-14f30e9117d7",
+      "parentId": "ef7228dd-27c6-468f-9e22-3223fa358ee3"
+    },
+    {
+      "name": "Parse Query Result",
+      "start": "2026-07-13T13:28:12.058Z",
+      "end": "2026-07-13T13:28:12.059Z",
+      "id": "51b30095-1d5b-4b35-9ac1-6c07673032ca",
+      "parentId": "ef7228dd-27c6-468f-9e22-3223fa358ee3"
+    },
+    {
+      "name": "Execute DAX Query",
+      "component": "DSE",
+      "start": "2026-07-13T13:27:56.495Z",
+      "end": "2026-07-13T13:27:56.532Z",
+      "id": "d914c73d-5409-417c-83bf-24a977c94d50",
+      "parentId": "c666ec40-35aa-4841-8ed4-a11d88eaa179",
+      "metrics": {
+        "QueryText": "DEFINE\r\n\tVAR __DS0Core = \r\n\t\tFILTER(\r\n\t\t\tKEEPFILTERS(\r\n\t\t\t\tSUMMARIZECOLUMNS(\r\n\t\t\t\t\tROLLUPADDISSUBTOTAL(\r\n\t\t\t\t\t\tROLLUPGROUP(\r\n\t\t\t\t\t\t\t'Action_Board'[Action Alias],\r\n\t\t\t\t\t\t\t'Action_Board'[Action Index],\r\n\t\t\t\t\t\t\t'Action_Board'[priority],\r\n\t\t\t\t\t\t\t'Action_Board'[status],\r\n\t\t\t\t\t\t\t'Action_Board'[action_label],\r\n\t\t\t\t\t\t\t'Action_Board'[owner],\r\n\t\t\t\t\t\t\t'Action_Board'[Action Due Date Display],\r\n\t\t\t\t\t\t\t'Action_Board'[evidence_count],\r\n\t\t\t\t\t\t\t'Action_Board'[Action Customer Alias]\r\n\t\t\t\t\t\t), \"IsGrandTotalRowTotal\"\r\n\t\t\t\t\t),\r\n\t\t\t\t\t\"MinPriority_Bg_Color\", IGNORE(CALCULATE(MIN('Action_Board'[Priority Bg Color]))),\r\n\t\t\t\t\t\"MinStatus_Bg_Color\", IGNORE(CALCULATE(MIN('Action_Board'[Status Bg Color])))\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tOR(\r\n\t\t\t\tOR(\r\n\t\t\t\t\tOR(\r\n\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\t\tOR(\r\n\t\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[Action Alias])),\r\n\t\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[Action Index]))\r\n\t\t\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[priority]))\r\n\t\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[status]))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[action_label]))\r\n\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[owner]))\r\n\t\t\t\t\t\t),\r\n\t\t\t\t\t\tNOT(ISBLANK('Action_Board'[Action Due Date Display]))\r\n\t\t\t\t\t),\r\n\t\t\t\t\tNOT(ISBLANK('Action_Board'[evidence_count]))\r\n\t\t\t\t),\r\n\t\t\t\tNOT(ISBLANK('Action_Board'[Action Customer Alias]))\r\n\t\t\t)\r\n\t\t)\r\n\r\n\tVAR __DS0PrimaryWindowed = \r\n\t\tTOPN(\r\n\t\t\t502,\r\n\t\t\t__DS0Core,\r\n\t\t\t[IsGrandTotalRowTotal],\r\n\t\t\t0,\r\n\t\t\t'Action_Board'[action_label],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[Action Index],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[Action Alias],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[priority],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[status],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[owner],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[Action Due Date Display],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[evidence_count],\r\n\t\t\t1,\r\n\t\t\t'Action_Board'[Action Customer Alias],\r\n\t\t\t1\r\n\t\t)\r\n\r\nEVALUATE\r\n\t__DS0PrimaryWindowed\r\n\r\nORDER BY\r\n\t[IsGrandTotalRowTotal] DESC,\r\n\t'Action_Board'[action_label],\r\n\t'Action_Board'[Action Index],\r\n\t'Action_Board'[Action Alias],\r\n\t'Action_Board'[priority],\r\n\t'Action_Board'[status],\r\n\t'Action_Board'[owner],\r\n\t'Action_Board'[Action Due Date Display],\r\n\t'Action_Board'[evidence_count],\r\n\t'Action_Board'[Action Customer Alias]",
+        "RowCount": 10
+      }
+    },
+    {
+      "name": "Execute Query",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.523Z",
+      "end": "2026-07-13T13:27:56.530Z",
+      "id": "53802E4B-6B41-4AC5-BF3B-B02D741E1883",
+      "parentId": "d914c73d-5409-417c-83bf-24a977c94d50"
+    },
+    {
+      "name": "Serialize Rowset",
+      "component": "AS",
+      "start": "2026-07-13T13:27:56.530Z",
+      "end": "2026-07-13T13:27:56.530Z",
+      "id": "E90F3B3F-428C-4544-8BAB-382B5B5696AD",
+      "parentId": "53802E4B-6B41-4AC5-BF3B-B02D741E1883"
+    }
+  ],
+  "sessionId": "2ec60169-0b7a-4e2a-87e5-ee2fe01e7093"
+}

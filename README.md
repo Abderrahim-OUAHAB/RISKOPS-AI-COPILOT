@@ -169,6 +169,12 @@ The hardened automation also documents an `AI RiskOps Error Handler` workflow fo
 
 Operational runbook and validation tooling are available under `docs/n8n`.
 
+## Power BI Executive Dashboard
+
+The portfolio includes an `AI RiskOps Executive Dashboard` built in Power BI. It uses FastAPI endpoints from this project to present Executive Overview, Customer Risk Analysis, Action Board Operations, Risk Drivers and AI Monitoring pages with privacy-safe Customer Alias display.
+
+See [docs/powerbi/README.md](docs/powerbi/README.md) for usage instructions, [docs/powerbi/AI-RiskOps-Executive-Dashboard.pdf](docs/powerbi/AI-RiskOps-Executive-Dashboard.pdf) for the exported dashboard, and `docs/powerbi/AI-RiskOps-Executive-Dashboard.pbix` for the Power BI Desktop file.
+
 ## Final Product UI
 
 The Streamlit interface is finalized for `v1.3.3-action-workflow`, a recruiter-ready product shell with eight pages:
