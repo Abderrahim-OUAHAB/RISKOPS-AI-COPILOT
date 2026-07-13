@@ -93,9 +93,9 @@ jobs:
           test -f README.md
           test -f docs/deployment.md
           test -f docs/portfolio-case-study.md
-          test -f docs/interview-pitch.md
-          test -f docs/interview-qa.md
-          test -f docs/demo-script.md
           test -f docs/architecture-final.md
+          test -f docs/architecture-technical.png
+          test -f docs/n8n/README.md
+          test -f docs/powerbi/README.md
           test -f .env.example
           test -f .env.production.example

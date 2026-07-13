@@ -2,7 +2,7 @@
 
 ## Objective
 
-The Streamlit interface is the final product shell for AI RiskOps Copilot. It is designed for a manager or recruiter who needs to understand the system quickly without reading API payloads.
+The Streamlit interface is the final product shell for AI RiskOps Copilot. It is designed for a manager or technical reviewer who needs to understand the system quickly without reading API payloads.
 
 The UI focuses on:
 
@@ -105,7 +105,7 @@ Streamlit does not display Python stack traces for API failures.
 3. Show Top Priority Customers and the reason/action cards.
 4. Show Action Plan to prove the system gives business actions, not only scores.
 5. Open Client Risk.
-6. Analyze `CUST-001` and review the score bar, document risk, evidence, Client 360 summary, recommended actions and prediction history.
+6. Analyze a sample customer alias and review the score bar, document risk, evidence, Client 360 summary, recommended actions and prediction history.
 7. Open Action Board.
 8. Click `Sync Recommended Actions`, filter by owner/status/priority and complete one action.
 9. Open AI Assistant.
@@ -161,7 +161,7 @@ The page displays KPI cards for open, in progress, completed, overdue and high-p
 
 ### Document Risk Demo
 
-Upload and process a CSV or PDF containing a customer id such as `CUST-001` and risk language such as `unpaid invoice`, `support escalation` or `contract penalty`. The app links the document to the customer when the id appears in the filename or processed chunks.
+Upload and process a CSV or PDF containing a customer alias and risk language such as `unpaid invoice`, `support escalation` or `contract penalty`. The app links the document to the customer when the alias appears in the filename or processed chunks.
 
 ### AI Assistant
 
@@ -224,7 +224,7 @@ It displays API health, readiness, LLM trace summary, ML report status, recent t
 
 ### About Project
 
-This page is an interview aid. It summarizes:
+This page is a product overview. It summarizes:
 
 - Business Problem
 - Solution

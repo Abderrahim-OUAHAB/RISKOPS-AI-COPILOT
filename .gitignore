@@ -4,6 +4,11 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+*.tmp
+*.bak
+*.old
+*.log
+Thumbs.db
 postgres_data/
 mlruns/
 *.egg-info/

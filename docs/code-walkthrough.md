@@ -47,7 +47,7 @@ La phrase mentale a garder :
 - `monitoring/logs/` : traces LLM JSONL, ignore sauf `.gitkeep`.
 - `monitoring/reports/` : rapport HTML monitoring ML, ignore sauf `.gitkeep`.
 - `scripts/dev/` : scripts de lancement, healthcheck et demo seed.
-- `docs/` : documentation portfolio, entretien, architecture et walkthrough.
+- `docs/` : documentation portfolio, architecture et walkthrough.
 
 ## Role Des Fichiers Importants
 
@@ -204,7 +204,7 @@ Colonnes obligatoires : `customer_id`, `name`, `tenure`, `monthly_charges`, `tot
 1. `POST /agent/analyze` recoit une question.
 2. `riskops_agent.py` cree un graphe avec deux noeuds : `route` et `execute`.
 3. Le routeur choisit un outil :
-   - `analyze_customer` si la question contient un identifiant type `CUST-001`,
+   - `analyze_customer` si la question contient un alias client,
    - `weekly_report` si elle parle de rapport,
    - `priority_customers` si elle parle de priorite/risque,
    - `rag` si elle parle de document/source/pdf,
@@ -403,7 +403,7 @@ Stocke l'historique RiskOps :
 - Role : API, scripts, ML, pipelines.
 - Avantages : lisible, riche en librairies.
 - Limites : performance brute moindre que langages compiles.
-- Phrase entretien : "Python me permet de relier backend, data engineering et machine learning dans un meme projet."
+- Technical summary: "Python relie backend, data engineering et machine learning dans un meme projet."
 
 ### FastAPI
 
@@ -412,7 +412,7 @@ Stocke l'historique RiskOps :
 - Role : backend central.
 - Avantages : rapide, clair, compatible Pydantic.
 - Limites : necessite discipline d'architecture.
-- Phrase entretien : "FastAPI expose les capacites IA sous forme d'APIs testables."
+- Technical summary: "FastAPI expose les capacites IA sous forme d'APIs testables."
 
 ### Streamlit
 
@@ -421,7 +421,7 @@ Stocke l'historique RiskOps :
 - Role : interface utilisateur.
 - Avantages : tres rapide pour prototyper.
 - Limites : moins adapte aux apps frontend complexes.
-- Phrase entretien : "Streamlit sert de dashboard demo connecte a FastAPI."
+- Technical summary: "Streamlit sert de dashboard demo connecte a FastAPI."
 
 ### PostgreSQL
 
@@ -430,7 +430,7 @@ Stocke l'historique RiskOps :
 - Role : clients, documents, predictions.
 - Avantages : SQL, fiabilite, ecosysteme.
 - Limites : necessite schema et migrations.
-- Phrase entretien : "PostgreSQL garde la partie business fiable et interrogeable."
+- Technical summary: "PostgreSQL garde la partie business fiable et interrogeable."
 
 ### SQLAlchemy
 
@@ -439,7 +439,7 @@ Stocke l'historique RiskOps :
 - Role : modeles et sessions DB.
 - Avantages : abstrait SQL sans le cacher totalement.
 - Limites : peut devenir complexe si mal utilise.
-- Phrase entretien : "SQLAlchemy structure l'acces aux donnees sans ecrire du SQL partout."
+- Technical summary: "SQLAlchemy structure l'acces aux donnees sans ecrire du SQL partout."
 
 ### Pydantic
 
@@ -448,7 +448,7 @@ Stocke l'historique RiskOps :
 - Role : requetes et reponses FastAPI.
 - Avantages : validation automatique.
 - Limites : schemas a maintenir.
-- Phrase entretien : "Pydantic garantit des contrats API explicites."
+- Technical summary: "Pydantic garantit des contrats API explicites."
 
 ### pgvector
 
@@ -457,7 +457,7 @@ Stocke l'historique RiskOps :
 - Role : embeddings des chunks.
 - Avantages : evite une base vectorielle separee.
 - Limites : moins specialise qu'un vector DB dedie a tres grande echelle.
-- Phrase entretien : "pgvector permet de faire du RAG dans PostgreSQL."
+- Technical summary: "pgvector permet de faire du RAG dans PostgreSQL."
 
 ### RAG
 
@@ -466,7 +466,7 @@ Stocke l'historique RiskOps :
 - Role : questions sur documents uploades.
 - Avantages : sources, moins d'hallucination.
 - Limites : depend de la qualite extraction/retrieval.
-- Phrase entretien : "Le RAG connecte le LLM aux documents reels du projet."
+- Technical summary: "Le RAG connecte le LLM aux documents reels du projet."
 
 ### Embeddings
 
@@ -475,7 +475,7 @@ Stocke l'historique RiskOps :
 - Role : recherche semantique.
 - Avantages : retrouve le sens, pas seulement les mots exacts.
 - Limites : cout API et dependance modele.
-- Phrase entretien : "Les embeddings transforment le texte en espace vectoriel recherchable."
+- Technical summary: "Les embeddings transforment le texte en espace vectoriel recherchable."
 
 ### Chunking
 
@@ -484,7 +484,7 @@ Stocke l'historique RiskOps :
 - Role : creation de `document_chunks`.
 - Avantages : retrieval plus precis.
 - Limites : mauvais decoupage = mauvais contexte.
-- Phrase entretien : "Le chunking prepare les documents pour une recherche semantique fiable."
+- Technical summary: "Le chunking prepare les documents pour une recherche semantique fiable."
 
 ### OpenAI API
 
@@ -493,7 +493,7 @@ Stocke l'historique RiskOps :
 - Role : IA generative.
 - Avantages : qualite modele, integration simple.
 - Limites : cout, latence, besoin de cle.
-- Phrase entretien : "OpenAI est utilise uniquement la ou le projet a besoin d'embeddings ou de generation."
+- Technical summary: "OpenAI est utilise uniquement la ou le projet a besoin d'embeddings ou de generation."
 
 ### LlamaIndex
 
@@ -502,7 +502,7 @@ Stocke l'historique RiskOps :
 - Role : `SentenceSplitter` pour le chunking.
 - Avantages : composants RAG prets a l'emploi.
 - Limites : peut etre lourd si on l'utilise sans controle.
-- Phrase entretien : "LlamaIndex fournit des briques RAG, ici gardees simples et inspectables."
+- Technical summary: "LlamaIndex fournit des briques RAG, ici gardees simples et inspectables."
 
 ### LangGraph
 
@@ -511,7 +511,7 @@ Stocke l'historique RiskOps :
 - Role : router question vers outil.
 - Avantages : graphe explicite.
 - Limites : plus verbeux qu'une simple fonction.
-- Phrase entretien : "LangGraph rend l'agent controlable, pas magique."
+- Technical summary: "LangGraph rend l'agent controlable, pas magique."
 
 ### XGBoost
 
@@ -520,7 +520,7 @@ Stocke l'historique RiskOps :
 - Role : prediction de churn.
 - Avantages : performant sur tabulaire.
 - Limites : moins interpretable qu'un modele simple.
-- Phrase entretien : "XGBoost donne un modele churn solide pour des features clients."
+- Technical summary: "XGBoost donne un modele churn solide pour des features clients."
 
 ### Scikit-learn
 
@@ -529,7 +529,7 @@ Stocke l'historique RiskOps :
 - Role : train/test et evaluation.
 - Avantages : standard, simple.
 - Limites : pas specialise deep learning.
-- Phrase entretien : "Scikit-learn fournit les briques d'evaluation ML."
+- Technical summary: "Scikit-learn fournit les briques d'evaluation ML."
 
 ### MLflow
 
@@ -538,7 +538,7 @@ Stocke l'historique RiskOps :
 - Role : logs entrainement local.
 - Avantages : reproductibilite.
 - Limites : ici local, pas serveur distant.
-- Phrase entretien : "MLflow montre que le modele est suivi, pas entraine a la main sans trace."
+- Technical summary: "MLflow montre que le modele est suivi, pas entraine a la main sans trace."
 
 ### Airflow
 
@@ -547,7 +547,7 @@ Stocke l'historique RiskOps :
 - Role : DAG daily pipeline.
 - Avantages : scheduling, retries, UI.
 - Limites : lourd pour une petite demo.
-- Phrase entretien : "Airflow montre comment industrialiser le pipeline."
+- Technical summary: "Airflow montre comment industrialiser le pipeline."
 
 ### DAG
 
@@ -556,7 +556,7 @@ Stocke l'historique RiskOps :
 - Role : health -> import -> dbt -> train -> report.
 - Avantages : dependances explicites.
 - Limites : doit rester simple pour etre maintenable.
-- Phrase entretien : "Le DAG rend le pipeline observable et repetable."
+- Technical summary: "Le DAG rend le pipeline observable et repetable."
 
 ### dbt
 
@@ -565,7 +565,7 @@ Stocke l'historique RiskOps :
 - Role : staging, intermediate, mart.
 - Avantages : SQL versionne, tests.
 - Limites : ne remplace pas l'orchestration ni l'API.
-- Phrase entretien : "dbt transforme les donnees metier en tables analytiques propres."
+- Technical summary: "dbt transforme les donnees metier en tables analytiques propres."
 
 ### Docker
 
@@ -574,7 +574,7 @@ Stocke l'historique RiskOps :
 - Role : images backend, frontend, Airflow.
 - Avantages : isolation, portabilite.
 - Limites : build parfois lourd.
-- Phrase entretien : "Docker rend la demo reproductible sur une machine."
+- Technical summary: "Docker rend la demo reproductible sur une machine."
 
 ### Docker Compose
 
@@ -583,7 +583,7 @@ Stocke l'historique RiskOps :
 - Role : environnement local complet.
 - Avantages : une commande pour tout lancer.
 - Limites : pas equivalent a Kubernetes/prod cloud.
-- Phrase entretien : "Compose assemble tous les services de la stack locale."
+- Technical summary: "Compose assemble tous les services de la stack locale."
 
 ### GitHub Actions
 
@@ -592,7 +592,7 @@ Stocke l'historique RiskOps :
 - Role : install, compile, compose config, fichiers docs.
 - Avantages : qualite avant merge.
 - Limites : pas encore tests integration Postgres.
-- Phrase entretien : "GitHub Actions verifie que le projet reste runnable."
+- Technical summary: "GitHub Actions verifie que le projet reste runnable."
 
 ### MLOps
 
@@ -601,7 +601,7 @@ Stocke l'historique RiskOps :
 - Role : MLflow + rapport monitoring.
 - Avantages : fiabilite.
 - Limites : monitoring local simple.
-- Phrase entretien : "Le MLOps evite que le modele soit une boite noire non suivie."
+- Technical summary: "Le MLOps evite que le modele soit une boite noire non suivie."
 
 ### LLMOps
 
@@ -610,7 +610,7 @@ Stocke l'historique RiskOps :
 - Role : traces RAG/agent.
 - Avantages : debug et audit.
 - Limites : pas encore dashboard externe obligatoire.
-- Phrase entretien : "Le LLMOps trace ce que font RAG et agent."
+- Technical summary: "Le LLMOps trace ce que font RAG et agent."
 
 ### Evidently-Style Monitoring
 
@@ -619,7 +619,7 @@ Stocke l'historique RiskOps :
 - Role : HTML local.
 - Avantages : simple, inspectable.
 - Limites : pas un vrai Evidently complet installe.
-- Phrase entretien : "Le rapport montre une premiere couche de monitoring ML defensive."
+- Technical summary: "Le rapport montre une premiere couche de monitoring ML defensive."
 
 ### Langfuse Optionnel
 
@@ -628,7 +628,7 @@ Stocke l'historique RiskOps :
 - Role : option dans `llm_observability_service.py`.
 - Avantages : observabilite externe.
 - Limites : non requis pour la demo locale.
-- Phrase entretien : "Langfuse est optionnel, le projet garde un fallback JSONL."
+- Technical summary: "Langfuse est optionnel, le projet garde un fallback JSONL."
 
 ### JSONL Traces
 
@@ -637,7 +637,7 @@ Stocke l'historique RiskOps :
 - Role : traces LLM locales.
 - Avantages : facile a lire, parser, ignorer Git.
 - Limites : pas une base de donnees d'observabilite.
-- Phrase entretien : "JSONL donne une observabilite locale sans dependance externe."
+- Technical summary: "JSONL donne une observabilite locale sans dependance externe."
 
 ### Health Check
 
@@ -646,7 +646,7 @@ Stocke l'historique RiskOps :
 - Role : `/health`.
 - Avantages : utile Docker et debug.
 - Limites : ne garantit pas toute la readiness.
-- Phrase entretien : "Le health check dit si le service est vivant."
+- Technical summary: "Le health check dit si le service est vivant."
 
 ### Readiness Check
 
@@ -655,7 +655,7 @@ Stocke l'historique RiskOps :
 - Role : `/ready`.
 - Avantages : evite demos sur systeme incomplet.
 - Limites : ne teste pas tous les cas metier.
-- Phrase entretien : "La readiness dit si le service peut accepter du trafic utile."
+- Technical summary: "La readiness dit si le service peut accepter du trafic utile."
 
 ## Commandes De Lancement
 
@@ -772,7 +772,7 @@ curl http://localhost:8000/monitoring/llm/summary
 - Rapport ML absent : lancer `POST /monitoring/ml/generate-report` ou `scripts/dev/demo-seed.ps1`.
 - Airflow lent au demarrage : attendre que `airflow-webserver` passe healthy.
 
-## Questions Entretien Possibles
+## Technical Review Questions
 
 1. Pourquoi ce projet n'est pas juste un chatbot ?
 Parce qu'il connecte LLM, donnees persistantes, ML, pipelines, monitoring et APIs.

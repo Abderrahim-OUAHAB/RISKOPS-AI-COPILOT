@@ -132,5 +132,5 @@ Le projet est réussi si:
 - PostgreSQL fonctionne
 - pgvector est activé
 - la structure permet d'ajouter RAG, ML et agents
-- le projet est facile à expliquer en entretien
+- le projet est facile a expliquer dans une revue technique
 

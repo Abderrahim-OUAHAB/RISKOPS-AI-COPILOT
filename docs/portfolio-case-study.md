@@ -22,7 +22,7 @@ The system uses Streamlit for the dashboard, FastAPI for backend APIs, PostgreSQ
 ## Technical Choices
 
 - FastAPI was chosen for typed APIs and automatic Swagger documentation.
-- PostgreSQL keeps the data model realistic and interview-friendly.
+- PostgreSQL keeps the data model realistic and easy to review.
 - pgvector allows RAG without adding a separate vector database.
 - XGBoost is a strong baseline for tabular churn prediction.
 - MLflow tracks model experiments locally.
@@ -51,7 +51,7 @@ The system uses Streamlit for the dashboard, FastAPI for backend APIs, PostgreSQ
 - A working local AI product with backend, frontend, database, RAG, ML, agent, pipelines and monitoring.
 - A one-command startup path.
 - A demo seed script that prepares customer data, model artifacts, reports and traces.
-- Recruiter-ready documentation and interview material.
+- Portfolio-ready documentation and validation material.
 
 ## Limits
 

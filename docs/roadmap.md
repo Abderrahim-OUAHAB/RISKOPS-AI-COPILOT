@@ -111,12 +111,12 @@ Objectif:
 
 - README final
 - portfolio
-- pitch entretien
+- documentation portfolio finale
 
 Livrables:
 
 - README professionnel
 - screenshots
 - vidéo démo
-- pitch recruteur
+- documentation portfolio finale
 

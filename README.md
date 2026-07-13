@@ -177,7 +177,7 @@ See [docs/powerbi/README.md](docs/powerbi/README.md) for usage instructions, [do
 
 ## Final Product UI
 
-The Streamlit interface is finalized for `v1.3.3-action-workflow`, a recruiter-ready product shell with eight pages:
+The Streamlit interface is finalized for `v1.3.3-action-workflow`, a portfolio-ready product shell with eight pages:
 
 - Executive Overview
 - Client Risk
@@ -351,7 +351,7 @@ The agent is intentionally controlled. It routes questions to known tools:
 - RAG over documents,
 - fallback guidance.
 
-This makes the system easier to defend in an interview than an uncontrolled free-form agent.
+This makes the system easier to audit and validate than an uncontrolled free-form agent.
 
 ## Monitoring
 
@@ -402,22 +402,19 @@ Health:
 - MLOps and LLMOps basics.
 - Data engineering orchestration with Airflow and dbt.
 - Dockerized local development.
-- Recruiter-ready documentation and demo flow.
+- Portfolio-ready documentation and technical validation flow.
 
-## Interview Questions To Prepare
+## Technical Review Checklist
 
-- Why is this more than a chatbot?
-- How does pgvector support RAG?
-- Why use a controlled LangGraph agent?
-- What happens when OpenAI is unavailable?
-- How do `/health` and `/ready` differ?
-- What does the ML monitoring report detect?
-- How would you deploy this on AWS?
-- What would you improve before production?
+- Explain why the system is more than a chatbot.
+- Show how pgvector supports RAG.
+- Show why the LangGraph agent is controlled.
+- Explain what happens when OpenAI is unavailable.
+- Compare `/health` and `/ready`.
+- Show what the ML monitoring report detects.
+- Describe the AWS deployment path.
+- List the main improvements before production.
 
 See also:
 
 - [docs/portfolio-case-study.md](docs/portfolio-case-study.md)
-- [docs/interview-pitch.md](docs/interview-pitch.md)
-- [docs/interview-qa.md](docs/interview-qa.md)
-- [docs/demo-script.md](docs/demo-script.md)
