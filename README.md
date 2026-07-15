@@ -138,6 +138,12 @@ Cross-platform Docker command:
 docker compose up -d --build
 ```
 
+Lightweight core demo without Airflow:
+
+```bash
+docker compose up -d --build postgres backend frontend
+```
+
 Bash helper scripts are also available under `scripts/dev/*.sh`. On Windows, prefer the PowerShell scripts unless Docker Desktop is integrated with your WSL shell.
 
 Useful URLs:
@@ -148,6 +154,13 @@ Useful URLs:
 - Health: http://localhost:8000/health
 - Ready: http://localhost:8000/ready
 - MLflow: local `./mlruns` directory
+
+Run the focused automated test suite after installing development dependencies:
+
+```bash
+pip install -r backend/requirements.txt -r frontend/requirements.txt -r requirements-dev.txt
+pytest -q
+```
 
 Docker build note:
 

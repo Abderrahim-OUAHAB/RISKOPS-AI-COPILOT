@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openai_embedding_model: str = "text-embedding-3-small"
     openai_chat_model: str = "gpt-4o-mini"
+    openai_timeout_seconds: float = 30.0
+    openai_max_retries: int = 2
+    openai_max_output_tokens: int = 800
     embedding_dimensions: int = 1536
     chunk_size: int = 800
     chunk_overlap: int = 120

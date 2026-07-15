@@ -72,6 +72,8 @@ The dashboard uses privacy-safe customer aliases for display. Documentation shou
 
 ## Power BI Service Limitations
 
+The report has been successfully published to Power BI Service with the five main report pages, and the Service currently displays the imported dataset. No private workspace URL is committed to this repository.
+
 Power BI Service cannot refresh `localhost` endpoints directly without additional infrastructure. Automatic refresh requires either:
 
 - an on-premises data gateway for localhost access, or

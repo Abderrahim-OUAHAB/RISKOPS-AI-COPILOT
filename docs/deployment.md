@@ -4,7 +4,13 @@ AI RiskOps Copilot is currently packaged for a local Docker Compose deployment. 
 
 ## Local Docker Compose
 
-Start the full local stack:
+Start the lightweight interactive application without Airflow:
+
+```powershell
+docker compose up -d --build postgres backend frontend
+```
+
+Start the full local stack, including Airflow:
 
 ```powershell
 docker compose up -d --build
@@ -17,6 +23,12 @@ docker compose ps
 curl http://localhost:8000/health
 curl http://localhost:8000/ready
 curl http://localhost:8501/
+```
+
+Open Streamlit at `http://localhost:8501`, and stop all local services with:
+
+```powershell
+docker compose down
 ```
 
 Main ports:
@@ -34,6 +46,9 @@ Important variables:
 
 - `DATABASE_URL`: SQLAlchemy database URL used by FastAPI.
 - `OPENAI_API_KEY`: optional for RAG embeddings and generated answers.
+- `OPENAI_TIMEOUT_SECONDS`: timeout applied to OpenAI SDK requests.
+- `OPENAI_MAX_RETRIES`: bounded retries handled by the OpenAI SDK.
+- `OPENAI_MAX_OUTPUT_TOKENS`: output limit for generated RAG answers.
 - `BACKEND_CORS_ORIGINS`: comma-separated allowed frontend origins.
 - `MAX_UPLOAD_SIZE_MB`: upload size limit.
 - `RATE_LIMIT_PER_MINUTE`: simple per-IP rate limit.
@@ -66,6 +81,13 @@ This is acceptable for a controlled portfolio demo, not for enterprise productio
 ## CI/CD
 
 The CI workflow validates Python compilation, minimal imports, Docker Compose configuration, required docs and tracked-file hygiene.
+
+Install and run the focused local test suite with:
+
+```powershell
+pip install -r backend/requirements.txt -r frontend/requirements.txt -r requirements-dev.txt
+pytest -q
+```
 
 The Docker build workflow builds backend and frontend images on pull requests and pushes. On tags matching `v*`, it can push images to GitHub Container Registry using the repository `GITHUB_TOKEN`.
 

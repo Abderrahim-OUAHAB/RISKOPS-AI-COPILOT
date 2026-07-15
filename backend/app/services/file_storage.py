@@ -1,5 +1,7 @@
 import re
+import tempfile
 from pathlib import Path
+from typing import BinaryIO
 from uuid import uuid4
 
 from fastapi import UploadFile
@@ -44,3 +46,37 @@ def save_upload_file(
         raise ValueError("Uploaded file is empty.")
 
     return destination, file_size
+
+
+def copy_upload_to_temporary_file(
+    upload_file: UploadFile,
+    max_size_bytes: int,
+) -> tuple[BinaryIO, int]:
+    temporary_file = tempfile.SpooledTemporaryFile(
+        max_size=min(max_size_bytes, 1024 * 1024),
+        mode="w+b",
+    )
+    file_size = 0
+    upload_file.file.seek(0)
+
+    try:
+        while True:
+            chunk = upload_file.file.read(1024 * 1024)
+            if not chunk:
+                break
+            file_size += len(chunk)
+            if file_size > max_size_bytes:
+                max_size_mb = max_size_bytes // (1024 * 1024)
+                raise ValueError(
+                    f"Uploaded file is too large. Maximum allowed size is {max_size_mb} MB."
+                )
+            temporary_file.write(chunk)
+
+        if file_size == 0:
+            raise ValueError("Uploaded file is empty.")
+
+        temporary_file.seek(0)
+        return temporary_file, file_size
+    except Exception:
+        temporary_file.close()
+        raise

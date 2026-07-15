@@ -39,6 +39,9 @@ jobs:
       - name: Install frontend dependencies
         run: pip install -r frontend/requirements.txt
 
+      - name: Install test dependencies
+        run: pip install -r requirements-dev.txt
+
       - name: Compile backend and frontend
         run: |
           python -m compileall \
@@ -60,6 +63,19 @@ jobs:
           import translations
           print("frontend imports OK")
           PY
+
+      - name: Run focused test suite
+        run: pytest -q
+
+      - name: Validate tracked JSON and n8n workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r file; do
+            [ -f "$file" ] || continue
+            python -m json.tool "$file" >/dev/null
+          done < <(git ls-files "*.json")
+          python scripts/validate_n8n_workflows.py
 
       - name: Validate Docker Compose
         run: docker compose config

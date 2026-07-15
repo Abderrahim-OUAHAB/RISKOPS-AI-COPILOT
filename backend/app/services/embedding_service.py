@@ -1,3 +1,5 @@
+import logging
+
 from openai import OpenAI, OpenAIError
 
 from app.core.config import settings
@@ -8,6 +10,8 @@ PLACEHOLDER_API_KEYS = {
     "your_openai_api_key",
     "your_api_key",
 }
+
+logger = logging.getLogger(__name__)
 
 
 class OpenAIConfigurationError(Exception):
@@ -25,7 +29,11 @@ def _get_client() -> OpenAI:
             "OPENAI_API_KEY is missing or still set to the placeholder value."
         )
 
-    return OpenAI(api_key=api_key)
+    return OpenAI(
+        api_key=api_key,
+        timeout=settings.openai_timeout_seconds,
+        max_retries=settings.openai_max_retries,
+    )
 
 
 def create_embeddings(texts: list[str]) -> list[list[float]]:
@@ -39,6 +47,7 @@ def create_embeddings(texts: list[str]) -> list[list[float]]:
             input=texts,
         )
     except OpenAIError as exc:
+        logger.warning("OpenAI embedding request failed.")
         raise OpenAIServiceError("OpenAI embedding request failed.") from exc
 
     embeddings = [item.embedding for item in sorted(response.data, key=lambda item: item.index)]
@@ -82,8 +91,10 @@ def generate_answer(question: str, context_chunks: list[str], language: str = "e
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.2,
+            max_tokens=settings.openai_max_output_tokens,
         )
     except OpenAIError as exc:
+        logger.warning("OpenAI answer generation request failed.")
         raise OpenAIServiceError("OpenAI answer generation request failed.") from exc
 
     answer = response.choices[0].message.content
